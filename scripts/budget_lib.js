@@ -32,7 +32,7 @@ var BudgetLib = {
   FUND_DESCRIPTION_TABLE_ID: "1DVnzs1tOFrVxrf6_jRFeXUe7b6lDYd5jh309Up4",
   OFFICER_DESCRIPTION_TABLE_ID: "1uSDhUpVbk3c7m0E7iT87LP8GfPk6vnczh-y64sI",
   
-  title: "Cook County Budget",
+  title: "Cedar Hills County Budget",
   startYear: 1993,
   endYear: 2012,
   loadYear: 2012, //viewing year
@@ -44,10 +44,12 @@ var BudgetLib = {
   //-------------front end display functions-------------------
   
   //primary load for graph and table
-  updateDisplay: function(viewMode, year, fund, officer, externalLoad) {
+  updateDisplay: function(viewMode, year, fund, officer, externalLoad) 
+  {
     //load in values and update internal variables
     var viewChanged = false;
-    if (BudgetLib.fundView != BudgetHelpers.convertToPlainString(fund) || BudgetLib.officerView != BudgetHelpers.convertToPlainString(officer))
+    if (BudgetLib.fundView    != BudgetHelpers.convertToPlainString(fund) || 
+        BudgetLib.officerView != BudgetHelpers.convertToPlainString(officer))
     viewChanged = true;
         
     if (viewMode != null && viewMode == "officer") BudgetLib.viewByOfficer = true;
@@ -62,8 +64,10 @@ var BudgetLib = {
     if (year != null && year != "") BudgetLib.loadYear = year;
   
     //show fund view
-    if (BudgetLib.fundView != ""){
-      if (viewChanged || externalLoad) {
+    if (BudgetLib.fundView != "")
+    {
+      if (viewChanged || externalLoad) 
+      {
         window.scrollTo(0, 0);
         BudgetQueries.getTotalArray(BudgetLib.fundView, 'Fund', true, "BudgetLib.updateAppropTotal");
         BudgetQueries.getTotalArray(BudgetLib.fundView, 'Fund', false, "BudgetLib.updateExpendTotal");
@@ -368,10 +372,10 @@ var BudgetLib = {
   updateDepartmentDetails: function(json) {
     var rows = json["rows"];
 
-    var departmentId = rows[0][0];
-    var department = rows[0][1];
-    var linkToWebsite = rows[0][2];
-    var description = rows[0][3];
+    var departmentId   = rows[0][0];
+    var department     = rows[0][1];
+    var linkToWebsite  = rows[0][2];
+    var description    = rows[0][3];
     var controlOfficer = rows[0][4];
     var departmentFund = rows[0][5];
      
