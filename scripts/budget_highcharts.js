@@ -1,6 +1,6 @@
 var BudgetHighcharts = BudgetHighcharts || {};  
-var BudgetHighcharts = {  
-
+var BudgetHighcharts = 
+{  
   pointInterval: 365 * 24 * 3600 * 1000, //one year in ms
   apropColor:   '#264870',
   apropSymbol:  'circle',
@@ -11,7 +11,8 @@ var BudgetHighcharts = {
   expendTitle:  'Spent',
   
   //displays main graph using highcharts (http://www.highcharts.com)
-  updateMainChart: function() {
+  updateMainChart: function() 
+  {
     BudgetLib.arraysLoaded++;
     if (BudgetLib.arraysLoaded >= 2) //hack to wait for both expend and approp data callbacks to return
     {
@@ -26,7 +27,8 @@ var BudgetHighcharts = {
         borderRadius: 0,
         borderWidth: 1,
         events: {
-          click: function() {
+          click: function() 
+          {
             $("#readme").fadeOut("fast");
             $.cookie("budgetbreakdownreadme", "read", { expires: 7 });
           }
@@ -53,19 +55,23 @@ var BudgetHighcharts = {
           lineWidth: 5,
           point: {
             events: {
-              click: function() {
+              click: function() 
+              {
                 $("#readme").fadeOut("fast");
                 $.cookie("budgetbreakdownreadme", "read", { expires: 7 });
-                var x = this.x,
-            y = this.y,
+                var x        = this.x,
+                    y        = this.y,
                     selected = !this.selected,
-                    index = this.series.index;
+                    index    = this.series.index;
                 this.select(selected, false);
     
-                $.each(this.series.chart.series, function(i, serie) {
-                  if (serie.index !== index) {
+                $.each(this.series.chart.series, function(i, serie) 
+                {
+                  if (serie.index !== index) 
+                  {
                     $(serie.data).each(function(j, point){
-                      if(x === point.x && point.y != null) {
+                      if(x === point.x && point.y != null) 
+                      {
                         point.select(selected, true);
                       }
                     });

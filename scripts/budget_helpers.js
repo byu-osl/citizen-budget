@@ -13,34 +13,41 @@
  */
 
 var BudgetHelpers = BudgetHelpers || {};  
-var BudgetHelpers = {
+var BudgetHelpers = 
+{
 
-  query: function(sql, callback) {  
+  query: function(sql, callback) 
+  {  
     var sql = encodeURIComponent(sql);
     //console.log(queryStr.join(" "));
     $.ajax({
-      url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key="+BudgetLib.FusionTableApiKey, 
+      url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql     
+            +"&callback="+callback+"&key="+BudgetLib.FusionTableApiKey, 
       dataType: "jsonp"
     });
   },
 
-  handleError: function(json) {
+  handleError: function(json) 
+  {
     if (json["error"] != undefined)
       console.log("Error in Fusion Table call: " + json["error"]["message"]);
   },
 	
   //converts SQL query to URL
-  getQuery: function(query) {
+  getQuery: function(query) 
+  {
     //console.log('http://www.google.com/fusiontables/gvizdata?tq='  + encodeURIComponent(query));
     return query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq='  + encodeURIComponent(query));
   },
   	
   //converts a Fusion Table json response in to an array for passing in to highcharts
-  getDataAsArray: function(json) {
+  getDataAsArray: function(json) 
+  {
     var data = json["rows"][0]; 
     var dataArray = [];
-    var lastItem = 0;
-    for(var i=0; i<data.length; i++) { 
+    var lastItem  = 0;
+    for(var i=0; i<data.length; i++) 
+    { 
       dataArray[i] = +data[i];
       lastItem = i;
     }
@@ -51,12 +58,14 @@ var BudgetHelpers = {
     return dataArray;
   },
 
-  getAddressLink: function(year, fund, controlOfficer, title) {
+  getAddressLink: function(year, fund, controlOfficer, title) 
+  {
     var href = "/?year=" + year + "&amp;fund=" + fund + "&amp;controlOfficer=" + controlOfficer;
   	return ("<a class='adr' href='" + href + "' rel='address:" + href + "'>" + title + "</a>");
   },
   
-  generateTableRow: function(rowId, detailLoadFunction, rowName, budgeted, spent) {
+  generateTableRow: function(rowId, detailLoadFunction, rowName, budgeted, spent) 
+  {
     return "\
       <tr id='" + rowId + "'>\
         <td>\
@@ -73,7 +82,8 @@ var BudgetHelpers = {
       </tr>";
   },
   
-  generateExpandedRow: function(itemId, type) {
+  generateExpandedRow: function(itemId, type) 
+  {
     var breakdownLink;
     
     if (type == 'fund')
@@ -102,7 +112,8 @@ var BudgetHelpers = {
       </tr>";
   },
   
-  generateExpandedDeptRow: function(departmentId, department, description, linkToWebsite, departmentFund, controlOfficer) {
+  generateExpandedDeptRow: function(departmentId, department, description, linkToWebsite, departmentFund, controlOfficer) 
+  {
     if (linkToWebsite != '')
       linkToWebsite = "<a href='" + linkToWebsite + "'>Official&nbsp;website&nbsp;&raquo;</a>";
       
@@ -150,7 +161,8 @@ var BudgetHelpers = {
   },
   
   //NOT USED for debugging - prints out data in a table
-  getDataAsTable: function(json) {
+  getDataAsTable: function(json) 
+  {
     var rows = json["rows"];
     var cols = json["columns"];
     
