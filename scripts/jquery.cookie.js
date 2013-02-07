@@ -10,7 +10,8 @@
 jQuery.cookie = function (key, value, options) {
 
     // key and at least value given, set cookie...
-    if (arguments.length > 1 && String(value) !== "[object Object]") {
+    if (arguments.length > 1 && String(value) !== "[object Object]") 
+    {
         options = jQuery.extend({}, options);
 
         if (value === null || value === undefined) {
