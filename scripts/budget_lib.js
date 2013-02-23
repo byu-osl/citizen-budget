@@ -44,22 +44,12 @@ var BudgetLib = {
   //-------------front end display functions-------------------
   
   //primary load for graph and table
-  updateDisplay: function(viewMode, year, fund, officer, externalLoad) 
+  updateDisplay: function(viewMode, year, fund, externalLoad) 
   {
     //load in values and update internal variables
     var viewChanged = false;
-    if (BudgetLib.fundView    != BudgetHelpers.convertToPlainString(fund) || 
-        BudgetLib.officerView != BudgetHelpers.convertToPlainString(officer))
-    viewChanged = true;
-        
-    if (viewMode != null && viewMode == "officer") BudgetLib.viewByOfficer = true;
-    else BudgetLib.viewByOfficer = false;
-    
-    if (fund != null && fund != "") BudgetLib.fundView = BudgetHelpers.convertToPlainString(fund);
-    else BudgetLib.fundView = '';
-      
-    if (officer != null && officer != "") BudgetLib.officerView = BudgetHelpers.convertToPlainString(officer);
-    else BudgetLib.officerView = '';
+    BudgetLib.viewByOfficer = false;
+    BudgetLib.fundView = BudgetHelpers.convertToPlainString(fund);
     
     if (year != null && year != "") BudgetLib.loadYear = year;
   
@@ -77,45 +67,19 @@ var BudgetLib = {
       BudgetLib.updateHeader(BudgetLib.fundView, 'Department');
       BudgetQueries.getTotalsForYear(BudgetLib.fundView, 'Fund', BudgetLib.loadYear, "BudgetLib.updateScorecard");
       BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
-    } 
-    else if (BudgetLib.officerView != ""){ //show control officer view
-      if (viewChanged || externalLoad) {
-        window.scrollTo(0, 0);
-        BudgetQueries.getTotalArray(BudgetLib.officerView, 'Control Officer', true, "BudgetLib.updateAppropTotal");
-        BudgetQueries.getTotalArray(BudgetLib.officerView, 'Control Officer', false, "BudgetLib.updateExpendTotal");
-      }
-      
-      BudgetQueries.getDepartments(BudgetLib.officerView, 'Control Officer', BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
-      BudgetLib.updateHeader(BudgetLib.officerView, 'Department');
-      BudgetQueries.getTotalsForYear(BudgetLib.officerView, 'Control Officer', BudgetLib.loadYear, "BudgetLib.updateScorecard");
-      BudgetQueries.getControlOfficerDescription(BudgetLib.officerView, "BudgetLib.updateScorecardDescription");
     }
     else { //load default view
       if (viewChanged || externalLoad) {
         BudgetQueries.getTotalArray('', '', true, "BudgetLib.updateAppropTotal");
         BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal");
       }
-          
-      if (BudgetLib.viewByOfficer) {
-        BudgetQueries.getAllControlOfficersForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
-        $("#breakdown-nav").html("\
-          <ul>\
-            <li><a href='#' rel='address:/?year=" + BudgetLib.loadYear + "&viewMode=fund'>Where's it going?</a></li>\
-            <li class='current'>Who controls it?</li>\
-          </ul>\
-          <div class='clear'></div>");
-        $('#breakdown-item-title span').html('Control Officer');
-      }
-      else {
-        BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
-        $("#breakdown-nav").html("\
-          <ul>\
-            <li class='current'>Where's it going?</li>\
-            <li><a href='#' rel='address:/?year=" + BudgetLib.loadYear + "&viewMode=officer'>Who controls it?</a></li>\
-          </ul>\
-        <div class='clear'></div>");
-        $('#breakdown-item-title span').html('Fund');
-      }
+      BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
+      $("#breakdown-nav").html("\
+        <ul>\
+          <li class='current'>Where's it going?</li>\
+        </ul>\
+      <div class='clear'></div>");
+      $('#breakdown-item-title span').html('Fund');
       $('#breakdown-nav a').address();
       
       BudgetLib.updateHeader(BudgetLib.title, 'Fund');

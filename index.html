@@ -32,7 +32,7 @@
   $.address.crawlable(true);
 	//every action is handled by jQuery Address, which detects when the URL has changed
 	$.address.externalChange(function(event) {
-    BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), $.address.parameter('controlOfficer'), true);
+    BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), true);
 	});
 
 	$.address.internalChange(function(event) {
