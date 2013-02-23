@@ -16,7 +16,7 @@
  * For display, the data is passed to Highcharts, another javascript library that specializes 
  * in graphs, and an HTML table which displays the budget broken down by department.
  * 
- * Every fund, control officer or department that is clicked updates the URL query string using 
+ * Every fund or department that is clicked updates the URL query string using 
  * jQuery Address and the page loads the data dynamically.
  * 
  * Storing all of our data in Google Fusion Tables. For this visualization, I split it up in to 
@@ -30,15 +30,13 @@ var BudgetLib = {
   FusionTableApiKey: "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
   BUDGET_TABLE_ID: "1mahxWjls1dw0RCIsQ-rAzyGmgT0Ed7vXxRKnieY", //main budget table with expenditures/appropriations per department per year
   FUND_DESCRIPTION_TABLE_ID: "1DVnzs1tOFrVxrf6_jRFeXUe7b6lDYd5jh309Up4",
-  OFFICER_DESCRIPTION_TABLE_ID: "1uSDhUpVbk3c7m0E7iT87LP8GfPk6vnczh-y64sI",
   
-  title: "Cedar Hills County Budget",
+  // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
+  title: "Cedar Hills City Budget",
   startYear: 1993,
   endYear: 2012,
   loadYear: 2012, //viewing year
   fundView: "", //viewing fund
-  officerView: "", //viewing control officer
-  viewByOfficer: false, //flag to switch between department and control officer view
   arraysLoaded: 0,
 
   //-------------front end display functions-------------------
@@ -48,7 +46,6 @@ var BudgetLib = {
   {
     //load in values and update internal variables
     var viewChanged = false;
-    BudgetLib.viewByOfficer = false;
     BudgetLib.fundView = BudgetHelpers.convertToPlainString(fund);
     
     if (year != null && year != "") BudgetLib.loadYear = year;
@@ -204,13 +201,6 @@ var BudgetLib = {
       if (rows.length > 0) {
         $('#scorecard-desc p').hide().html(rows[0][0]).fadeIn();
       }
-      else if (BudgetLib.viewByOfficer) {
-        $('#scorecard-desc p').hide().html('Breakdown by control officer*').fadeIn();
-        $("#f-officers").show();
-      }
-      else if (!BudgetLib.viewByOfficer && BudgetLib.fundView == '' && BudgetLib.officerView == '') {
-        $('#scorecard-desc p').hide().html('Breakdown by fund').fadeIn();
-      }
       else $('#scorecard-desc p').html('');
     }
   },
@@ -279,12 +269,10 @@ var BudgetLib = {
       var rowId = BudgetHelpers.convertToSlug(rowName);
       var detailLoadFunction = "BudgetLib.getFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
       
-      if ((BudgetLib.fundView != null && BudgetLib.fundView != "") || (BudgetLib.officerView != null && BudgetLib.officerView != "")) {
+      if ((BudgetLib.fundView != null && BudgetLib.fundView != "")) {
         rowId = "department-" + departmentId;
         detailLoadFunction = "BudgetLib.getDepartmentDetails(\"department-" + departmentId + "\");";
       }
-      else if (BudgetLib.viewByOfficer)
-        detailLoadFunction = "BudgetLib.getControlOfficerDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
       
       if (budgeted != 0 || spent != 0) {
         fusiontabledata += BudgetHelpers.generateTableRow(rowId, detailLoadFunction, rowName, budgeted, spent);
@@ -303,16 +291,6 @@ var BudgetLib = {
     BudgetQueries.getTotalArray(BudgetHelpers.convertToPlainString(itemId), 'Fund', true, "BudgetLib.updateSparkAppropTotal");
     BudgetQueries.getTotalArray(BudgetHelpers.convertToPlainString(itemId), 'Fund', false, "BudgetLib.updateSparkExpendTotal");
     BudgetQueries.getSparklinePercentages(BudgetHelpers.convertToPlainString(itemId), 'Fund', BudgetLib.loadYear, "BudgetLib.updateSparklinePercentages");
-  },
-  
-  //shows fund details when row is clicked
-  getControlOfficerDetails: function(itemId) {  
-    var fusiontabledata = BudgetHelpers.generateExpandedRow(itemId, 'controlOfficer');
-    BudgetLib.updateDetail(itemId, fusiontabledata);
-    BudgetQueries.getControlOfficerDescription(BudgetHelpers.convertToPlainString(itemId), "BudgetLib.updateExpandedDescription");
-    BudgetQueries.getTotalArray(BudgetHelpers.convertToPlainString(itemId), 'Control Officer', true, "BudgetLib.updateSparkAppropTotal");
-    BudgetQueries.getTotalArray(BudgetHelpers.convertToPlainString(itemId), 'Control Officer', false, "BudgetLib.updateSparkExpendTotal");
-    BudgetQueries.getSparklinePercentages(BudgetHelpers.convertToPlainString(itemId), 'Control Officer', BudgetLib.loadYear, "BudgetLib.updateSparklinePercentages");
   },
   
   //shows description in expanded row when row is clicked
@@ -340,10 +318,9 @@ var BudgetLib = {
     var department     = rows[0][1];
     var linkToWebsite  = rows[0][2];
     var description    = rows[0][3];
-    var controlOfficer = rows[0][4];
     var departmentFund = rows[0][5];
      
-    var fusiontabledata = BudgetHelpers.generateExpandedDeptRow(departmentId, department, description, linkToWebsite, departmentFund, controlOfficer);
+    var fusiontabledata = BudgetHelpers.generateExpandedDeptRow(departmentId, department, description, linkToWebsite, departmentFund);
     BudgetLib.updateDetail('department-' + departmentId, fusiontabledata);
     
     BudgetQueries.getTotalArray(departmentId, 'Department ID', true, "BudgetLib.updateSparkAppropTotal");

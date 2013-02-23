@@ -58,9 +58,9 @@ var BudgetHelpers =
     return dataArray;
   },
 
-  getAddressLink: function(year, fund, controlOfficer, title) 
+  getAddressLink: function(year, fund, title) 
   {
-    var href = "/?year=" + year + "&amp;fund=" + fund + "&amp;controlOfficer=" + controlOfficer;
+    var href = "/?year=" + year + "&amp;fund=" + fund;
   	return ("<a class='adr' href='" + href + "' rel='address:" + href + "'>" + title + "</a>");
   },
   
@@ -87,9 +87,7 @@ var BudgetHelpers =
     var breakdownLink;
     
     if (type == 'fund')
-      breakdownLink = BudgetHelpers.getAddressLink(BudgetLib.loadYear, BudgetHelpers.convertToQueryString(itemId), "", "Breakdown by department&nbsp;&raquo;");
-    else
-      breakdownLink = BudgetHelpers.getAddressLink(BudgetLib.loadYear, "", BudgetHelpers.convertToQueryString(itemId), "Breakdown by department&nbsp;&raquo;");
+      breakdownLink = BudgetHelpers.getAddressLink(BudgetLib.loadYear, BudgetHelpers.convertToQueryString(itemId), "Breakdown by department&nbsp;&raquo;");
       
     return "\
       <tr class='expanded-content' id='" + itemId + "-expanded'>\
@@ -112,13 +110,10 @@ var BudgetHelpers =
       </tr>";
   },
   
-  generateExpandedDeptRow: function(departmentId, department, description, linkToWebsite, departmentFund, controlOfficer) 
+  generateExpandedDeptRow: function(departmentId, department, description, linkToWebsite, departmentFund) 
   {
     if (linkToWebsite != '')
       linkToWebsite = "<a href='" + linkToWebsite + "'>Official&nbsp;website&nbsp;&raquo;</a>";
-      
-    if (controlOfficer != '')
-      controlOfficer = "<br/>Control officer: " + BudgetHelpers.getAddressLink(BudgetLib.loadYear, "", BudgetHelpers.convertToQueryString(controlOfficer), controlOfficer + " &raquo;");
     
     return "\
       <tr class='expanded-content' id='department-" + departmentId + "-expanded'>\
@@ -127,8 +122,7 @@ var BudgetHelpers =
             <h2>" + department + "</h2>\
             <p>" + description + " " + linkToWebsite + "</p>\
             <p>\
-              Fund: " + BudgetHelpers.getAddressLink(BudgetLib.loadYear, BudgetHelpers.convertToQueryString(departmentFund), "", departmentFund + " &raquo;") + "</a>\
-              " + controlOfficer + "\
+              Fund: " + BudgetHelpers.getAddressLink(BudgetLib.loadYear, BudgetHelpers.convertToQueryString(departmentFund), departmentFund + " &raquo;") + "</a>\
             </p>\
           </div>\
           <div class='expanded-secondary'>\
