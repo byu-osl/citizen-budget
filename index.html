@@ -46,21 +46,6 @@
   $.address.internalChange(function(event) {
     BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), $.address.parameter('controlOfficer'), false);
 	});
-
-  //-------------------------------
-  //cookies for first time visitors
-  //-------------------------------
-  $(function()
-  {
-    $("body").bind("click", function(e){
-      $.cookie("budgetbreakdownreadme", "read", { expires: 7 });
-      $("#readme").fadeOut("fast");
-    });
-
-    if ($.cookie("budgetbreakdownreadme") != "read") {
-      $("#readme").fadeIn("fast");
-    }
-  });
   </script>
 </head>
 <body>
