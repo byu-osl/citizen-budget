@@ -70,11 +70,14 @@ var BudgetLib = {
       }
       
       BudgetQueries.getDepartments(BudgetLib.fundView, 'Fund', BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
+      
+      //Update Score Card
       BudgetLib.updateHeader(BudgetLib.fundView, 'Department');
       BudgetQueries.getTotalsForYear(BudgetLib.fundView, 'Fund', BudgetLib.loadYear, "BudgetLib.updateScorecard");
       BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
     }
-    else { //load default view
+    else
+    { //load default view
       if (viewChanged || externalLoad)
       {
         //GET Totals for each year:
@@ -91,6 +94,7 @@ var BudgetLib = {
       
       $('#breakdown-item-title span').html('Fund');
       
+      //Update Score Card
       BudgetLib.updateHeader(BudgetLib.title, 'Fund');
       BudgetQueries.getTotalsForYear('', '', BudgetLib.loadYear, "BudgetLib.updateScorecard");
       BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
@@ -228,7 +232,8 @@ var BudgetLib = {
   //***************************************************************************
   //shows totals and percentage changes of the current view below the main chart
   //***************************************************************************
-  updateScorecard: function(json) {   
+  updateScorecard: function(json)
+  {   
     var rows = json["rows"];
     var cols = json["columns"];
     if (rows.length > 0)
@@ -258,8 +263,6 @@ var BudgetLib = {
     var rows = json["rows"];
     var cols = json["columns"];  
     var fusiontabledata;
-
-    alert(rows)
     
     for(i = 0; i < rows.length; i++)
     {
