@@ -231,7 +231,8 @@ var BudgetLib = {
   updateScorecard: function(json) {   
     var rows = json["rows"];
     var cols = json["columns"];
-    if (rows.length > 0) {
+    if (rows.length > 0)
+    {
       $('#scorecard .budgeted').fadeOut('fast', function(){
         $('#scorecard .budgeted').html(rows[0][0]);
         $('#scorecard .budgeted').formatCurrency();
@@ -247,29 +248,6 @@ var BudgetLib = {
         } 
         else $('#f-zero2011').hide();
       }).fadeIn();
-      
-      if (cols.length > 2) {
-        var budgetedTop = rows[0][2];
-        var spentTop = rows[0][3];
-        var budgetedBottom = rows[0][4];
-        var spentBottom = rows[0][5];
-        
-        if (budgetedTop > 0 && budgetedBottom > 0) {
-          var budgetedPercent = (((budgetedTop / budgetedBottom) - 1) * 100).toFixed(1);
-          if (budgetedPercent > -0.05) budgetedPercent = '+' + budgetedPercent;
-          
-          $('#budgeted-percent').hide().html('<strong>' + budgetedPercent + '%</strong> budgeted from ' + (BudgetLib.loadYear - 1)).fadeIn();
-        }
-        else $('#budgeted-percent').fadeOut();
-        
-        if (spentTop > 0 && spentBottom > 0) {
-          var spentPercent = (((spentTop / spentBottom) - 1) * 100).toFixed(1);
-          if (spentPercent > -0.05) spentPercent = '+' + spentPercent;
-          
-          $('#spent-percent').hide().html('<strong>' + spentPercent + '%</strong> spent from ' + (BudgetLib.loadYear - 1)).fadeIn();
-        }
-        else $('#spent-percent').fadeOut();
-      }
     }
   },
   
