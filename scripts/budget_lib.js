@@ -90,7 +90,6 @@ var BudgetLib = {
       <div class='clear'></div>");
       
       $('#breakdown-item-title span').html('Fund');
-      $('#breakdown-nav a').address();
       
       BudgetLib.updateHeader(BudgetLib.title, 'Fund');
       BudgetQueries.getTotalsForYear('', '', BudgetLib.loadYear, "BudgetLib.updateScorecard");
@@ -282,24 +281,16 @@ var BudgetLib = {
     var cols = json["columns"];  
     var fusiontabledata;
 
-    for(i = 0; i < rows.length; i++) {
-      var rowName = rows[i][0];
-      var departmentId = 0;
-      if (cols.length > 4)
-        departmentId = rows[i][4];
-      var year = cols[3];
-      var budgeted = rows[i][1];
-      var spent = rows[i][2];
-      
-      var rowId = BudgetHelpers.convertToSlug(rowName);
-      
+    alert(rows)
+    
+    for(i = 0; i < rows.length; i++)
+    {
+      var rowName            = rows[i][0];
+      var year               = cols[3];
+      var budgeted           = rows[i][1];
+      var spent              = rows[i][2];      
+      var rowId              = BudgetHelpers.convertToSlug(rowName);
       var detailLoadFunction = "BudgetLib.getFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
-      
-      //IF in FUND_View modify RowId and the detailLoadFunction
-      if ((BudgetLib.fundView != null && BudgetLib.fundView != "")) {
-        rowId = "department-" + departmentId;
-        detailLoadFunction = "BudgetLib.getDepartmentDetails(\"department-" + departmentId + "\");";
-      }
       
       if (budgeted != 0 || spent != 0)
       {
