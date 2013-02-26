@@ -1,4 +1,5 @@
 /*!
+ ***********************************************************************
  * Look at Cook Budget Queryies library
  * http://lookatcook.com/
  *
@@ -9,8 +10,7 @@
  * Date: 3/24/2012
  *
  * Fusion Table queries called by BudgetLib
- * 
- */
+ ***********************************************************************/
 
 var BudgetQueries = BudgetQueries || {};  
 var BudgetQueries = {
