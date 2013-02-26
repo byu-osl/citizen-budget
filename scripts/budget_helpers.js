@@ -1,4 +1,5 @@
 /*!
+ ****************************************************************************
  * Look at Cook Budget Helpers library
  * http://lookatcook.com/
  *
@@ -10,12 +11,22 @@
  *
  * Helpers called by BudgetLib
  * 
- */
+ ****************************************************************************/
 
 var BudgetHelpers = BudgetHelpers || {};  
 var BudgetHelpers = 
 {
-
+  //***************************************************************************
+  // This funciton will return the current year. Example: 2013
+  //***************************************************************************
+  getCurrentYear: function()
+  {
+    var date = new Date();
+    return date.getFullYear();
+  },
+  
+  //***************************************************************************
+  //***************************************************************************
   query: function(sql, callback) 
   {  
     var sql = encodeURIComponent(sql);
@@ -27,20 +38,26 @@ var BudgetHelpers =
     });
   },
 
+  //***************************************************************************
+  //***************************************************************************
   handleError: function(json) 
   {
     if (json["error"] != undefined)
       console.log("Error in Fusion Table call: " + json["error"]["message"]);
   },
 	
+  //***************************************************************************
   //converts SQL query to URL
+  //***************************************************************************
   getQuery: function(query) 
   {
     //console.log('http://www.google.com/fusiontables/gvizdata?tq='  + encodeURIComponent(query));
     return query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq='  + encodeURIComponent(query));
   },
-  	
+  
+  //***************************************************************************
   //converts a Fusion Table json response in to an array for passing in to highcharts
+  //***************************************************************************
   getDataAsArray: function(json) 
   {
     var data = json["rows"][0]; 
@@ -58,12 +75,16 @@ var BudgetHelpers =
     return dataArray;
   },
 
+  //***************************************************************************
+  //***************************************************************************
   getAddressLink: function(year, fund, title) 
   {
     var href = "/?year=" + year + "&amp;fund=" + fund;
   	return ("<a class='adr' href='" + href + "' rel='address:" + href + "'>" + title + "</a>");
   },
   
+  //***************************************************************************
+  //***************************************************************************
   generateTableRow: function(rowId, detailLoadFunction, rowName, budgeted, spent) 
   {
     return "\
@@ -82,6 +103,8 @@ var BudgetHelpers =
       </tr>";
   },
   
+  //***************************************************************************
+  //***************************************************************************
   generateExpandedRow: function(itemId, type) 
   {
     var breakdownLink;
@@ -110,6 +133,8 @@ var BudgetHelpers =
       </tr>";
   },
   
+  //***************************************************************************
+  //***************************************************************************
   generateExpandedDeptRow: function(departmentId, department, description, linkToWebsite, departmentFund) 
   {
     if (linkToWebsite != '')
@@ -136,25 +161,33 @@ var BudgetHelpers =
       </tr>";
   },
   
+  //***************************************************************************
   //converts a text in to a URL slug
+  //***************************************************************************
   convertToSlug: function(text) {
     if (text == undefined) return '';
   	return (text+'').replace(/ /g,'-').replace(/[^\w-]+/g,'');
   },
   
+  //***************************************************************************
   //converts text to a formatted query string
+  //***************************************************************************
   convertToQueryString: function(text) {
   	if (text == undefined) return '';
   	return (text+'').replace(/\-+/g, '+').replace(/\s+/g, '+');
   },
   
+  //***************************************************************************
   //converts a slug or query string in to readable text
+  //***************************************************************************
   convertToPlainString: function(text) {
     if (text == undefined) return '';
   	return (text+'').replace(/\++/g, ' ').replace(/\-+/g, ' ');
   },
   
+  //***************************************************************************
   //NOT USED for debugging - prints out data in a table
+  //***************************************************************************
   getDataAsTable: function(json) 
   {
     var rows = json["rows"];

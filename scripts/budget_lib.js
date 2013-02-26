@@ -1,4 +1,5 @@
 /*!
+ ***************************************************************************
  * Look at Cook Budget Display library
  * http://lookatcook.com/
  *
@@ -21,15 +22,21 @@
  * 
  * Storing all of our data in Google Fusion Tables. For this visualization, I split it up in to 
  * 3 tables
- */
+ ****************************************************************************/
 
 var BudgetLib = BudgetLib || {};  
 var BudgetLib = {
 
-  //IDs used to reference Fusion Tables, where we store our data
+  //LOOK@COOK: IDs used to reference Fusion Tables, where we store our data
   FusionTableApiKey: "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
   BUDGET_TABLE_ID: "1mahxWjls1dw0RCIsQ-rAzyGmgT0Ed7vXxRKnieY", //main budget table with expenditures/appropriations per department per year
   FUND_DESCRIPTION_TABLE_ID: "1DVnzs1tOFrVxrf6_jRFeXUe7b6lDYd5jh309Up4",
+  
+  //Citizen Budget Keys: IDs used to reference and access Fusion Tables, where the data is stored.
+  CB_FusionTableApiKey:         "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
+  CB_FUND_TABLE_ID:             "1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE",
+  CB_FUND_BREAK_DOWN_TABLE_ID:  "1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o",
+  CB_FUND_DESCRIPTION_TABLE_ID: "1HKXIvUWkx7W1R9YG0qsLnkCBCnsSj3CeMVeLHF8",
   
   // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
   title: "Cedar Hills City Budget",
@@ -41,7 +48,9 @@ var BudgetLib = {
 
   //-------------front end display functions-------------------
   
+  //***************************************************************************
   //primary load for graph and table
+  //***************************************************************************
   updateDisplay: function(viewMode, year, fund, externalLoad) 
   {
     //load in values and update internal variables
@@ -86,6 +95,8 @@ var BudgetLib = {
     $('#breadcrumbs a').address();
   },  
   
+  //***************************************************************************
+  //***************************************************************************
   updateHeader: function(view, subtype){
     $('h1').html(view);
     if (view != BudgetLib.title) {
@@ -98,8 +109,10 @@ var BudgetLib = {
     $('#secondary-title').html(BudgetLib.loadYear + ' ' + view);
     $('#breakdown-item-title span').html(subtype);
   },
-    
+  
+  //***************************************************************************  
   //displays secondary datatables fund/department listing
+  //***************************************************************************
   updateTable: function() {
     $('#breakdown').fadeOut('fast', function(){
       if (BudgetLib.breakdownTable != null) BudgetLib.breakdownTable.fnDestroy();
@@ -144,7 +157,9 @@ var BudgetLib = {
     }).fadeIn('fast');
   },
   
+  //***************************************************************************
   //show/hide expanded detail for a clicked row
+  //***************************************************************************
   updateDetail: function(itemId, detail) {
     if (BudgetLib.sparkChart != null) {
       BudgetLib.sparkChart.destroy();
@@ -190,7 +205,9 @@ var BudgetLib = {
     BudgetHighcharts.updateSparkline();
   },
   
+  //***************************************************************************
   //shows the description of the current view below the main chart
+  //***************************************************************************
   updateScorecardDescription: function(json) { 
     var rows = json["rows"];
     var cols = json["columns"];
@@ -205,7 +222,9 @@ var BudgetLib = {
     }
   },
   
+  //***************************************************************************
   //shows totals and percentage changes of the current view below the main chart
+  //***************************************************************************
   updateScorecard: function(json) {   
     var rows = json["rows"];
     var cols = json["columns"];
@@ -251,7 +270,9 @@ var BudgetLib = {
     }
   },
   
+  //***************************************************************************
   //builds out budget breakdown (secondary) table
+  //***************************************************************************
   getDataAsBudgetTable: function(json) {
     var rows = json["rows"];
     var cols = json["columns"];  
@@ -283,7 +304,10 @@ var BudgetLib = {
     BudgetLib.updateTable();
   },
   
+  
+  //***************************************************************************
   //shows fund details when row is clicked
+  //***************************************************************************
   getFundDetails: function(itemId) {  
     var fusiontabledata = BudgetHelpers.generateExpandedRow(itemId, 'fund');
     BudgetLib.updateDetail(itemId, fusiontabledata);
@@ -293,7 +317,9 @@ var BudgetLib = {
     BudgetQueries.getSparklinePercentages(BudgetHelpers.convertToPlainString(itemId), 'Fund', BudgetLib.loadYear, "BudgetLib.updateSparklinePercentages");
   },
   
+  //***************************************************************************
   //shows description in expanded row when row is clicked
+  //***************************************************************************
   updateExpandedDescription: function(json) {
     var rows = json["rows"];
     var description = '';
@@ -304,13 +330,17 @@ var BudgetLib = {
     $('#expanded-description').hide().html(description).fadeIn();
   },
   
+  //***************************************************************************
   //requests department details from Fusion Tables when row is clicked
+  //***************************************************************************
   getDepartmentDetails: function(departmentId) {
     departmentId = departmentId.replace('department-', '')
     BudgetQueries.getDepartmentDescription(departmentId, "BudgetLib.updateDepartmentDetails");
   },
   
+  //***************************************************************************
   //shows department details when row is clicked
+  //***************************************************************************
   updateDepartmentDetails: function(json) {
     var rows = json["rows"];
 
@@ -328,7 +358,10 @@ var BudgetLib = {
     BudgetQueries.getSparklinePercentages(departmentId, 'Department ID', BudgetLib.loadYear, "BudgetLib.updateSparklinePercentages"); 
   },
   
+  
+  //***************************************************************************
   //updates percentages that display below the expanded row sparkling
+  //***************************************************************************
   updateSparklinePercentages: function(json) {
     var rows = json["rows"];
     var cols = json["columns"]; 
