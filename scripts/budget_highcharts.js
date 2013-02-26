@@ -10,7 +10,9 @@ var BudgetHighcharts =
   expendSybmol: 'square',
   expendTitle:  'Spent',
   
+  //*************************************************************************************
   //displays main graph using highcharts (http://www.highcharts.com)
+  //*************************************************************************************
   updateMainChart: function() 
   {
     BudgetLib.arraysLoaded++;
@@ -19,7 +21,7 @@ var BudgetHighcharts =
       BudgetLib.arraysLoaded = 0;
       var minValuesArray = $.grep(BudgetLib.appropTotalArray.concat(BudgetLib.expendTotalArray), 
         function(val) { return val != null; });
-        
+      
       // Highcharts
       mainChart = new Highcharts.Chart({
       chart: {
@@ -42,11 +44,15 @@ var BudgetHighcharts =
         x: -300,
         y: 20
       },
-      plotOptions: {
+      
+      //Handle Highlighting and Clicking of Points on Graph
+      plotOptions:
+      {
         area: { fillOpacity: 0.25 },
         series: {
           lineWidth: 5,
-          point: {
+          point:
+          {
             events: {
               click: function() 
               {
@@ -68,8 +74,8 @@ var BudgetHighcharts =
                     });
                   }
                 });
-        var clickedYear = new Date(x).getFullYear();
-        $.address.parameter('year',clickedYear);
+                var clickedYear = new Date(x).getFullYear();
+                $.address.parameter('year',clickedYear);
               }
             }
           },
@@ -78,7 +84,10 @@ var BudgetHighcharts =
           shadow: false
         }
       },
-      series: [
+      
+      // ------------- LOAD DATA -----------------//
+      series:
+      [
         {
           color: this.apropColor,
           data: BudgetLib.appropTotalArray,
@@ -87,7 +96,9 @@ var BudgetHighcharts =
             symbol: this.apropSymbol
           },
           name: this.apropTitle
-        }, {
+        },
+        
+        {
           color: this.expendColor,
           data: BudgetLib.expendTotalArray,
           marker: {
@@ -98,10 +109,16 @@ var BudgetHighcharts =
         }
       ],
       title: null,
-      tooltip: {
+      
+      //SET_UP the Floating Tooltip, Which appears as one hovers over each year.
+      tooltip:
+      {
         borderColor: "#000",
-        formatter: function() {
+        formatter: function()
+        {
+          // YEAR
           var s = "<strong>" + Highcharts.dateFormat("%Y", this.x) + "</strong>";
+          // $$ Budgeted // Expenditures
           $.each(this.points, function(i, point) {
             s += "<br /><span style=\"color: " + point.series.color + "\">" + point.series.name + ":</span> $" + Highcharts.numberFormat(point.y, 0);
           });
@@ -115,12 +132,11 @@ var BudgetHighcharts =
         gridLineWidth: 1,
         type: "datetime"
       },
-      yAxis: {
+      yAxis:
+      {
         gridLineColor: "#ddd",
         lineWidth: 1,
-        labels: {
-          formatter: function() { return BudgetHighcharts.formatAmount(this.value); }
-        },
+        labels: { formatter: function() { return BudgetHighcharts.formatAmount(this.value); }},
         min: Math.min.apply( Math, minValuesArray ),
         title: null
       }
@@ -129,12 +145,17 @@ var BudgetHighcharts =
     var selectedYearIndex = BudgetLib.loadYear - BudgetLib.startYear;
     if (mainChart.series[0].data[selectedYearIndex].y != null)
       mainChart.series[0].data[selectedYearIndex].select(true,true);
+      
     if (mainChart.series[1].data[selectedYearIndex].y != null)
       mainChart.series[1].data[selectedYearIndex].select(true,true);
     }
   },
-    
+  
+  //*************************************************************************************  
   //displays detail sparkling using high charts (http://www.highcharts.com)
+  //In the detailed view of a fund, ie: when one clicks on the '+' icon, a small line graph is displayed.
+  //This code creates that graph.
+  //*************************************************************************************
   updateSparkline: function() {
     BudgetLib.arraysLoaded++;
      if (BudgetLib.arraysLoaded >= 2)
@@ -219,14 +240,23 @@ var BudgetHighcharts =
           title: { text: null }
         }
       });
+      
+    //Select Year on load  
     var selectedYearIndex = BudgetLib.loadYear - BudgetLib.startYear;
     if (BudgetLib.sparkChart.series[0].data[selectedYearIndex].y != null)
       BudgetLib.sparkChart.series[0].data[selectedYearIndex].select(true,true);
+      
     if (BudgetLib.sparkChart.series[1].data[selectedYearIndex].y != null)
       BudgetLib.sparkChart.series[1].data[selectedYearIndex].select(true,true);
     }
   },
   
+  //*************************************************************************************
+  //This function formates a number according to its size in Billions/Millions
+  // ie: 1,000,000,000 becomes $1B
+  //     1,000,000     becomes $1M
+  //     1,000         becomes 1,000
+  //*************************************************************************************
   formatAmount: function(value) {
     if (value >= 1000000000)
       return "$" + value / 1000000000 + "B";

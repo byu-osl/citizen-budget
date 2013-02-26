@@ -27,7 +27,7 @@
 var BudgetLib = BudgetLib || {};  
 var BudgetLib = {
 
-  //LOOK@COOK: IDs used to reference Fusion Tables, where we store our data
+  //LOOK@COOK IDs used to reference Fusion Tables, where we store our data
   FusionTableApiKey: "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
   BUDGET_TABLE_ID: "1mahxWjls1dw0RCIsQ-rAzyGmgT0Ed7vXxRKnieY", //main budget table with expenditures/appropriations per department per year
   FUND_DESCRIPTION_TABLE_ID: "1DVnzs1tOFrVxrf6_jRFeXUe7b6lDYd5jh309Up4",
@@ -75,16 +75,20 @@ var BudgetLib = {
       BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
     }
     else { //load default view
-      if (viewChanged || externalLoad) {
-        BudgetQueries.getTotalArray('', '', true, "BudgetLib.updateAppropTotal");
-        BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal");
+      if (viewChanged || externalLoad)
+      {
+        //GET Totals for each year:
+        BudgetQueries.getTotalArray('', '', true,  "BudgetLib.updateAppropTotal"); //Appropreations
+        BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal"); //Expenditures
       }
       BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
+      
       $("#breakdown-nav").html("\
         <ul>\
           <li class='current'>Where's it going?</li>\
         </ul>\
       <div class='clear'></div>");
+      
       $('#breakdown-item-title span').html('Fund');
       $('#breakdown-nav a').address();
       
@@ -288,14 +292,17 @@ var BudgetLib = {
       var spent = rows[i][2];
       
       var rowId = BudgetHelpers.convertToSlug(rowName);
+      
       var detailLoadFunction = "BudgetLib.getFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
       
+      //IF in FUND_View modify RowId and the detailLoadFunction
       if ((BudgetLib.fundView != null && BudgetLib.fundView != "")) {
         rowId = "department-" + departmentId;
         detailLoadFunction = "BudgetLib.getDepartmentDetails(\"department-" + departmentId + "\");";
       }
       
-      if (budgeted != 0 || spent != 0) {
+      if (budgeted != 0 || spent != 0)
+      {
         fusiontabledata += BudgetHelpers.generateTableRow(rowId, detailLoadFunction, rowName, budgeted, spent);
       }
     }

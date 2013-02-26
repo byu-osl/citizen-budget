@@ -72,6 +72,7 @@ var BudgetHelpers =
     //For the most recent year, we usually don't have expenditures. 
     //By setting the last year to null when 0, Highcharts just truncates the line.
     if (dataArray[lastItem] == 0) dataArray[lastItem] = null;
+    
     return dataArray;
   },
 
