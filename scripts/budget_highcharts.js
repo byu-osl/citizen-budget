@@ -26,13 +26,6 @@ var BudgetHighcharts =
         borderColor: "#dddddd",
         borderRadius: 0,
         borderWidth: 1,
-        events: {
-          click: function() 
-          {
-            $("#readme").fadeOut("fast");
-            $.cookie("budgetbreakdownreadme", "read", { expires: 7 });
-          }
-        },
         defaultSeriesType: "area",
         marginBottom: 30,
         marginLeft: 60,
