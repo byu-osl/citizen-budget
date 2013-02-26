@@ -30,17 +30,28 @@
   <script type="text/javascript">
 
   $.address.crawlable(true);
-	//every action is handled by jQuery Address, which detects when the URL has changed
-	$.address.externalChange(function(event) {
+	
+  //every action is handled by jQuery Address, which detects when the URL has changed
+  //-------------------------------
+  //executed when the address is changed from the browser usually when entering
+  //the page or using the back and forward buttons.
+  //-------------------------------
+  $.address.externalChange(function(event) {
     BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), true);
 	});
 
-	$.address.internalChange(function(event) {
+  //-------------------------------
+  //executed when the address is changed from inside the page that uses the plugin.
+  //-------------------------------
+  $.address.internalChange(function(event) {
     BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), $.address.parameter('controlOfficer'), false);
 	});
 
+  //-------------------------------
   //cookies for first time visitors
-  $(function() {
+  //-------------------------------
+  $(function()
+  {
     $("body").bind("click", function(e){
       $.cookie("budgetbreakdownreadme", "read", { expires: 7 });
       $("#readme").fadeOut("fast");
@@ -55,13 +66,14 @@
 <body>
 
 <div id="page">
-  <div id="header">
+  
+ <div id="header">
     <div id="logo"><a href='/'><img alt="Cedar Hills City Budget" src="images/logo-banner.png" /></a></div>
     <div id="logo-print"><img alt="" src="images/logo-print.png" /></div>
     <div class="clear"></div>
   </div>
-
-  <div id="content">
+ 
+ <div id="content">
     <div id="content-primary">
       <span id="breadcrumbs"></span>
       <h1>Where's the money going?</h1>
