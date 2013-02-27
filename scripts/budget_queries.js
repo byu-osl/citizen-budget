@@ -15,6 +15,19 @@
 var BudgetQueries = BudgetQueries || {};  
 var BudgetQueries = {
 
+	//**********************************************************************
+	// This funciton will get the most current date from the table and
+	// return its year.
+	//**********************************************************************
+	getMostRecentYear: function(callback)
+	{
+		var myQuery = "SELECT date FROM " +
+			      BudgetLib.CB_FUND_TABLE_ID +
+			      "ORDER BY date ASC";
+		
+		BudgetHelpers.query(myQuery, callback);
+	},
+	
 	//**********************************************************************	
 	//This function will get the total budgeted and spent for each year
 	//from the FUND fusion table.
@@ -28,7 +41,9 @@ var BudgetQueries = {
 
 		myQuery += " FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
-		myQuery += " GROUP BY date"
+		myQuery += " GROUP BY date ";
+		
+		myQuery += "ORDER BY date ASC"
 		
 		BudgetHelpers.query(myQuery, callback);
 	},

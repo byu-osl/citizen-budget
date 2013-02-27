@@ -50,12 +50,14 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(viewMode, year, fund, externalLoad) 
   {
+    if (BudgetLib.loadYear == undefined) BudgetLib.setLoadYear();
+    
     //load in values and update internal variables
     var viewChanged = false;
     BudgetLib.fundView = BudgetHelpers.convertToPlainString(fund);
     
     if (year != null && year != "") BudgetLib.loadYear = year;
-  
+    
     //load default view
     if (viewChanged || externalLoad)
     {
@@ -81,6 +83,19 @@ var BudgetLib = {
   
     $('#breadcrumbs a').address();
   },  
+  
+  setLoadYear: function()
+  {
+    BudgetQueries.getMostRecentYear("BudgetLib.updateLoadYear");
+  },
+  
+  updateLoadYear: function(json)
+  {
+    for (i in json)
+      console.log(i);
+      
+    alert(json["error"]);
+  },
   
   //***************************************************************************
   //***************************************************************************
@@ -225,11 +240,7 @@ var BudgetLib = {
     BudgetLib.appropTotalArray = appropreations;
     BudgetLib.expendTotalArray = expenditures;
     BudgetLib.dates            = dates;
-    
-    //TODO Update Load Year .... SomeHOW!
-    if (BudgetLib.loadYear == undefined)
-      BudgetLib.loadYear = parseInt(dates[dates.length - 1].split("/")[2]);
-    
+       
     BudgetHighcharts.updateMainChart();
   },
   
