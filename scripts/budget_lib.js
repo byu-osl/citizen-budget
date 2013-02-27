@@ -40,11 +40,8 @@ var BudgetLib = {
   
   // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
   title: "Cedar Hills City Budget",
-  startYear: 1993,
-  endYear: 2012,
-  loadYear: 2012, //viewing year
-  fundView: "", //viewing fund
-  arraysLoaded: 0,
+  loadYear: undefined,
+  dateYearOnly: 1,//True == Only Show Year in HighCharts 
 
   //-------------front end display functions-------------------
   
@@ -63,8 +60,9 @@ var BudgetLib = {
     if (viewChanged || externalLoad)
     {
       //GET Totals for each year:
-      BudgetQueries.getTotalArray('', '', true,  "BudgetLib.updateAppropTotal"); //Appropreations
-      BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal"); //Expenditures
+      //BudgetQueries.getTotalArray('', '', true,  "BudgetLib.updateAppropTotal"); //Appropreations
+      //BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal"); //Expenditures
+      BudgetQueries.getDateTotals("BudgetLib.updateTotals")// Updates Appropreations and Expenditures
     }
     BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
     
@@ -193,6 +191,47 @@ var BudgetLib = {
     BudgetLib.sparkExpendTotalArray = BudgetHelpers.getDataAsArray(json);
     BudgetHighcharts.updateSparkline();
   },
+
+  //***************************************************************************
+  //CallBack Funciton
+  //This generate three arrays:
+  // 1) A dates array
+  // 2) A total_budgeted array
+  // 3) a toal_spend array
+  // It will then update appropTotalArray, expendTotalArray, and the dates
+  // array with the new information.  It will then update the main chart.
+  //***************************************************************************  
+  updateTotals: function(json)
+  {
+    var rows           = json["rows"];
+    var dates          = new Array();
+    var expenditures   = new Array();
+    var appropreations = new Array();
+    
+    //Populate dates, expenditures, and appropreations
+    if (rows != undefined)
+    {
+      for (var r = 0; r < rows.length; r++)
+      {
+        dates.push(                  //Formate date:           yyyy    :  dd/mm/yyyy
+                   BudgetLib.dateYearOnly ? (rows[r][0]).split("/")[2] : (rows[r][0])
+                   );
+        expenditures.push(rows[r][1]);
+        appropreations.push(rows[r][2]);
+      }
+    }
+    
+    //Update Arrays
+    BudgetLib.appropTotalArray = appropreations;
+    BudgetLib.expendTotalArray = expenditures;
+    BudgetLib.dates            = dates;
+    
+    //TODO Update Load Year .... SomeHOW!
+    if (BudgetLib.loadYear == undefined)
+      BudgetLib.loadYear = parseInt(dates[dates.length - 1].split("/")[2]);
+    
+    BudgetHighcharts.updateMainChart();
+  },
   
   //***************************************************************************
   //shows the description of the current view below the main chart
@@ -241,7 +280,8 @@ var BudgetLib = {
   //***************************************************************************
   //builds out budget breakdown (secondary) table
   //***************************************************************************
-  getDataAsBudgetTable: function(json) {
+  getDataAsBudgetTable: function(json)
+  {
     var rows = json["rows"];
     var cols = json["columns"];  
     var fusiontabledata;

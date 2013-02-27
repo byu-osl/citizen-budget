@@ -210,7 +210,7 @@ a[class*="icon"] {
 /* Timelines */
 #readme { display: none; left: -75px; position: absolute; top: 110px; }
 #timeline { position: relative; }
-#timeline-chart { height: 300px; }
+#timeline-chart { height: 350px; }
 
   /* Sparklines */
   .sparkline { height: 100px; margin-bottom: 15px; }
