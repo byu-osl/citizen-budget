@@ -59,46 +59,28 @@ var BudgetLib = {
     
     if (year != null && year != "") BudgetLib.loadYear = year;
   
-    //show fund view
-    if (BudgetLib.fundView != "")
+    //load default view
+    if (viewChanged || externalLoad)
     {
-      if (viewChanged || externalLoad) 
-      {
-        window.scrollTo(0, 0);
-        BudgetQueries.getTotalArray(BudgetLib.fundView, 'Fund', true, "BudgetLib.updateAppropTotal");
-        BudgetQueries.getTotalArray(BudgetLib.fundView, 'Fund', false, "BudgetLib.updateExpendTotal");
-      }
-      
-      BudgetQueries.getDepartments(BudgetLib.fundView, 'Fund', BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
-      
-      //Update Score Card
-      BudgetLib.updateHeader(BudgetLib.fundView, 'Department');
-      BudgetQueries.getTotalsForYear(BudgetLib.fundView, 'Fund', BudgetLib.loadYear, "BudgetLib.updateScorecard");
-      BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
+      //GET Totals for each year:
+      BudgetQueries.getTotalArray('', '', true,  "BudgetLib.updateAppropTotal"); //Appropreations
+      BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal"); //Expenditures
     }
-    else
-    { //load default view
-      if (viewChanged || externalLoad)
-      {
-        //GET Totals for each year:
-        BudgetQueries.getTotalArray('', '', true,  "BudgetLib.updateAppropTotal"); //Appropreations
-        BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal"); //Expenditures
-      }
-      BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
-      
-      $("#breakdown-nav").html("\
-        <ul>\
-          <li class='current'>Where's it going?</li>\
-        </ul>\
-      <div class='clear'></div>");
-      
-      $('#breakdown-item-title span').html('Fund');
-      
-      //Update Score Card
-      BudgetLib.updateHeader(BudgetLib.title, 'Fund');
-      BudgetQueries.getTotalsForYear('', '', BudgetLib.loadYear, "BudgetLib.updateScorecard");
-      BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
-    }
+    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
+    
+    $("#breakdown-nav").html("\
+      <ul>\
+        <li class='current'>Where's it going?</li>\
+      </ul>\
+    <div class='clear'></div>");
+    
+    $('#breakdown-item-title span').html('Fund');
+    
+    //Update Score Card
+    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
+    BudgetQueries.getTotalsForYear('', '', BudgetLib.loadYear, "BudgetLib.updateScorecard");
+    BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
+  
     $('#breadcrumbs a').address();
   },  
   
