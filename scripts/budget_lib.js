@@ -39,9 +39,9 @@ var BudgetLib = {
   CB_FUND_DESCRIPTION_TABLE_ID: "1HKXIvUWkx7W1R9YG0qsLnkCBCnsSj3CeMVeLHF8",
   
   // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
-  title: "Cedar Hills City Budget",
-  loadYear: undefined,
-  dateYearOnly: 1,//True == Only Show Year in HighCharts 
+  title:        "Cedar Hills City Budget",
+  loadYear:     undefined,
+  dateYearOnly: 1,                         //True == Only Show Year in HighCharts 
 
   //-------------front end display functions-------------------
   
@@ -50,11 +50,14 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(viewMode, year, fund, externalLoad) 
   {
-    if (BudgetLib.loadYear == undefined) BudgetLib.setLoadYear();
+    if (BudgetLib.loadYear == undefined)
+    {
+      BudgetLib.setLoadYear();
+      return;
+    }
     
     //load in values and update internal variables
-    var viewChanged = false;
-    BudgetLib.fundView = BudgetHelpers.convertToPlainString(fund);
+    var viewChanged    = false;
     
     if (year != null && year != "") BudgetLib.loadYear = year;
     
@@ -84,17 +87,14 @@ var BudgetLib = {
     $('#breadcrumbs a').address();
   },  
   
+  //***************************************************************************
+  // This function will Fire off a request to get all the date stored in
+  // the fusion Fund table.  It will then set a call back to update
+  // the load year to the most recent year found.
+  //***************************************************************************
   setLoadYear: function()
   {
-    BudgetQueries.getMostRecentYear("BudgetLib.updateLoadYear");
-  },
-  
-  updateLoadYear: function(json)
-  {
-    for (i in json)
-      console.log(i);
-      
-    alert(json["error"]);
+    BudgetQueries.getDates("BudgetLib.updateLoadYear");
   },
   
   //***************************************************************************
@@ -242,6 +242,25 @@ var BudgetLib = {
     BudgetLib.dates            = dates;
        
     BudgetHighcharts.updateMainChart();
+  },
+  
+  //***************************************************************************
+  // This function will update the load year to the most recent year found
+  // in the Fund fusion table. If the load year is currently null it will
+  // also recall updateDisplay.
+  //***************************************************************************
+  updateLoadYear: function(json)
+  {
+    var len             = json["rows"].length - 1 ;
+    var mostRecentYear  = parseInt(json["rows"][len][0].split("/")[2]);
+    var currentLoadYear = BudgetLib.loadYear;
+    
+    //Update loadYear
+    BudgetLib.loadYear = mostRecentYear;
+    
+    if (currentLoadYear == undefined)
+      BudgetLib.updateDisplay(undefined, undefined, undefined, true);
+    
   },
   
   //***************************************************************************
