@@ -19,11 +19,12 @@ var BudgetQueries = {
 	// This funciton will get the most current date from the table and
 	// return its year.
 	//**********************************************************************
-	getMostRecentYear: function(callback)
+	getDates: function(callback)
 	{
 		var myQuery = "SELECT date FROM " +
 			      BudgetLib.CB_FUND_TABLE_ID +
-			      "ORDER BY date ASC";
+			      " GROUP BY date" +
+			      " ORDER BY date ASC";
 		
 		BudgetHelpers.query(myQuery, callback);
 	},
