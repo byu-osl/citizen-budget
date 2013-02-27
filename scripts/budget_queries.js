@@ -16,6 +16,24 @@ var BudgetQueries = BudgetQueries || {};
 var BudgetQueries = {
 
 	//**********************************************************************	
+	//This function will get the total budgeted and spent for each year
+	//from the FUND fusion table.
+	//This data is retrieved to populate the main line graph.
+	//**********************************************************************
+	getDateTotals: function(callback)
+	{
+		var myQuery = "SELECT date,"
+		
+		myQuery += "SUM (ytd_total_expenditures), SUM (total_budgeted_expenditures) ";
+
+		myQuery += " FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery += " GROUP BY date"
+		
+		BudgetHelpers.query(myQuery, callback);
+	},
+
+	//**********************************************************************	
 	//gets fund or department totals per year for highcharts
 	//**********************************************************************
 	getTotalArray: function(name, queryType, isAppropriation, callback)

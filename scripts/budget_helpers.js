@@ -185,7 +185,7 @@ var BudgetHelpers =
     if (text == undefined) return '';
   	return (text+'').replace(/\++/g, ' ').replace(/\-+/g, ' ');
   },
-  
+
   //***************************************************************************
   //NOT USED for debugging - prints out data in a table
   //***************************************************************************

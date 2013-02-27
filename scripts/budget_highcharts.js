@@ -1,7 +1,6 @@
 var BudgetHighcharts = BudgetHighcharts || {};  
 var BudgetHighcharts = 
 {  
-  pointInterval: 365 * 24 * 3600 * 1000, //one year in ms
   apropColor:   '#264870',
   apropSymbol:  'circle',
   apropTitle:   'Budgeted',
@@ -15,23 +14,19 @@ var BudgetHighcharts =
   //*************************************************************************************
   updateMainChart: function() 
   {
-    BudgetLib.arraysLoaded++;
-    if (BudgetLib.arraysLoaded >= 2) //hack to wait for both expend and approp data callbacks to return
-    {
-      BudgetLib.arraysLoaded = 0;
-      var minValuesArray = $.grep(BudgetLib.appropTotalArray.concat(BudgetLib.expendTotalArray), 
-        function(val) { return val != null; });
-      
-      // Highcharts
-      mainChart = new Highcharts.Chart({
+    var minValuesArray = $.grep(BudgetLib.appropTotalArray.concat(BudgetLib.expendTotalArray), 
+      function(val) { return val != null; });
+    
+    // Highcharts
+    mainChart = new Highcharts.Chart({
       chart: {
         borderColor: "#dddddd",
         borderRadius: 0,
         borderWidth: 1,
         defaultSeriesType: "area",
-        marginBottom: 30,
+        marginBottom: 60,
         marginLeft: 60,
-        marginRight: 15,
+        marginRight: 22,
         marginTop: 20,
         renderTo: "timeline-chart"
       },
@@ -79,8 +74,8 @@ var BudgetHighcharts =
               }
             }
           },
-          pointInterval: BudgetHighcharts.pointInterval,
-          pointStart: Date.UTC(BudgetLib.startYear, 1, 1),
+          //pointInterval: BudgetHighcharts.pointInterval,
+          //pointStart: Date.UTC(BudgetLib.startYear, 1, 1),
           shadow: false
         }
       },
@@ -126,21 +121,40 @@ var BudgetHighcharts =
         },
         shared: true
       },
-      xAxis: {
-        dateTimeLabelFormats: { year: "%Y" },
-        gridLineColor: "#ddd",
-        gridLineWidth: 1,
-        type: "datetime"
+      xAxis:
+      {
+        categories: BudgetLib.dates,
+        tickmarkPlacement: 'on',
+        labels:
+        {
+          overflow: 'justify',
+          rotation: 45,
+          align: 'left',
+          style:
+          {
+            fontSize: 12,
+            fontWeight: 'bold'
+          }
+        }
       },
       yAxis:
       {
         gridLineColor: "#ddd",
         lineWidth: 1,
-        labels: { formatter: function() { return BudgetHighcharts.formatAmount(this.value); }},
+        labels:
+        {
+          formatter: function() { return BudgetHighcharts.formatAmount(this.value); },
+          style:
+          {
+            fontSize: 12,
+            fontWeight: 'bold'
+          }
+        },
         min: Math.min.apply( Math, minValuesArray ),
         title: null
       }
     });
+    
     //select the current year on load
     var selectedYearIndex = BudgetLib.loadYear - BudgetLib.startYear;
     if (mainChart.series[0].data[selectedYearIndex].y != null)
@@ -148,7 +162,6 @@ var BudgetHighcharts =
       
     if (mainChart.series[1].data[selectedYearIndex].y != null)
       mainChart.series[1].data[selectedYearIndex].select(true,true);
-    }
   },
   
   //*************************************************************************************  
