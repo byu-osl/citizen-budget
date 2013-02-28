@@ -95,7 +95,14 @@ var BudgetQueries = {
 	//**********************************************************************
 	getAllFundsForYear: function(year, callback)
 	{		
-		var myQuery = "SELECT Fund, SUM('Appropriations " + year + "') AS 'Appropriations', SUM('Expenditures " + year + "') AS 'Expenditures', Fund AS '" + year + "' FROM " + BudgetLib.BUDGET_TABLE_ID + " GROUP BY Fund";			
+		//OLD:: var myQuery = "SELECT Fund, SUM('Appropriations " + year + "') AS 'Appropriations', SUM('Expenditures " + year + "') AS 'Expenditures', Fund AS '" + year + "' FROM " + BudgetLib.BUDGET_TABLE_ID + " GROUP BY Fund";			
+		
+		var myQuery = "SELECT fund_name, date, total_budgeted_expenditures, ytd_total_expenditures ";
+		
+		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery += " WHERE date='" + year + "'";
+		
 		BudgetHelpers.query(myQuery, callback);
 	},
 	
