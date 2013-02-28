@@ -56,6 +56,11 @@ var BudgetLib = {
     var viewChanged = false;
     
     if (year != null && year != "") BudgetLib.loadYear = year;
+    
+    // TODO Need to make the switches for the fund page
+    // Note: The fund needs to be in all caps for the sql compare to match. (GENERAL FUND not General Fund)
+    // We can probably change that so it might not matter.
+    BudgetLib.updateFundPage(fund, year);
 
     if (viewChanged || externalLoad)
       BudgetQueries.getDateTotals("BudgetLib.updateTotals")// Updates Main Chart
@@ -304,5 +309,22 @@ var BudgetLib = {
     console.log("Hey DUD! you Click on the fund: " + BudgetHelpers.convertToPlainString(fundName) + " I'm Coming soon");
     //Transition to FUND Page...
     return;
+  },
+  
+  //***************************************************************************
+  //function called to update the fund page
+  //***************************************************************************  
+  updateFundPage: function(fundName, date) {
+  	//Queries the fusion tables to retrieve the info for the 2 breakdown tables
+  	BudgetQueries.getFundCatagories(fundName, date, "revenue", "BudgetLib.updateFundCatagories");
+  	BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateFundCatagories");
+  	
+  },
+  
+  //***************************************************************************
+  //builds out budget breakdown tables
+  //***************************************************************************
+  updateFundCatagories: function(json) {
+  
   },
 }
