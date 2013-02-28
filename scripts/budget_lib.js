@@ -50,6 +50,7 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(viewMode, year, fund, externalLoad) 
   {
+    //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
     {
       BudgetLib.setLoadYear();
@@ -57,25 +58,14 @@ var BudgetLib = {
     }
     
     //load in values and update internal variables
-    var viewChanged    = false;
+    var viewChanged = false;
     
     if (year != null && year != "") BudgetLib.loadYear = year;
-    
-    //load default view
+
     if (viewChanged || externalLoad)
-    {
-      //GET Totals for each year:
-      //BudgetQueries.getTotalArray('', '', true,  "BudgetLib.updateAppropTotal"); //Appropreations
-      //BudgetQueries.getTotalArray('', '', false, "BudgetLib.updateExpendTotal"); //Expenditures
-      BudgetQueries.getDateTotals("BudgetLib.updateTotals")// Updates Appropreations and Expenditures
-    }
-    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable");
+      BudgetQueries.getDateTotals("BudgetLib.updateTotals")// Updates Main Chart
     
-    $("#breakdown-nav").html("\
-      <ul>\
-        <li class='current'>Where's it going?</li>\
-      </ul>\
-    <div class='clear'></div>");
+    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable"); //Update Funds
     
     $('#breakdown-item-title span').html('Fund');
     
@@ -159,30 +149,7 @@ var BudgetLib = {
     }).fadeIn('fast');
   },
   
-  //***************************************************************************
-  //show/hide expanded detail for a clicked row
-  //***************************************************************************
-  updateDetail: function(itemId, detail) {
-    if (BudgetLib.sparkChart != null) {
-      BudgetLib.sparkChart.destroy();
-      BudgetLib.sparkChart = null;
-    }
-    
-    if ($('#' + itemId + '-expanded').length == 0) {
-      $('.budget-expand-img').attr('src', 'images/expand.png');
-      $('#breakdown .expanded-content').remove();
-      $('#breakdown tr').removeClass('expanded-head');
-      $('#' + itemId + ' .budget-expand-img').attr('src', 'images/collapse.png');
-      $(detail).insertAfter($('#' + itemId));
-      $('#' + itemId).addClass('expanded-head');
-    }
-    else {
-      $('.budget-expand-img').attr('src', 'images/expand.png');
-      $('#breakdown .expanded-content').remove();
-      $('#breakdown tr').removeClass('expanded-head');
-    }
-  },
-
+ 
   //----------display callback functions----------------
   
   //these all work by being called (callback function) once Fusion Tables returns a result. 
@@ -332,89 +299,4 @@ var BudgetLib = {
     BudgetLib.breakdownData = fusiontabledata;
     BudgetLib.updateTable();
   },
-  
-  
-  //***************************************************************************
-  //shows fund details when row is clicked
-  //***************************************************************************
-  getFundDetails: function(itemId) {  
-    var fusiontabledata = BudgetHelpers.generateExpandedRow(itemId, 'fund');
-    BudgetLib.updateDetail(itemId, fusiontabledata);
-    BudgetQueries.getFundDescription(BudgetHelpers.convertToPlainString(itemId), "BudgetLib.updateExpandedDescription");
-    BudgetQueries.getTotalArray(BudgetHelpers.convertToPlainString(itemId), 'Fund', true, "BudgetLib.updateSparkAppropTotal");
-    BudgetQueries.getTotalArray(BudgetHelpers.convertToPlainString(itemId), 'Fund', false, "BudgetLib.updateSparkExpendTotal");
-    BudgetQueries.getSparklinePercentages(BudgetHelpers.convertToPlainString(itemId), 'Fund', BudgetLib.loadYear, "BudgetLib.updateSparklinePercentages");
-  },
-  
-  //***************************************************************************
-  //shows description in expanded row when row is clicked
-  //***************************************************************************
-  updateExpandedDescription: function(json) {
-    var rows = json["rows"];
-    var description = '';
-    
-    if (rows != undefined)
-      description = rows[0][0];
-    
-    $('#expanded-description').hide().html(description).fadeIn();
-  },
-  
-  //***************************************************************************
-  //requests department details from Fusion Tables when row is clicked
-  //***************************************************************************
-  getDepartmentDetails: function(departmentId) {
-    departmentId = departmentId.replace('department-', '')
-    BudgetQueries.getDepartmentDescription(departmentId, "BudgetLib.updateDepartmentDetails");
-  },
-  
-  //***************************************************************************
-  //shows department details when row is clicked
-  //***************************************************************************
-  updateDepartmentDetails: function(json) {
-    var rows = json["rows"];
-
-    var departmentId   = rows[0][0];
-    var department     = rows[0][1];
-    var linkToWebsite  = rows[0][2];
-    var description    = rows[0][3];
-    var departmentFund = rows[0][5];
-     
-    var fusiontabledata = BudgetHelpers.generateExpandedDeptRow(departmentId, department, description, linkToWebsite, departmentFund);
-    BudgetLib.updateDetail('department-' + departmentId, fusiontabledata);
-    
-    BudgetQueries.getTotalArray(departmentId, 'Department ID', true, "BudgetLib.updateSparkAppropTotal");
-    BudgetQueries.getTotalArray(departmentId, 'Department ID', false, "BudgetLib.updateSparkExpendTotal");
-    BudgetQueries.getSparklinePercentages(departmentId, 'Department ID', BudgetLib.loadYear, "BudgetLib.updateSparklinePercentages"); 
-  },
-  
-  
-  //***************************************************************************
-  //updates percentages that display below the expanded row sparkling
-  //***************************************************************************
-  updateSparklinePercentages: function(json) {
-    var rows = json["rows"];
-    var cols = json["columns"]; 
-
-    if (rows.length > 0)
-    {
-      var budgetedTop = rows[0][0];
-      var spentTop = rows[0][1];
-      var budgetedBottom = rows[0][2];
-      var spentBottom = rows[0][3];
-      
-      if (budgetedTop > 0 && budgetedBottom > 0) {
-        var budgetedPercent = (((budgetedTop / budgetedBottom) - 1) * 100).toFixed(1);
-        if (budgetedPercent >= -0.05) budgetedPercent = '+' + budgetedPercent;
-        $('#sparkline-budgeted').hide().html('<strong>' + budgetedPercent + '%</strong> budgeted from ' + (BudgetLib.loadYear - 1)).fadeIn();
-      }
-      else $('#sparkline-budgeted').fadeOut();
-      
-      if (spentTop > 0 && spentBottom > 0) {
-        var spentPercent = (((spentTop / spentBottom) - 1) * 100).toFixed(1);
-        if (spentPercent >= -0.05) spentPercent = '+' + spentPercent;
-        $('#sparkline-spent').hide().html('<strong>' + spentPercent + '%</strong> spent from ' + (BudgetLib.loadYear - 1)).fadeIn();
-      }
-      else $('#sparkline-spent').fadeOut();
-    }
-  }
 }
