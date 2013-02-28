@@ -228,9 +228,7 @@ var BudgetLib = {
     {
       for (var r = 0; r < rows.length; r++)
       {
-        dates.push(                  //Formate date:           yyyy    :  dd/mm/yyyy
-                   BudgetLib.dateYearOnly ? (rows[r][0]).split("/")[2] : (rows[r][0])
-                   );
+        dates.push(rows[r][0]);
         expenditures.push(rows[r][1]);
         appropreations.push(rows[r][2]);
       }
