@@ -31,8 +31,7 @@ var BudgetHelpers =
   {  
     var sql = encodeURIComponent(sql);
     
-    console.log("https://www.googleapis.com/fusiontables/v1/query?sql="+sql     
-            +"&key="+BudgetLib.FusionTableApiKey);
+    //console.log("https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&key="+BudgetLib.FusionTableApiKey);
     
     $.ajax({
       url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql     
