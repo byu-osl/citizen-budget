@@ -288,7 +288,7 @@ var BudgetLib = {
       var budgeted           = rows[i][1];
       var spent              = rows[i][2];      
       var rowId              = BudgetHelpers.convertToSlug(rowName);
-      var detailLoadFunction = "BudgetLib.getFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
+      var detailLoadFunction = "BudgetLib.loadAndShowFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
       
       if (budgeted != 0 || spent != 0)
       {
@@ -298,5 +298,17 @@ var BudgetLib = {
  
     BudgetLib.breakdownData = fusiontabledata;
     BudgetLib.updateTable();
+  },
+  
+  
+  //***************************************************************************
+  //This function will hide the main page content and show the fund, break-
+  //down content.  
+  //***************************************************************************
+  loadAndShowFundDetails: function(fundName)
+  {
+    console.log("Hey DUD! you Click on the fund: " + BudgetHelpers.convertToPlainString(fundName) + " I'm Coming soon");
+    //Transition to FUND Page...
+    return;
   },
 }
