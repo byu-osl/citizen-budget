@@ -55,7 +55,7 @@ var BudgetLib = {
     //load in values and update internal variables
     var viewChanged = false;
     
-    if (year != null && year != "") BudgetLib.loadYear = year;
+    if (year != null && year != "") BudgetLib.loadYear = BudgetHelpers.convertToPlainString(year);
 
     if (viewChanged || externalLoad)
       BudgetQueries.getDateTotals("BudgetLib.updateTotals")// Updates Main Chart
@@ -93,7 +93,8 @@ var BudgetLib = {
     else
       $('#breadcrumbs').html("");
     
-    $('#secondary-title').html((BudgetLib.dateYearOnly ? BudgetLib.loadYear.split("/")[2] : BudgetLib.loadYear) + ' ' + view);
+    $('#secondary-title').html((BudgetLib.dateYearOnly ? BudgetLib.loadYear.split("/")[2]: BudgetLib.loadYear)
+                               + ' ' + view);
     $('#breakdown-item-title span').html(subtype);
   },
   
