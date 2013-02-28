@@ -46,6 +46,8 @@ var BudgetQueries = {
 		
 		myQuery += "ORDER BY date ASC"
 		
+		console.log(myQuery);
+		
 		BudgetHelpers.query(myQuery, callback);
 	},
 
@@ -76,17 +78,20 @@ var BudgetQueries = {
 	//**********************************************************************
 	//returns total given year
 	//**********************************************************************
-	getTotalsForYear: function(name, queryType, year, callback) {
-		var whereClause = "";
-		if (name != "")
-			whereClause = " WHERE '" + queryType + "' = '" + name + "'";
+	getTotalsForYear: function(year, callback)
+	{
+		var myQuery = "SELECT SUM (total_budgeted_expenditures), SUM (ytd_total_expenditures), date";
+
+		myQuery    += " FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
-		var percentageQuery = "";	
-		if (year > BudgetLib.startYear) {
-			percentageQuery = ", SUM('Appropriations " + year + "') AS 'Appropriations Top', SUM('Expenditures " + year + "') AS 'Expenditures Top', SUM('Appropriations " + (year - 1) + "') AS 'Appropriations Bottom', SUM('Expenditures " + (year - 1) + "') AS 'Expenditures Bottom'";
-		}
-			
-		var myQuery = "SELECT SUM('Appropriations " + year + "') AS 'Appropriations', SUM('Expenditures " + year + "') AS 'Expenditures' " + percentageQuery + " FROM " + BudgetLib.BUDGET_TABLE_ID + whereClause;			
+		myQuery    += " WHERE date = '" + year + "'";
+		
+		myQuery    += " GROUP BY date ";
+		
+		
+		console.log(myQuery);
+		console.log("year:'" + year + "'");
+		
 		BudgetHelpers.query(myQuery, callback);
 	},
 	
@@ -100,7 +105,7 @@ var BudgetQueries = {
 		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
 		myQuery += " WHERE date='" + year + "'";
-		
+		console.log("year:'" +year +"'");
 		BudgetHelpers.query(myQuery, callback);
 	},
 	

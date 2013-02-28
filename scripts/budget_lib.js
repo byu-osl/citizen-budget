@@ -66,7 +66,7 @@ var BudgetLib = {
     
     //Update Score Card
     BudgetLib.updateHeader(BudgetLib.title, 'Fund');
-    BudgetQueries.getTotalsForYear('', '', BudgetLib.loadYear, "BudgetLib.updateScorecard");
+    BudgetQueries.getTotalsForYear(BudgetLib.loadYear, "BudgetLib.updateScorecard");
     BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
   
     $('#breadcrumbs a').address();
@@ -93,7 +93,7 @@ var BudgetLib = {
     else
       $('#breadcrumbs').html("");
     
-    $('#secondary-title').html(BudgetLib.loadYear + ' ' + view);
+    $('#secondary-title').html((BudgetLib.dateYearOnly ? BudgetLib.loadYear.split("/")[2] : BudgetLib.loadYear) + ' ' + view);
     $('#breakdown-item-title span').html(subtype);
   },
   
