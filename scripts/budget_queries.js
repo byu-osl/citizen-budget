@@ -50,30 +50,6 @@ var BudgetQueries = {
 		
 		BudgetHelpers.query(myQuery, callback);
 	},
-
-	//**********************************************************************	
-	//gets fund or department totals per year for highcharts
-	//**********************************************************************
-	getTotalArray: function(name, queryType, isAppropriation, callback)
-	{
-		var typeStr = "Expenditures";
-		if (isAppropriation == true) 
-			typeStr = "Appropriations";
-	
-		var myQuery = "SELECT ";
-		var year = BudgetLib.startYear;
-		while (year <= BudgetLib.endYear)
-		{
-			myQuery += "SUM('" + typeStr + " " + year + "') AS '" + year + "', ";
-			year++;
-		}
-		myQuery = myQuery.slice(0,myQuery.length-2);  
-		myQuery += " FROM " + BudgetLib.BUDGET_TABLE_ID;
-		if (name != '')
-			myQuery += " WHERE '" + queryType + "' = '" + name + "'";
-		
-		BudgetHelpers.query(myQuery, callback);
-	},
 	
 	//**********************************************************************
 	//returns total given year
