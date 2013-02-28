@@ -105,40 +105,10 @@ var BudgetQueries = {
 	},
 	
 	//**********************************************************************
-	//returns all funds budgeted/spent totals for given year
-	//**********************************************************************
-	getDepartments: function(name, queryType, year, callback) {		
-		var myQuery = "SELECT 'Short Title', SUM('Appropriations " + year + "') AS 'Appropriations', SUM('Expenditures " + year + "') AS 'Expenditures', 'Short Title' AS '" + year + "', 'Department ID' FROM " + BudgetLib.BUDGET_TABLE_ID + " WHERE '" + queryType + "' = '" + name + "' GROUP BY 'Department ID', 'Short Title'";			
-		BudgetHelpers.query(myQuery, callback);
-	},
-	
-	//**********************************************************************
 	//gets a fund description based on a fund name
 	//**********************************************************************
 	getFundDescription: function(fund, callback) {
 		var myQuery = "SELECT 'Fund Description' FROM " + BudgetLib.FUND_DESCRIPTION_TABLE_ID + " WHERE Item = '" + fund + "'";			
 		BudgetHelpers.query(myQuery, callback);
 	},
-	
-	//**********************************************************************
-	//get a department description from a department ID
-	//**********************************************************************
-	getDepartmentDescription: function(departmentId, callback) {
-		var myQuery = "SELECT 'Department ID', Department, 'Link to Website', 'Department Description', 'Control Officer', Fund FROM " + BudgetLib.BUDGET_TABLE_ID + " WHERE 'Department ID' = " + departmentId;			
-		BudgetHelpers.query(myQuery, callback);
-	},
-	
-	//**********************************************************************
-	//get percentage change per year for display below the sparkline in expanded row detail
-	//**********************************************************************
-	getSparklinePercentages: function(name, queryType, year, callback) {	
-		if (year > BudgetLib.startYear) {
-			var whereClause = "";
-			if (queryType != "")
-				whereClause += " WHERE '" + queryType + "' = '" + name + "'";
-				
-			var myQuery = "SELECT SUM('Appropriations " + year + "') AS 'Appropriations Top', SUM('Expenditures " + year + "') AS 'Expenditures Top', SUM('Appropriations " + (year - 1) + "') AS 'Appropriations Bottom', SUM('Expenditures " + (year - 1) + "') AS 'Expenditures Bottom' FROM " + BudgetLib.BUDGET_TABLE_ID + whereClause;			
-			BudgetHelpers.query(myQuery, callback);
-		}
-	}
 }

@@ -26,11 +26,6 @@
 
 var BudgetLib = BudgetLib || {};  
 var BudgetLib = {
-
-  //LOOK@COOK IDs used to reference Fusion Tables, where we store our data
-  FusionTableApiKey: "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
-  BUDGET_TABLE_ID: "1mahxWjls1dw0RCIsQ-rAzyGmgT0Ed7vXxRKnieY", //main budget table with expenditures/appropriations per department per year
-  FUND_DESCRIPTION_TABLE_ID: "1DVnzs1tOFrVxrf6_jRFeXUe7b6lDYd5jh309Up4",
   
   //Citizen Budget Keys: IDs used to reference and access Fusion Tables, where the data is stored.
   CB_FusionTableApiKey:         "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
