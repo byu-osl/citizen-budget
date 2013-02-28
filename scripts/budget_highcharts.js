@@ -69,8 +69,9 @@ var BudgetHighcharts =
                     });
                   }
                 });
-                var clickedYear = new Date(x).getFullYear();
-                $.address.parameter('year',clickedYear);
+                var clickedYear = this.category.split("/")[2];
+                //console.log("ChartClick: " + this.category);
+                $.address.parameter('year', clickedYear);
               }
             }
           },
@@ -112,7 +113,7 @@ var BudgetHighcharts =
         formatter: function()
         {
           // YEAR
-          var s = "<strong>" + Highcharts.dateFormat("%Y", this.x) + "</strong>";
+          var s = "<strong>" + (BudgetLib.dateYearOnly ? this.x.split("/")[2] : this.x )+ "</strong>";
           // $$ Budgeted // Expenditures
           $.each(this.points, function(i, point) {
             s += "<br /><span style=\"color: " + point.series.color + "\">" + point.series.name + ":</span> $" + Highcharts.numberFormat(point.y, 0);
@@ -134,6 +135,10 @@ var BudgetHighcharts =
           {
             fontSize: 12,
             fontWeight: 'bold'
+          },
+          formatter: function()
+          {
+              return BudgetLib.dateYearOnly ? this.value.split("/")[2] : this.value;
           }
         }
       },
