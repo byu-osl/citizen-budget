@@ -93,7 +93,8 @@ var BudgetQueries = {
 	//**********************************************************************
 	//returns all funds budgeted/spent totals for given year
 	//**********************************************************************
-	getAllFundsForYear: function(year, callback) {		
+	getAllFundsForYear: function(year, callback)
+	{		
 		var myQuery = "SELECT Fund, SUM('Appropriations " + year + "') AS 'Appropriations', SUM('Expenditures " + year + "') AS 'Expenditures', Fund AS '" + year + "' FROM " + BudgetLib.BUDGET_TABLE_ID + " GROUP BY Fund";			
 		BudgetHelpers.query(myQuery, callback);
 	},

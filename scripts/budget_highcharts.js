@@ -65,18 +65,14 @@ var BudgetHighcharts =
                       if(x === point.x && point.y != null) 
                       {
                         point.select(selected, true);
-                      }
-                    });
-                  }
+                  }});}
                 });
+                
                 var clickedYear = this.category.split("/")[2];
-                //console.log("ChartClick: " + this.category);
                 $.address.parameter('year', clickedYear);
               }
             }
           },
-          //pointInterval: BudgetHighcharts.pointInterval,
-          //pointStart: Date.UTC(BudgetLib.startYear, 1, 1),
           shadow: false
         }
       },
