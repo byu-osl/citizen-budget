@@ -217,7 +217,7 @@ var BudgetLib = {
   updateLoadYear: function(json)
   {
     var len             = json["rows"].length - 1 ;
-    var mostRecentYear  = parseInt(json["rows"][len][0].split("/")[2]);
+    var mostRecentYear  = json["rows"][len][0];
     var currentLoadYear = BudgetLib.loadYear;
     
     //Update loadYear
@@ -278,15 +278,14 @@ var BudgetLib = {
   getDataAsBudgetTable: function(json)
   {
     var rows = json["rows"];
-    var cols = json["columns"];  
     var fusiontabledata;
     
     for(i = 0; i < rows.length; i++)
     {
       var rowName            = rows[i][0];
-      var year               = cols[3];
-      var budgeted           = rows[i][1];
-      var spent              = rows[i][2];      
+      var year               = rows[i][1];
+      var budgeted           = rows[i][2];
+      var spent              = rows[i][3];      
       var rowId              = BudgetHelpers.convertToSlug(rowName);
       var detailLoadFunction = "BudgetLib.loadAndShowFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
       
