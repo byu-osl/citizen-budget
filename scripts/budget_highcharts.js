@@ -68,7 +68,7 @@ var BudgetHighcharts =
                   }});}
                 });
                 
-                var clickedYear = this.category.split("/")[2];
+                var clickedYear = BudgetHelpers.convertToSlug(this.category);
                 $.address.parameter('year', clickedYear);
               }
             }

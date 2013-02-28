@@ -94,10 +94,10 @@ var BudgetHelpers =
     return "\
       <tr id='" + rowId + "'>\
         <td>\
-        <a onclick='" + detailLoadFunction + "'><img class='budget-expand-img' src='images/expand.png' /></a>&nbsp;<a onclick='" + detailLoadFunction + "'>" + rowName + "</a>\
+        <a onclick='" + detailLoadFunction + "'></a>&nbsp;<a onclick='" + detailLoadFunction + "'>" + rowName + "</a>\
         </td>\
-        <td class='num budgeted'>" + budgeted + "</td>\
         <td class='num spent'>" + spent + "</td>\
+        <td class='num budgeted'>" + budgeted + "</td>\
         <td>\
           <div class='bars'>\
             <span class='budgeted outer'></span>\
@@ -170,7 +170,7 @@ var BudgetHelpers =
   //***************************************************************************
   convertToSlug: function(text) {
     if (text == undefined) return '';
-  	return (text+'').replace(/ /g,'-').replace(/[^\w-]+/g,'');
+  	return (text+'').replace(/\//g,"-").replace(/ /g,'-').replace(/[^\w-]+/g,'');
   },
   
   //***************************************************************************
@@ -186,7 +186,7 @@ var BudgetHelpers =
   //***************************************************************************
   convertToPlainString: function(text) {
     if (text == undefined) return '';
-  	return (text+'').replace(/\++/g, ' ').replace(/\-+/g, ' ');
+  	return (text+'').replace(/-/g,'/').replace(/\++/g, ' ').replace(/\-+/g, ' ');
   },
 
   //***************************************************************************
