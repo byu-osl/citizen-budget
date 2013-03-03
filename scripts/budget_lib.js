@@ -221,17 +221,17 @@ var BudgetLib = {
     var cols = json["columns"];
     if (rows.length > 0)
     {
-      $('#scorecard .budgeted').fadeOut('fast', function(){
-        $('#scorecard .budgeted').html(rows[0][0]);
-        $('#scorecard .budgeted').formatCurrency();
+      $('#scorecard-budgeted').fadeOut('fast', function(){
+        $('#scorecard-budgeted').html(rows[0][0]);
+        $('#scorecard-budgeted').formatCurrency();
       }).fadeIn('fast');
       
-      $('#scorecard .spent').fadeOut('fast', function(){
-        $('#scorecard .spent').html(rows[0][1]);
-        $('#scorecard .spent').formatCurrency();
+      $('#scorecard-spent').fadeOut('fast', function(){
+        $('#scorecard-spent').html(rows[0][1]);
+        $('#scorecard-spent').formatCurrency();
         
         if (BudgetLib.loadYear == BudgetLib.endYear && rows[0][1] == 0) {
-          $('#scorecard .spent').append("<sup class='ref'>&dagger;</sup>");
+          $('#scorecard-spent').append("<sup class='ref'>&dagger;</sup>");
           $('#f-zero2011').show();
         } 
         else $('#f-zero2011').hide();
