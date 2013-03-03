@@ -1,5 +1,7 @@
 /*!
  ***************************************************************************
+ * This code was derived from the LOOK AT COOK PROJECT:
+ *
  * Look at Cook Budget Display library
  * http://lookatcook.com/
  *
@@ -19,10 +21,29 @@
  * 
  * Every fund or department that is clicked updates the URL query string using 
  * jQuery Address and the page loads the data dynamically.
- * 
- * Storing all of our data in Google Fusion Tables. For this visualization, I split it up in to 
- * 3 tables
  ****************************************************************************/
+
+/******************************************************************************
+ * Citzen Budget
+ * Director/Author:  Daniel Zappala
+ * Authors:          Christopher Morgan,
+ *                   Eric Lazaldie,
+ *                   Dallin Smith
+ *
+ * This file is broken down into four sections:
+ * 1) The main driver: updateDisplay
+ * 
+ * 2) Common code:  This is code shared by two virtual pages.  The fund page
+ *                  and the main page.  We say virtual becuase they both end
+ *                  up being displayed in the index.html, but they are
+ *                  logically different pages.
+ *                  
+ * 3) Main Page:    This section contains code that will display the cities main
+ *                  budget/spent information.
+ *                  
+ * 4) Fund Page:    This section contains code that will display the budget/spent
+ *                  information for a cities fund over the years.
+ ******************************************************************************/
 
 var BudgetLib = BudgetLib || {};  
 var BudgetLib = {
@@ -36,14 +57,22 @@ var BudgetLib = {
   // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
   title:        "Cedar Hills City Budget",
   loadYear:     undefined,
-  dateYearOnly: 1,                         //True == Only Show Year in HighCharts 
+  dateYearOnly: true,                         //True == Only Show Year in HighCharts 
 
+  
+  
+  
   //-------------front end display functions-------------------
   
   //***************************************************************************
-  //primary load for graph and table
+  // Update Display -- MAIN -- The Driver -- It all Starts HERE -- 
+  //
+  // This function will perform inital setup and then follow two paths.
+  // 1) Dispaly the Main page.
+  // or
+  // 2) Display a Fund page.
   //***************************************************************************
-  updateDisplay: function(viewMode, year, fund, externalLoad) 
+  updateDisplay: function(year, fund, externalLoad) 
   {
     //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
@@ -52,31 +81,25 @@ var BudgetLib = {
       return;
     }
     
-    //load in values and update internal variables
-    var viewChanged = false;
-    
-    if (year != null && year != "") BudgetLib.loadYear = BudgetHelpers.convertToPlainString(year);
+    //Set Load Year 
+    if (year != null && year != "")
+      BudgetLib.loadYear = BudgetHelpers.convertToPlainString(year);
 
-    // TODO Need to make the switches for the fund page
-    // Note: The fund needs to be in all caps for the sql compare to match. (GENERAL FUND not General Fund)
-    // We can probably change that so it might not matter.
-    BudgetLib.updateFundPage(fund, year);
-
-    if (viewChanged || externalLoad)
-      BudgetQueries.getDateTotals("BudgetLib.updateTotals")// Updates Main Chart
-    
-    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable"); //Update Funds
-    
-    $('#breakdown-item-title span').html('Fund');
-    
-    //Update Score Card
-    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
-    BudgetQueries.getTotalsForYear(BudgetLib.loadYear, "BudgetLib.updateScorecard");
-    BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
-  
-    $('#breadcrumbs a').address();
+    // !!! Main Swith !!! -- Load Main Page or Fund Page --
+    if (fund != undefined && fund != "")
+      BudgetLib.loadFundPage(BudgetHelpers.converToPlainString(fund), externalLoad);
+    else
+      BudgetLib.loadMainPage(externalLoad);
   },  
   
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  // Common Code:: Code Shared by Both the Main Page and the Fund Page
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+
   //***************************************************************************
   // This function will Fire off a request to get all the date stored in
   // the fusion Fund table.  It will then set a call back to update
@@ -103,55 +126,8 @@ var BudgetLib = {
     $('#breakdown-item-title span').html(subtype);
   },
   
-  //***************************************************************************  
-  //displays secondary datatables fund/department listing
-  //***************************************************************************
-  updateTable: function() {
-    $('#breakdown').fadeOut('fast', function(){
-      if (BudgetLib.breakdownTable != null) BudgetLib.breakdownTable.fnDestroy();
-      
-      $('#breakdown tbody').children().remove();
-      $('#breakdown > tbody:last').append(BudgetLib.breakdownData);
-      
-      var maxArray = new Array();
-      $('.budgeted.num').each(function(){
-        maxArray.push(parseInt($(this).html()));
-      });
-      $('.spent.num').each(function(){
-        maxArray.push(parseInt($(this).html()));
-      });
-      
-      var maxBudgeted = Math.max.apply( Math, maxArray );
-      if (maxBudgeted > 0) {
-        $('.budgeted.num').each(function(){
-          $(this).siblings().children().children('.budgeted.outer').width((($(this).html()/maxBudgeted) * 100) + '%');
-        });
-        $('.spent.num').each(function(){
-          $(this).siblings().children().children('.spent.inner').width((($(this).html()/maxBudgeted) * 100) + '%');
-        });
-      }
-      $('.budgeted.num').formatCurrency();
-      $('.spent.num').formatCurrency();
-      
-      $('.adr').address(); //after adding the table rows, initialize the address plugin on all the links
-      
-      BudgetLib.breakdownTable = $("#breakdown").dataTable({
-        "aaSorting": [[1, "desc"]],
-        "aoColumns": [
-          null,
-          { "sType": "currency" },
-          { "sType": "currency" },
-          { "bSortable": false }
-        ],
-        "bFilter": false,
-        "bInfo": false,
-        "bPaginate": false
-      });
-    }).fadeIn('fast');
-  },
-  
- 
-  //----------display callback functions----------------
+
+  // ---------------- Display Call Back Functions --------------------------
   
   //these all work by being called (callback function) once Fusion Tables returns a result. 
   //the function then takes the json and handles updating the page
@@ -165,16 +141,6 @@ var BudgetLib = {
     BudgetHighcharts.updateMainChart();
   },
   
-  updateSparkAppropTotal: function(json) {
-    BudgetLib.sparkAppropTotalArray = BudgetHelpers.getDataAsArray(json);
-    BudgetHighcharts.updateSparkline();
-  },
-  
-  updateSparkExpendTotal: function(json) {
-    BudgetLib.sparkExpendTotalArray = BudgetHelpers.getDataAsArray(json);
-    BudgetHighcharts.updateSparkline();
-  },
-
   //***************************************************************************
   //CallBack Funciton
   //This generate three arrays:
@@ -225,7 +191,7 @@ var BudgetLib = {
     BudgetLib.loadYear = mostRecentYear;
     
     if (currentLoadYear == undefined)
-      BudgetLib.updateDisplay(undefined, undefined, undefined, true);
+      BudgetLib.updateDisplay(undefined, undefined, true);
     
   },
   
@@ -273,6 +239,105 @@ var BudgetLib = {
     }
   },
   
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  // Load Main Page Functions
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  
+  //***************************************************************************
+  // LoadMainPage
+  // This function will setup the html page to display the main page.
+  // It will populate the html page with data to display a cities
+  // budgeted/spent data.
+  //***************************************************************************
+  loadMainPage: function(externalLoad)
+  {
+    //Hide Fund html
+    //TODO
+    
+    //Update page to display Main data
+    BudgetLib.updateMainPage(externalLoad);
+  },
+  
+  //***************************************************************************
+  // Update Main Page
+  // This function will perform all of the nessisary work to update and
+  // display the main page.  Which shows a cities budget/spent numbers
+  // over the years.
+  //***************************************************************************
+  updateMainPage: function(externalLoad)
+  {
+    if (externalLoad)
+      BudgetQueries.getDateTotals("BudgetLib.updateTotals");// Updates Main Chart
+    
+    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable"); //Update Funds
+    
+    $('#breakdown-item-title span').html('Fund');
+    
+    //Update Score Card
+    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
+    BudgetQueries.getTotalsForYear(BudgetLib.loadYear, "BudgetLib.updateScorecard");
+    BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
+  
+    $('#breadcrumbs a').address();
+
+    return
+  },
+    
+  //***************************************************************************  
+  //displays secondary datatables fund listing
+  //***************************************************************************
+  updateTable: function() {
+    $('#breakdown').fadeOut('fast', function(){
+      if (BudgetLib.breakdownTable != null) BudgetLib.breakdownTable.fnDestroy();
+      
+      $('#breakdown tbody').children().remove();
+      $('#breakdown > tbody:last').append(BudgetLib.breakdownData);
+      
+      var maxArray = new Array();
+      $('.budgeted.num').each(function(){
+        maxArray.push(parseInt($(this).html()));
+      });
+      $('.spent.num').each(function(){
+        maxArray.push(parseInt($(this).html()));
+      });
+      
+      var maxBudgeted = Math.max.apply( Math, maxArray );
+      if (maxBudgeted > 0) {
+        $('.budgeted.num').each(function(){
+          $(this).siblings().children().children('.budgeted.outer').width((($(this).html()/maxBudgeted) * 100) + '%');
+        });
+        $('.spent.num').each(function(){
+          $(this).siblings().children().children('.spent.inner').width((($(this).html()/maxBudgeted) * 100) + '%');
+        });
+      }
+      $('.budgeted.num').formatCurrency();
+      $('.spent.num').formatCurrency();
+      
+      $('.adr').address(); //after adding the table rows, initialize the address plugin on all the links
+      
+      BudgetLib.breakdownTable = $("#breakdown").dataTable({
+        "aaSorting": [[1, "desc"]],
+        "aoColumns": [
+          null,
+          { "sType": "currency" },
+          { "sType": "currency" },
+          { "bSortable": false }
+        ],
+        "bFilter": false,
+        "bInfo": false,
+        "bPaginate": false
+      });
+    }).fadeIn('fast');
+  },
+  
+ 
+  //----------display callback functions----------------
+  
   //***************************************************************************
   //builds out budget breakdown (secondary) table
   //***************************************************************************
@@ -301,15 +366,30 @@ var BudgetLib = {
   },
   
   
+  
+  
+  
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  // Load FUND Page Functions
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
+
   //***************************************************************************
-  //This function will hide the main page content and show the fund, break-
-  //down content.  
-  //***************************************************************************
-  loadAndShowFundDetails: function(fundName)
+  // LoadFundPage
+  // This function will setup the page to display a funds financial data.
+  //***************************************************************************  
+  loadFundPage: function(fund, externalLoad)
   {
-    console.log("Hey DUD! you Click on the fund: " + BudgetHelpers.convertToPlainString(fundName) + " I'm Coming soon");
-    //Transition to FUND Page...
-    return;
+    //HIDE Main page HTML
+    //TODO
+    
+    //Update Fund Data
+    BudgetLib.updateFundPage(fund, externalLoad);
+    return
   },
   
   //***************************************************************************
@@ -321,6 +401,20 @@ var BudgetLib = {
   	BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateFundCatagories");
   	
   },
+  
+  //***************************************************************************
+  //This function will hide the main page content and show the fund, break-
+  //down content.  
+  //***************************************************************************
+  loadAndShowFundDetails: function(fundName)
+  {
+    console.log("Hey DUD! you Click on the fund: " + BudgetHelpers.convertToPlainString(fundName) + " I'm Coming soon");
+    //Transition to FUND Page...
+    return;
+  },
+  
+  
+  //----------display callback functions----------------
   
   //***************************************************************************
   //builds out budget breakdown tables

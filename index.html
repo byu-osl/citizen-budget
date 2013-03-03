@@ -36,14 +36,14 @@
   //the page or using the back and forward buttons.
   //-------------------------------
   $.address.externalChange(function(event) {
-    BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), true);
+    BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), true);
 	});
 
   //-------------------------------
   //executed when the address is changed from inside the page that uses the plugin.
   //-------------------------------
   $.address.internalChange(function(event) {
-    BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), $.address.parameter('controlOfficer'), false);
+    BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), false);
 	});
   </script>
   
