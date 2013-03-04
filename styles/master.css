@@ -149,7 +149,9 @@ ul { list-style: disc; }
   #scorecard h2 { font-size: 20px; }
   #scorecard h2, #scorecard p { margin: 0; }
   #scorecard td { border: 1px solid #ddd; border-bottom: 0; padding: 0.8em 10px; width: 25%; }
-  #scorecard td#scorecard-desc { width: 50%; }  
+  #scorecard td#scorecard-desc { width: 50%; }
+  #scorecard p {font-weight: Bold; font-size: larger;}
+  .scorecard-numbers {text-align: center;}
   
   /* Stats */
   .stats { list-style: none; margin: 0 0 0.5em 0; }
