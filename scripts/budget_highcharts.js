@@ -70,7 +70,6 @@ var BudgetHighcharts =
                 
                 var clickedYear = BudgetHelpers.convertToSlug(this.category);
                 $.address.parameter('year', clickedYear);
-                $.address.parameter('fund', "DaBoya");
                 
               }
             }
