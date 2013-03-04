@@ -12,6 +12,7 @@ def my_parse():
         AnExpend = False
         firstLine = True
         gotDate = False
+        revBudget = ""
         Date = ""
         for row in reader:
             if (row.__len__()>1):
@@ -23,34 +24,27 @@ def my_parse():
                         budgeted = budgeted.replace(",", "")
                         curr_cat = row[0][6:]
                         if curr_cat == "FUND REVENUE":
-                            print " *** "+curr_cat
                             AnExpend = True
-                            fFun.write(budgeted +", " + ytd_actual + ", " )
-                            print "ytd_actual: " + ytd_actual + "   budgeted: " + budgeted
+                            revBudget = budgeted
+                            fFun.write(ytd_actual + ", ")
                         elif curr_cat == "FUND EXPENDITURES":
-                            print " *** "+curr_cat
                             AnExpend = False
-                            fFun.write(budgeted +", " + ytd_actual + ", " )
-                            print "ytd_actual: " + ytd_actual + "   budgeted: " + budgeted
+                            fFun.write(ytd_actual + ", " + revBudget + ", "+ budgeted +", ")
                         else:
-                            print curr_cat
                             if AnExpend:
                                 ExOrRev = "expense, "
                             else:
                                 ExOrRev = "revenue, "
                             fTot.write(curr_cat + ", " + Fund_Name + ", " + Date + ", " + ExOrRev + ytd_actual +", " + budgeted + ",")
                             fTot.write("\n")
-                            print "ytd_actual: " + ytd_actual + "   budgeted: " + budgeted
+                        
                     if row[0].startswith ("NET"): 
                         curr_cat = row[0][4:] # Get Net Name
                         netBudget = row[2]
                         build_net_budget(netBudget)
                         fFun.write(netBudget + ",")
-                        print " ******** " + curr_cat + "  ytd_actual: " + netBudget
                 
             if (row.__len__()==1):
-                #print row
-                #   collecting the Date
                 if  is_date(row[0]) and not gotDate:
                     Date = "Mon " + row[0]
                     Date = make_date(Date)
@@ -60,11 +54,7 @@ def my_parse():
                     if Fund_Name == row[0]:
                         pass
                     else:
-                        #onFund += 1
                         Fund_Name = row[0]
-                        print ""
-                        print ""
-                        print "      -----   "+Fund_Name+"   -----"+Date
                         if firstLine:
                             firstLine = False
                         else:
@@ -96,6 +86,5 @@ def wrong_totals(col_one):
 # call my function 
 my_parse()
 
-#prints - "Hello, John Doe, From My Function!, I wish you a great year!"
 
 
