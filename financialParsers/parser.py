@@ -2,9 +2,9 @@ import csv
 import time
 
 class parser:
-    
+
 fFun = open("Funds.txt", "w")
-fTot = open("Totals.txt", "w")
+fTot = open("Breakdown.txt", "w")
 
 with open('report.txt', 'rb') as f:
     reader = csv.reader(f)
