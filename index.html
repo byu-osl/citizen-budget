@@ -35,16 +35,19 @@
   //executed when the address is changed from the browser usually when entering
   //the page or using the back and forward buttons.
   //-------------------------------
-  $.address.externalChange(function(event) {
-    BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), true);
-	});
+  $.address.externalChange(function(event)
+  {
+    BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), true);
+  });
 
   //-------------------------------
   //executed when the address is changed from inside the page that uses the plugin.
   //-------------------------------
-  $.address.internalChange(function(event) {
-    BudgetLib.updateDisplay($.address.parameter('viewMode'), $.address.parameter('year'), $.address.parameter('fund'), $.address.parameter('controlOfficer'), false);
-	});
+  $.address.internalChange(function(event)
+  {
+    BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), false);
+  });
+  
   </script>
   
 </head>
@@ -62,40 +65,38 @@
  <div id="content">
     <div id="content-primary">
       <span id="breadcrumbs"></span>
-      <h1>Where's the money going?</h1>
-      <p>The following graph displays the total budgeted and spent for the city of Cedar Hills for the reported dates. Click on a point to see the budgeted and spent broken down by fund in the table below.</p>
+      <h1 id="page-title"></h1>
 
       <div id="timeline">
         <h2></h2>
         <div id="timeline-chart"></div>
       </div>
 
-      <div id="breakdown-nav">
-        <ul>
-        <li class='current'>Where's it going?</li>
-      </ul>
-    <div class='clear'></div>
-        <div class="clear"></div>
-      </div>
-
+      <br />
+      
       <table id="scorecard">
         <tbody>
-          <tr>
+	  <tr>
             <td id="scorecard-desc">
               <h2 id="secondary-title"></h2>
+	      <h3 id="socorecard-fund-title"></h3>
               <p></p>
             </td>
-            <td>
-              <h2 class="spent"></h2>
+	    <td class="scorecard-numbers">
+	      <h2 class="spent">Spent</h2>
+              <h2 id="scorecard-spent" class="spent"></h2>
               <p id='spent-percent'></p>
             </td>
-            <td>
-              <h2 class="budgeted"></h2>
+            <td class="scorecard-numbers">
+	      <h2 class="budgeted">Budgeted</h2>
+              <h2 id="scorecard-budgeted" class="budgeted"></h2>
               <p id='budgeted-percent'></p>
             </td>
-          </tr>
+	  </tr>
       </table>
 
+      <br />
+      
       <table id="breakdown">
         <thead>
           <tr>

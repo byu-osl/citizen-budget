@@ -170,7 +170,7 @@ var BudgetHelpers =
   //***************************************************************************
   convertToSlug: function(text) {
     if (text == undefined) return '';
-  	return (text+'').replace(/\//g,"-").replace(/ /g,'-').replace(/[^\w-]+/g,'');
+  	return (text+'').replace(/\//g,"_").replace(/ /g,'-').replace(/[^\w-]+/g,'');
   },
   
   //***************************************************************************
@@ -186,7 +186,7 @@ var BudgetHelpers =
   //***************************************************************************
   convertToPlainString: function(text) {
     if (text == undefined) return '';
-  	return (text+'').replace(/-/g,'/').replace(/\++/g, ' ').replace(/\-+/g, ' ');
+  	return (text+'').replace(/_/g,'/').replace(/\++/g, ' ').replace(/\-+/g, ' ');
   },
 
   //***************************************************************************

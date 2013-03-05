@@ -70,6 +70,7 @@ var BudgetHighcharts =
                 
                 var clickedYear = BudgetHelpers.convertToSlug(this.category);
                 $.address.parameter('year', clickedYear);
+                
               }
             }
           },
@@ -81,6 +82,16 @@ var BudgetHighcharts =
       series:
       [
         {
+          color: this.expendColor,
+          data: BudgetLib.expendTotalArray,
+          marker: {
+            radius: 8,
+            symbol: this.expendSybmol
+          },
+          name: this.expendTitle
+        },
+        
+        {
           color: this.apropColor,
           data: BudgetLib.appropTotalArray,
           marker: {
@@ -89,16 +100,6 @@ var BudgetHighcharts =
           },
           name: this.apropTitle
         },
-        
-        {
-          color: this.expendColor,
-          data: BudgetLib.expendTotalArray,
-          marker: {
-            radius: 8,
-            symbol: this.expendSybmol
-          },
-          name: this.expendTitle
-        }
       ],
       title: null,
       

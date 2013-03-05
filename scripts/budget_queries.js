@@ -46,8 +46,6 @@ var BudgetQueries = {
 		
 		myQuery += "ORDER BY date ASC"
 		
-		console.log(myQuery);
-		
 		BudgetHelpers.query(myQuery, callback);
 	},
 	
@@ -64,12 +62,22 @@ var BudgetQueries = {
 		
 		myQuery    += " GROUP BY date ";
 		
-		
-		console.log(myQuery);
-		console.log("year:'" + year + "'");
-		
 		BudgetHelpers.query(myQuery, callback);
 	},
+
+	//**********************************************************************
+	//returns total given year for a FUND
+	//**********************************************************************
+	getTotalsForYearFund: function(year, fund, callback)
+	{
+		var myQuery = "SELECT total_budgeted_expenditures, ytd_total_expenditures, date";
+
+		myQuery    += " FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery    += " WHERE date = '" + year + "' AND fund_name = '" + fund + "'";
+		
+		BudgetHelpers.query(myQuery, callback);
+	},	
 	
 	//**********************************************************************
 	//returns all funds budgeted/spent totals for given year
@@ -81,15 +89,18 @@ var BudgetQueries = {
 		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
 		myQuery += " WHERE date='" + year + "'";
-		console.log("year:'" +year +"'");
+		
 		BudgetHelpers.query(myQuery, callback);
 	},
 	
 	//**********************************************************************
 	//gets a fund description based on a fund name
 	//**********************************************************************
-	getFundDescription: function(fund, callback) {
-		var myQuery = "SELECT 'Fund Description' FROM " + BudgetLib.FUND_DESCRIPTION_TABLE_ID + " WHERE Item = '" + fund + "'";			
+	getFundDescription: function(fund, callback)
+	{
+		var myQuery = "SELECT 'description' FROM " +
+			       BudgetLib.CB_FUND_DESCRIPTION_TABLE_ID +
+			       " WHERE fund_name = '" + fund + "'";			
 		BudgetHelpers.query(myQuery, callback);
 	},
 	
