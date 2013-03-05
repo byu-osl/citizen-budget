@@ -87,7 +87,7 @@ var BudgetLib = {
 
     // !!! Main Swith !!! -- Load Main Page or Fund Page --
     if (fund != undefined && fund != "")
-      BudgetLib.loadFundPage(BudgetHelpers.converToPlainString(fund), externalLoad);
+      BudgetLib.loadFundPage(BudgetHelpers.convertToPlainString(fund), externalLoad);
     else
       BudgetLib.loadMainPage(externalLoad);
   },  
@@ -198,18 +198,18 @@ var BudgetLib = {
   //***************************************************************************
   //shows the description of the current view below the main chart
   //***************************************************************************
-  updateScorecardDescription: function(json) { 
+  updateScorecardDescription: function(json)
+  { 
     var rows = json["rows"];
     var cols = json["columns"];
-
-    if(rows != undefined) {
-      $("#f-officers").hide();
-      
-      if (rows.length > 0) {
+    
+    if(rows != undefined)
+    {
+      if (rows.length > 0)
         $('#scorecard-desc p').hide().html(rows[0][0]).fadeIn();
-      }
-      else $('#scorecard-desc p').html('');
     }
+    else
+      $('#scorecard-desc p').fadeOut(300);
   },
   
   //***************************************************************************
@@ -258,6 +258,7 @@ var BudgetLib = {
   {
     //Hide Fund html
     //TODO
+    $('#socorecard-fund-title').fadeOut();
     
     //Update page to display Main data
     BudgetLib.updateMainPage(externalLoad);
@@ -277,11 +278,11 @@ var BudgetLib = {
     BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable"); //Update Funds
     
     $('#breakdown-item-title span').html('Fund');
+    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
     
     //Update Score Card
-    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
     BudgetQueries.getTotalsForYear(BudgetLib.loadYear, "BudgetLib.updateScorecard");
-    BudgetQueries.getFundDescription(BudgetLib.fundView, "BudgetLib.updateScorecardDescription");
+    BudgetQueries.getFundDescription(undefined, "BudgetLib.updateScorecardDescription");
   
     $('#breadcrumbs a').address();
 
@@ -395,11 +396,20 @@ var BudgetLib = {
   //***************************************************************************
   //function called to update the fund page
   //***************************************************************************  
-  updateFundPage: function(fundName, date) {
-  	//Queries the fusion tables to retrieve the info for the 2 breakdown tables
-  	BudgetQueries.getFundCatagories(fundName, date, "revenue", "BudgetLib.updateFundCatagories");
-  	BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateFundCatagories");
-  	
+  updateFundPage: function(fundName, date)
+  {
+    console.log("Hey DUD! update fund page was called with: " + fundName + " I'm Coming soon");
+    
+    //Queries the fusion tables to retrieve the info for the 2 breakdown tables
+    BudgetQueries.getFundCatagories(fundName, date, "revenue", "BudgetLib.updateFundCatagories");
+    BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateFundCatagories");
+    
+    //Update Score Card
+    BudgetQueries.getTotalsForYearFund(BudgetLib.loadYear, fundName,"BudgetLib.updateScorecard");
+    BudgetQueries.getFundDescription(fundName, "BudgetLib.updateScorecardDescription");
+    $('#socorecard-fund-title').html(fundName).fadeIn();
+  
+    $('#breadcrumbs a').address();
   },
   
   //***************************************************************************
@@ -408,8 +418,8 @@ var BudgetLib = {
   //***************************************************************************
   loadAndShowFundDetails: function(fundName)
   {
-    console.log("Hey DUD! you Click on the fund: " + BudgetHelpers.convertToPlainString(fundName) + " I'm Coming soon");
     //Transition to FUND Page...
+    $.address.parameter('fund', fundName);
     return;
   },
   
@@ -419,7 +429,8 @@ var BudgetLib = {
   //***************************************************************************
   //builds out budget breakdown tables
   //***************************************************************************
-  updateFundCatagories: function(json) {
+  updateFundCatagories: function(json)
+  {
   
   },
 }
