@@ -55,7 +55,8 @@ var BudgetLib = {
   CB_FUND_DESCRIPTION_TABLE_ID: "1HKXIvUWkx7W1R9YG0qsLnkCBCnsSj3CeMVeLHF8",
   
   // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
-  title:        "Cedar Hills City Budget",
+  title:        "BUDGET",
+  scTitle:      "Cedar Hills City Budget",
   loadYear:     undefined,
   dateYearOnly: true,                         //True == Only Show Year in HighCharts 
 
@@ -122,7 +123,7 @@ var BudgetLib = {
       $('#breadcrumbs').html("");
     
     $('#secondary-title').html((BudgetLib.dateYearOnly ? BudgetLib.loadYear.split("/")[2]: BudgetLib.loadYear)
-                               + ' ' + view);
+                               + ' ' + BudgetLib.scTitle);
     $('#breakdown-item-title span').html(subtype);
   },
   

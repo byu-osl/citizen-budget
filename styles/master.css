@@ -11,8 +11,8 @@
 
 /* Fonts
 ======================================================================*/
-body, #credit { font-family: "Droid Sans", Arial, sans-serif; }
-#header { font-family: "Droid Serif", Georgia, "Times New Roman", Times, serif; }
+body, #credit { font-family: Arial, sans-serif; }
+#header { font-family: Georgia, "Times New Roman", Times, serif; }
 
 
 /* Basics
@@ -29,7 +29,7 @@ body {
 
 dl, ol, p, ul, table { margin-bottom: 1.5em; }
 cite, em { font-style: italic; }
-h1 { font-size: 39px; margin-bottom: 0.3em; line-height: 1.1; }
+h1 { font-family: serif; font-size: 42px; margin-bottom: 0.3em; line-height: 1.1; }
 h1, h2 { color: #264870; }
 h1, h2, h3, h4, h5, h6, strong { font-weight: bold; }
 h2 { font-size: 25px; line-height: 1.2; margin-bottom: 0.3em; }
