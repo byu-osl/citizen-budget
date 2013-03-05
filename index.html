@@ -35,16 +35,19 @@
   //executed when the address is changed from the browser usually when entering
   //the page or using the back and forward buttons.
   //-------------------------------
-  $.address.externalChange(function(event) {
+  $.address.externalChange(function(event)
+  {
     BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), true);
-	});
+  });
 
   //-------------------------------
   //executed when the address is changed from inside the page that uses the plugin.
   //-------------------------------
-  $.address.internalChange(function(event) {
+  $.address.internalChange(function(event)
+  {
     BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), false);
-	});
+  });
+  
   </script>
   
 </head>
