@@ -43,7 +43,8 @@ def main(filename):
             else:
               breakdownType = "revenue, "
             breakdownFile.write(currentCatagory + ", " + fundName + ", " + date + ", " + breakdownType + ytdActual +", " + budgeted + ", \n")
-        if row[0].startswith ("NET") and not (wrongTotals(row[0])):
+        if row[0].startswith ("NET"):
+          print row
           #TODO put this in a function
           currentCatagory = row[0][4:] # Get Net Name
           netBudget = row[2]
@@ -73,13 +74,13 @@ def makeDate(date):
   return time.strftime("%m/%d/%Y",conv)
     
 ###############################################################################
-# Removes parenthesis for negative numbers and adds a negative sign
+# Removes parenthesis for negative numbers and adds a negative sign if needed
 ###############################################################################
 def buildNetBudget(netBudget):
   netBudget = netBudget.replace(",", "")
-  netBudget = "-" + netBudget[1:]
-  netBudget = netBudget.replace("(", "")
-  netBudget = netBudget.replace(")", "")
+  if netBudget[:1] == "(":
+    netBudget = netBudget.replace("(", "-")
+    netBudget = netBudget.replace(")", "")
   return netBudget
         
 ###############################################################################
