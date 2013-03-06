@@ -29,7 +29,6 @@ def main(filename):
           ytdActual = row[2].replace(",", "")
           budgeted = row[3].replace(",", "")
           currentCatagory = row[0][6:]
-          #TODO break these into functions
           if currentCatagory == "FUND REVENUE":
             isExpense = True
             budgetedRevenue = budgeted
@@ -44,8 +43,6 @@ def main(filename):
               breakdownType = "revenue, "
             breakdownFile.write(currentCatagory + ", " + fundName + ", " + date + ", " + breakdownType + ytdActual +", " + budgeted + ", \n")
         if row[0].startswith ("NET"):
-          print row
-          #TODO put this in a function
           currentCatagory = row[0][4:] # Get Net Name
           netBudget = row[2]
           netBudget = buildNetBudget(netBudget)
