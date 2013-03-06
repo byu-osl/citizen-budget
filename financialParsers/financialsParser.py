@@ -94,7 +94,13 @@ def isDate(firstEntry):
 ###############################################################################
 def wrongTotals(firstEntry):
   #TODO find a way to clean this up
-  return firstEntry.endswith ("COMBINED CASH") or firstEntry.endswith ("UNALLOCATED CASH") or firstEntry.endswith ("ALLOCATIONS TO OTHER FUNDS") or firstEntry.endswith ("ASSETS") or firstEntry.endswith ("LIABILITIES") or firstEntry.endswith ("FUND EQUITY") or firstEntry.endswith ("LIABILITIES AND EQUITY")
+  return firstEntry.endswith ("COMBINED CASH") or \
+         firstEntry.endswith ("UNALLOCATED CASH") or \
+         firstEntry.endswith ("ALLOCATIONS TO OTHER FUNDS") or \
+         firstEntry.endswith ("ASSETS") or \
+         firstEntry.endswith ("LIABILITIES") or \
+         firstEntry.endswith ("FUND EQUITY") or \
+         firstEntry.endswith ("LIABILITIES AND EQUITY")
 
 
 ###############################################################################
@@ -102,7 +108,7 @@ def wrongTotals(firstEntry):
 # Accepts the file name
 ###############################################################################  
 if __name__ == '__main__':
-  if len(sys.argv) != 2:
-    print "\nUSAGE: \tparser <file.txt>\n"
-  else:
-    main(sys.argv[1])
+  #if len(sys.argv) !<= 2:
+  #  print "\nUSAGE: \tparser <file.txt>\n"
+  #else:
+  main(sys.argv[1])
