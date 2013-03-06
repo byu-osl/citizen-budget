@@ -86,6 +86,8 @@ var BudgetLib = {
     if (year != null && year != "")
       BudgetLib.loadYear = BudgetHelpers.convertToPlainString(year);
 
+    BudgetHighcharts.updateExpenditurePie();
+      
     // !!! Main Swith !!! -- Load Main Page or Fund Page --
     if (fund != undefined && fund != "")
       BudgetLib.loadFundPage(BudgetHelpers.convertToPlainString(fund), externalLoad);
