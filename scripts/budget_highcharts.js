@@ -179,5 +179,56 @@ var BudgetHighcharts =
       return "$" + value / 1000000 + "M";
     else
       return "$" + value;
+  },
+  
+  //*************************************************************************************
+  // TOOD PIE
+  //*************************************************************************************
+  updateExpenditurePie: function ()
+  {
+    expenditurePie = new Highcharts.Chart(
+    {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            renderTo: "expenditure-pie"
+        },
+        title: {
+            text: 'Browser market shares at a specific website, 2010'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            percentageDecimals: 1
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                showInLegend: true,
+                dataLabels: {
+                    enabled: false,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data:
+            [
+                ['Firefox',   45.0],
+                ['IE',       26.8],
+                ['Chrome', 12.8],
+                ['Safari',    8.5],
+                ['Opera',     6.2],
+                ['Others',   0.7]
+            ]
+        }]
+    });
   }
 }
