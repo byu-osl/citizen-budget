@@ -75,6 +75,7 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(year, fund, externalLoad) 
   {
+    $("#main-page").fadeOut();
     //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
     {
