@@ -192,13 +192,15 @@ var BudgetHighcharts =
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            renderTo: "expenditure-pie"
+            renderTo: "expenditure-pie-chart"
         },
+        credits: { enabled: false },
         title: {
             text: 'Browser market shares at a specific website, 2010'
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            //pointFormat: '{series.name}: <b>'+ point.y+'%</b>',
+            formatter: function () {return this.point.name + '<b>' + this.y + '%</b>';},
             percentageDecimals: 1
         },
         plotOptions: {
@@ -206,14 +208,7 @@ var BudgetHighcharts =
                 allowPointSelect: true,
                 cursor: 'pointer',
                 showInLegend: true,
-                dataLabels: {
-                    enabled: false,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    formatter: function() {
-                        return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
-                    }
-                }
+                dataLabels: {enabled: false}
             }
         },
         series: [{
