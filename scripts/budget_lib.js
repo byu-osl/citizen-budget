@@ -75,7 +75,10 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(year, fund, externalLoad) 
   {
+    // TODO Temporary toggles to hide or show the main or fund page.
+    //      Take out at some point.
     $("#main-page").fadeOut();
+    //$("#fund-page").fadeOut();
     //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
     {

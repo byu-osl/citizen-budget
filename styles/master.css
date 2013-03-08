@@ -113,6 +113,63 @@ ul { list-style: disc; }
   padding-right: 10px;
 }
 
+/* Revenue Breakdown Table */
+#revenue-breakdown-table a { cursor: pointer; }
+#revenue-breakdown-table .num { text-align: right; }
+#revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
+#revenue-breakdown-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#revenue-breakdown-table th.charts { width: 50%; }
+#revenue-breakdown-table th.controls { width: 20px; }
+#revenue-breakdown-table th span { color: #f85204; cursor: pointer; }
+
+#expenditure-breakdown-table th.sorting_asc span {
+  background: url(../images/sort-up.png) no-repeat 100% 50%;
+  padding-right: 10px;
+}
+
+#expenditure-breakdown-table th.sorting_desc span {
+  background: url(../images/sort-down.png) no-repeat 100% 50%;
+  padding-right: 10px;
+}
+
+/* Expenditure Breakdown Table */
+#expenditure-breakdown-table a { cursor: pointer; }
+#expenditure-breakdown-table .num { text-align: right; }
+#expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
+#expenditure-breakdown-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#expenditure-breakdown-table th.charts { width: 50%; }
+#expenditure-breakdown-table th.controls { width: 20px; }
+#expenditure-breakdown-table th span { color: #f85204; cursor: pointer; }
+
+#expenditure-breakdown-table th.sorting_asc span {
+  background: url(../images/sort-up.png) no-repeat 100% 50%;
+  padding-right: 10px;
+}
+
+#expenditure-breakdown-table th.sorting_desc span {
+  background: url(../images/sort-down.png) no-repeat 100% 50%;
+  padding-right: 10px;
+}
+
+/* Net Revenue Table */
+#net-revenue-table a { cursor: pointer; }
+#net-revenue-table .num { text-align: right; }
+#net-revenue-table td, #net-revenue-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
+#net-revenue-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#net-revenue-table th.charts { width: 50%; }
+#net-revenue-table th.controls { width: 20px; }
+#net-revenue-table th span { color: #f85204; cursor: pointer; }
+
+#net-revenue-table th.sorting_asc span {
+  background: url(../images/sort-up.png) no-repeat 100% 50%;
+  padding-right: 10px;
+}
+
+#net-revenue-table th.sorting_desc span {
+  background: url(../images/sort-down.png) no-repeat 100% 50%;
+  padding-right: 10px;
+}
+
   /* Bars */
   .bars span { border-style: solid; border-width: 5px 0; display: block; height: 1px; margin: 1px 0; }
   
@@ -133,6 +190,14 @@ ul { list-style: disc; }
     border-top: 2px solid #7f7f7f;
     font-weight: bold;
   }
+  
+  #revenue { border: 5px solid #264870; overflow: hidden; }
+  #revenue-breakdown { width: 50%; float:left; }
+  #revenue-pie { width: 49%; float: right; }
+  
+  #expenditure { border: 5px solid #264870; overflow: hidden; }
+  #expenditure-pie { width: 49%; float: left; }
+  #expenditure-breakdown { width: 50%; float: right; }
   
   .expanded-primary { float: left; width: 48%; }
   .expanded-secondary { float: right; width: 48%; }

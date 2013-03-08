@@ -65,6 +65,8 @@
  <div id="content">
  
     <div id="content-primary">
+      
+      <!-- shared main/fund page div tags -->
       <span id="breadcrumbs"></span>
       <h1 id="page-title"></h1>
 
@@ -97,6 +99,8 @@
       </table>
 
       <br />
+      
+      <!-- main page specific div tags -->
       <div id="main-page">
         <table id="breakdown">
         <thead>
@@ -110,15 +114,67 @@
         <tbody>
         </tbody>
       </table>
-      </div>   
-    
-    </div>
-
-    <div id='expenditure-pie'  style="border:5px solid; width: 420px; height: 420px;">
-      <div id='expenditure-pie-chart'></div>
-    </div>
+      </div>
       
-    </div>
+      <!-- fund page specific div tags -->
+      <div id="fund-page">
+	<div id="revenue">
+	  <div id="revenue-breakdown">
+	    <table id="revenue-breakdown-table">
+	      <thead>
+		<tr>
+		  <th id='revenue-breakdown-item-title'><span id="secondary-title">Revenues</span></th>
+		  <th class="num"><span>YTD Actual</span></th>
+		  <th class="num"><span>Budgeted</span></th>
+		</tr>
+	      </thead>
+	      <tbody>
+	      </tbody>
+	    </table>
+	  </div>
+	  <div id='revenue-pie'  style="border:5px solid; width: 420px; height: 420px;">
+	    <div id='revenue-pie-chart'></div>
+	  </div>
+	</div>
+	
+	<br />
+	
+	<div id="expenditure">
+	  <div id='expenditure-pie'  style="border:5px solid; width: 420px; height: 420px;">
+	    <div id='expenditure-pie-chart'></div>
+	  </div>
+	  <div id="expenditure-breakdown">
+	    <table id="expenditure-breakdown-table">
+	      <thead>
+		<tr>
+		  <th id='expenditure-breakdown-item-title'><span id="secondary-title">Expenditures</span></th>
+		  <th class="num"><span>YTD Actual</span></th>
+		  <th class="num"><span>Budgeted</span></th>
+		</tr>
+	      </thead>
+	      <tbody>
+	      </tbody>
+	    </table>
+	  </div>
+	</div>
+	
+	<br />
+	
+	<div id="net-revenue">
+	  <table id="net-revenue-table">
+	    <thead>
+	      <tr>
+		<th id='net-revenue-title'><span id="secondary-title">Current Different</span></th>
+		<th class="num"><span>Totals</span></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+    
+    <b />
     
     <div id="content-secondary">
       <h2>Where's the money going?</h2>
