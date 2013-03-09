@@ -36,7 +36,7 @@ var BudgetQueries = {
 	//**********************************************************************
 	getDateTotals: function(callback)
 	{
-		var myQuery = "SELECT date,"
+		var myQuery = "SELECT date,";
 		
 		myQuery += "SUM (ytd_total_expenditures), SUM (total_budgeted_expenditures) ";
 
@@ -44,7 +44,24 @@ var BudgetQueries = {
 		
 		myQuery += " GROUP BY date ";
 		
-		myQuery += "ORDER BY date ASC"
+		myQuery += "ORDER BY date ASC";
+		
+		BudgetHelpers.query(myQuery, callback);
+	},
+	
+	//**********************************************************************	
+	//This function will get a Fund's budgeted and spent for each year
+	//from the FUND fusion table.
+	//This data is retrieved to populate the main line graph, for the
+	//virtual Fund page.
+	//**********************************************************************
+	getFundTotals: function(fund, callback)
+	{
+		var myQuery = "SELECT date, ytd_total_expenditures, ytd_total_revenues, fund_name ";
+		
+		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery += " WHERE fund_name ='" + fund +"' ";
 		
 		BudgetHelpers.query(myQuery, callback);
 	},

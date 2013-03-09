@@ -75,11 +75,18 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(year, fund, externalLoad) 
   {
+    //Used when explicitly transitioning from Main Page to a Fund Page
+    if (BudgetLib.forceExternalLoad == true)
+    {
+      externalLoad = true;
+      BudgetLib.forceExternalLoad = false;
+    }
+      
     //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
     {
       BudgetLib.setLoadYear();
-      return;
+      return; //updateDisplay will be called again once the date has been set.
     }
     
     //Set Load Year 
@@ -117,12 +124,6 @@ var BudgetLib = {
   //***************************************************************************
   updateHeader: function(view, subtype){
     $('h1').html(view);
-    if (view != BudgetLib.title) {
-      $('#breadcrumbs').html("<a href='/?year=" + BudgetLib.loadYear + "' rel='address:/?year=" + BudgetLib.loadYear + "'>&laquo back to " + BudgetLib.title + "</a>");
-      $("#breakdown-nav").html("");
-    }
-    else
-      $('#breadcrumbs').html("");
     
     $('#secondary-title').html((BudgetLib.dateYearOnly ? BudgetLib.loadYear.split("/")[2]: BudgetLib.loadYear)
                                + ' ' + BudgetLib.scTitle);
@@ -263,6 +264,7 @@ var BudgetLib = {
     $("#main-page").fadeIn();
     
     //Hide Fund Content
+    $("#breadcrumbs").fadeOut();
     $("#fund-page").fadeOut();
     $('#socorecard-fund-title').fadeOut();
     
@@ -284,14 +286,16 @@ var BudgetLib = {
     BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable"); //Update Funds
     
     $('#breakdown-item-title span').html('Fund');
-    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
     
     //Update Score Card
+    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
     BudgetQueries.getTotalsForYear(BudgetLib.loadYear, "BudgetLib.updateScorecard");
     BudgetQueries.getFundDescription(undefined, "BudgetLib.updateScorecardDescription");
   
-    $('#breadcrumbs a').address();
-
+    $('#breadcrumbs-link').attr('href', "");
+    $('#breadcrumbs-link').attr('href', window.location.href);
+  
+    
     return
   },
     
@@ -383,6 +387,7 @@ var BudgetLib = {
   {
     //Show Fund Content
     $("#fund-page").fadeIn();
+    $("#breadcrumbs").fadeIn();
     
     //Hides Main page HTML
     $("#main-page").fadeOut();
@@ -395,23 +400,28 @@ var BudgetLib = {
   //***************************************************************************
   //function called to update the fund page
   //***************************************************************************  
-  updateFundPage: function(fundName, date)
+  updateFundPage: function(fundName, externalLoad)
   {
-    //TODO Update the historical line graph for the fund
-    
-    
+    //Update the historical line graph for the fund
+    if (externalLoad){
+      BudgetQueries.getFundTotals(fundName, "BudgetLib.updateTotals");// Updates Main Chart
+    }
+
     //Update Score Card
+    BudgetLib.updateHeader(BudgetLib.title, 'Fund');
     BudgetQueries.getTotalsForYearFund(BudgetLib.loadYear, fundName,"BudgetLib.updateScorecard");
     BudgetQueries.getFundDescription(fundName, "BudgetLib.updateScorecardDescription");
     $('#socorecard-fund-title').html(fundName).fadeIn();
     
     //Queries the fusion tables to retrieve the info for the 2 breakdown tables and pie charts
-    BudgetQueries.getFundCatagories(fundName, date, "revenue", "BudgetLib.updateRevenueBlock");
-    BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateExpenditureBlock");
+    BudgetQueries.getFundCatagories(fundName, BudgetLib.loadYear,
+                                    "revenue", "BudgetLib.updateRevenueBlock");
+    BudgetQueries.getFundCatagories(fundName, BudgetLib.loadYear,
+                                    "expense", "BudgetLib.updateExpenditureBlock");
     
     //TODO Queries and function calls for creating the net revenue table
   
-    $('#breadcrumbs a').address();
+    
   },
   
   //***************************************************************************
@@ -421,6 +431,7 @@ var BudgetLib = {
   loadAndShowFundDetails: function(fundName)
   {
     //Transition to FUND Page...
+    BudgetLib.forceExternalLoad = true;
     $.address.parameter('fund', fundName);
     return;
   },
