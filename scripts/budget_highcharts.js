@@ -216,7 +216,7 @@ var BudgetHighcharts =
             name: 'Browser share',
             data:
             [
-                ['Firefox',   45.0],
+                ['Firefox',   145.0],
                 ['IE',       26.8],
                 ['Chrome', 12.8],
                 ['Safari',    8.5],

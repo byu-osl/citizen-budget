@@ -98,12 +98,6 @@ var BudgetHelpers =
         </td>\
         <td class='num spent'>" + spent + "</td>\
         <td class='num budgeted'>" + budgeted + "</td>\
-        <td>\
-          <div class='bars'>\
-            <span class='budgeted outer'></span>\
-            <span class='spent inner'></span>\
-          </div>\
-        </td>\
       </tr>";
   },
   

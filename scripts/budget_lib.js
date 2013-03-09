@@ -75,10 +75,7 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(year, fund, externalLoad) 
   {
-    // TODO Temporary toggles to hide or show the main or fund page.
-    //      Take out at some point.
-    $("#main-page").fadeOut();
-    //$("#fund-page").fadeOut();
+    
     //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
     {
@@ -314,15 +311,6 @@ var BudgetLib = {
         maxArray.push(parseInt($(this).html()));
       });
       
-      var maxBudgeted = Math.max.apply( Math, maxArray );
-      if (maxBudgeted > 0) {
-        $('.budgeted.num').each(function(){
-          $(this).siblings().children().children('.budgeted.outer').width((($(this).html()/maxBudgeted) * 100) + '%');
-        });
-        $('.spent.num').each(function(){
-          $(this).siblings().children().children('.spent.inner').width((($(this).html()/maxBudgeted) * 100) + '%');
-        });
-      }
       $('.budgeted.num').formatCurrency();
       $('.spent.num').formatCurrency();
       
@@ -334,7 +322,6 @@ var BudgetLib = {
           null,
           { "sType": "currency" },
           { "sType": "currency" },
-          { "bSortable": false }
         ],
         "bFilter": false,
         "bInfo": false,
@@ -392,8 +379,8 @@ var BudgetLib = {
   //***************************************************************************  
   loadFundPage: function(fund, externalLoad)
   {
-    //HIDE Main page HTML
-    //TODO
+    //Hides Main page HTML
+    $("#main-page").fadeOut();
     
     //Update Fund Data
     BudgetLib.updateFundPage(fund, externalLoad);
@@ -405,16 +392,21 @@ var BudgetLib = {
   //***************************************************************************  
   updateFundPage: function(fundName, date)
   {
-    console.log("Hey DUD! update fund page was called with: " + fundName + " I'm Coming soon");
+    //TODO Update the historical line graph for the fund
     
-    //Queries the fusion tables to retrieve the info for the 2 breakdown tables
-    BudgetQueries.getFundCatagories(fundName, date, "revenue", "BudgetLib.updateFundCatagories");
-    BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateFundCatagories");
     
     //Update Score Card
     BudgetQueries.getTotalsForYearFund(BudgetLib.loadYear, fundName,"BudgetLib.updateScorecard");
     BudgetQueries.getFundDescription(fundName, "BudgetLib.updateScorecardDescription");
     $('#socorecard-fund-title').html(fundName).fadeIn();
+    
+    //Queries the fusion tables to retrieve the info for the 2 breakdown tables and pie charts
+    BudgetQueries.getFundCatagories(fundName, date, "revenue", "BudgetLib.updateRevenueBlock");
+    BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateExpenditureBlock");
+    
+    //TODO Queries and function calls for creating the net revenue table
+
+    $('#fund-page').fadeIn(); //TODO Don't really know where this goes
   
     $('#breadcrumbs a').address();
   },
@@ -433,11 +425,58 @@ var BudgetLib = {
   
   //----------display callback functions----------------
   
+  
+  //***************************************************************************
+  //calls the functions that build out and update the breakdown table and pie 
+  //chart for the fund's revenues.
+  //**************************************************************************  
+  updateRevenueBlock: function(json) {
+    
+    //TODO functions to update the revenue table
+    getBreakdownRows(json);
+    updateRevenueTable(); //TODO soon to be function
+    
+    //TODO functions to update the revenue pie chart
+    
+  },
+
+  //***************************************************************************
+  //calls the functions that build out and update the breakdown table and pie 
+  //chart for the fund's expenditures.
+  //**************************************************************************
+  updateExpenditureBlock: function(json) {
+    
+    //TODO functions to update the expenditures pie chart
+    
+    //TODO functions to update the expenditures table
+    getBreakdownRows(json);
+    updateExpenditureTable(); //TODO soon to be function
+    
+  },
+  
   //***************************************************************************
   //builds out budget breakdown tables
   //***************************************************************************
-  updateFundCatagories: function(json)
+  getBreakdownRows: function(json) //TODO not yet working
   {
-  
+    var rows = json["rows"];
+    var fusiontabledata;
+    
+    for(i = 0; i < rows.length; i++)
+    {
+      var rowName            = rows[i][0];
+      var ytdActual          = rows[i][1];
+      var budgeted           = rows[i][2];     
+      var rowId              = BudgetHelpers.convertToSlug(rowName);
+      var detailLoadFunction = "BudgetLib.loadAndShowFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");"; //TODO change this
+      
+      if (budgeted != 0 || spent != 0)
+      {
+        fusiontabledata += BudgetHelpers.generateTableRow(rowId, detailLoadFunction, rowName, budgeted, spent);
+      }
+    }
+ 
+    BudgetLib.breakdownData = fusiontabledata;
+    BudgetLib.updateTable();
   },
 }
