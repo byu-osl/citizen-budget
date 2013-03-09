@@ -169,9 +169,6 @@ ul { list-style: disc; }
   background: url(../images/sort-down.png) no-repeat 100% 50%;
   padding-right: 10px;
 }
-
-  /* Bars */
-  .bars span { border-style: solid; border-width: 5px 0; display: block; height: 1px; margin: 1px 0; }
   
   /* Colors */
   .budgeted { color: #264870; }
@@ -223,6 +220,12 @@ ul { list-style: disc; }
   .stats { list-style: none; margin: 0 0 0.5em 0; }
   .stats li { display: inline; margin-right: 1em; white-space: nowrap; }
   .stats strong { font-size: 25px; }
+
+/*----------------------------------------------------------------------*/
+/* Pie Charts */
+.pieChart {width: 420px; height: 420px;}
+/* End Pie Charts */
+
 
 /* FAQ */
 #faq { list-style: none; margin-left: 0; }
