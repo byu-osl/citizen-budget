@@ -75,7 +75,6 @@ var BudgetLib = {
   //***************************************************************************
   updateDisplay: function(year, fund, externalLoad) 
   {
-    
     //Initalize loadYear if Needed
     if (BudgetLib.loadYear == undefined)
     {
@@ -195,7 +194,7 @@ var BudgetLib = {
     BudgetLib.loadYear = mostRecentYear;
     
     if (currentLoadYear == undefined)
-      BudgetLib.updateDisplay(undefined, undefined, true);
+      BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), true);
     
   },
   
@@ -260,8 +259,11 @@ var BudgetLib = {
   //***************************************************************************
   loadMainPage: function(externalLoad)
   {
-    //Hide Fund html
-    //TODO
+    //Show Main Content
+    $("#main-page").fadeIn();
+    
+    //Hide Fund Content
+    $("#fund-page").fadeOut();
     $('#socorecard-fund-title').fadeOut();
     
     //Update page to display Main data
@@ -379,6 +381,9 @@ var BudgetLib = {
   //***************************************************************************  
   loadFundPage: function(fund, externalLoad)
   {
+    //Show Fund Content
+    $("#fund-page").fadeIn();
+    
     //Hides Main page HTML
     $("#main-page").fadeOut();
     
@@ -405,8 +410,6 @@ var BudgetLib = {
     BudgetQueries.getFundCatagories(fundName, date, "expense", "BudgetLib.updateExpenditureBlock");
     
     //TODO Queries and function calls for creating the net revenue table
-
-    $('#fund-page').fadeIn(); //TODO Don't really know where this goes
   
     $('#breadcrumbs a').address();
   },
