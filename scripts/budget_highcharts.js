@@ -184,7 +184,7 @@ var BudgetHighcharts =
   //*************************************************************************************
   // TOOD PIE
   //*************************************************************************************
-  updateExpenditurePie: function ()
+  updatePieChart: function (renderToDiv, pieTitle, theData)
   {
     expenditurePie = new Highcharts.Chart(
     {
@@ -192,16 +192,24 @@ var BudgetHighcharts =
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            renderTo: "expenditure-pie-chart"
+            renderTo: renderToDiv,
+            style: {
+                overflow: "visible"
+            }
+            
         },
         credits: { enabled: false },
         title: {
-            text: 'Browser market shares at a specific website, 2010'
+            text: pieTitle
         },
         tooltip: {
             //pointFormat: '{series.name}: <b>'+ point.y+'%</b>',
-            formatter: function () {return this.point.name + '<b>' + this.y + '%</b>';},
-            percentageDecimals: 1
+            formatter: function () {return this.point.name + '<br/><b>' + this.y + '%</b>';},
+            percentageDecimals: 1,
+            useHTML: true,
+            style: {
+              overflow: "visible"
+            }
         },
         plotOptions: {
             pie: {
@@ -214,15 +222,7 @@ var BudgetHighcharts =
         series: [{
             type: 'pie',
             name: 'Browser share',
-            data:
-            [
-                ['Firefox',   145.0],
-                ['IE',       26.8],
-                ['Chrome', 12.8],
-                ['Safari',    8.5],
-                ['Opera',     6.2],
-                ['Others',   0.7]
-            ]
+            data: theData
         }]
     });
   }

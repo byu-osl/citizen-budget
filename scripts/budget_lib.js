@@ -92,9 +92,7 @@ var BudgetLib = {
     //Set Load Year 
     if (year != null && year != "")
       BudgetLib.loadYear = BudgetHelpers.convertToPlainString(year);
-
-    BudgetHighcharts.updateExpenditurePie();
-      
+   
     // !!! Main Swith !!! -- Load Main Page or Fund Page --
     if (fund != undefined && fund != "")
       BudgetLib.loadFundPage(BudgetHelpers.convertToPlainString(fund), externalLoad);
@@ -444,28 +442,52 @@ var BudgetLib = {
   //calls the functions that build out and update the breakdown table and pie 
   //chart for the fund's revenues.
   //**************************************************************************  
-  updateRevenueBlock: function(json) {
-    
+  updateRevenueBlock: function(json)
+  {
     //TODO functions to update the revenue table
-    getBreakdownRows(json);
-    updateRevenueTable(); //TODO soon to be function
-    
-    //TODO functions to update the revenue pie chart
+    //getBreakdownRows(json);
+    //updateRevenueTable(); //TODO soon to be function
+   
+    //Update the revenue pie chart
+    BudgetLib.updateRevenuePie(json);
     
   },
 
   //***************************************************************************
+  //This function will update the revenue pie chart.
+  //**************************************************************************
+  updateRevenuePie: function(json)
+  {
+    BudgetHighcharts.updatePieChart("revenue-pie-chart",
+                                    "Revenues",
+                                    BudgetHelpers.genArrayForPieChart(json));
+    return;
+  },
+  
+  //***************************************************************************
   //calls the functions that build out and update the breakdown table and pie 
   //chart for the fund's expenditures.
   //**************************************************************************
-  updateExpenditureBlock: function(json) {
-    
-    //TODO functions to update the expenditures pie chart
-    
+  updateExpenditureBlock: function(json)
+  {
     //TODO functions to update the expenditures table
-    getBreakdownRows(json);
-    updateExpenditureTable(); //TODO soon to be function
+    //getBreakdownRows(json);
+    //updateExpenditureTable(); //TODO soon to be function
     
+    //Update the expenditures pie chart
+    BudgetLib.updateExpenditurePie(json);
+    
+  },
+
+  //***************************************************************************
+  //This function will Update the expeniture pie chart.
+  //**************************************************************************
+  updateExpenditurePie: function(json)
+  {
+    BudgetHighcharts.updatePieChart("expenditure-pie-chart",
+                                    "Expenditures",
+                                    BudgetHelpers.genArrayForPieChart(json));
+    return;
   },
   
   //***************************************************************************
