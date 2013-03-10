@@ -161,6 +161,7 @@ ul { list-style: disc; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
 #net-revenue-table th span { color: #f85204; cursor: pointer; }
+
   
   /* Colors */
   .budgeted { color: #264870; }
