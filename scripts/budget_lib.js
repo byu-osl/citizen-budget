@@ -436,7 +436,30 @@ var BudgetLib = {
   
   
   //----------display callback functions----------------
-  
+    
+  //***************************************************************************
+  //builds out budget breakdown tables
+  //***************************************************************************
+  getBreakdownRows: function(json)
+  {
+    var rows = json["rows"];
+    var fusiontabledata;
+    
+    for(i = 0; i < rows.length; i++)
+    {
+      var rowName            = rows[i][0];
+      var ytdActual          = rows[i][1];
+      var budgeted           = rows[i][2];     
+      var rowId              = BudgetHelpers.convertToSlug(rowName);
+      
+      if (budgeted != 0 || ytdActual != 0)
+      {
+        fusiontabledata += BudgetHelpers.generateBreakdownTableRow(rowId, rowName, budgeted, ytdActual);
+      }
+    }
+ 
+    return fusiontabledata;
+  },
   
   //***************************************************************************
   //calls the functions that build out and update the breakdown table and pie 
@@ -444,9 +467,10 @@ var BudgetLib = {
   //**************************************************************************  
   updateRevenueBlock: function(json)
   {
-    //TODO functions to update the revenue table
-    //getBreakdownRows(json);
-    //updateRevenueTable(); //TODO soon to be function
+    //functions to update the revenue table
+    tableData = BudgetLib.getBreakdownRows(json);
+    BudgetLib.updateRevenueTable(tableData);
+    BudgetLib.updateRevenueTotals(json);
    
     //Update the revenue pie chart
     BudgetLib.updateRevenuePie(json);
@@ -464,15 +488,70 @@ var BudgetLib = {
     return;
   },
   
+  //***************************************************************************  
+  //updates the fund revenue table
+  //***************************************************************************
+  updateRevenueTable: function(tableData)
+  {
+    $('#revenue-breakdown-table').fadeOut('fast', function(){
+      if (BudgetLib.breakdownTable != null) BudgetLib.breakdownTable.fnDestroy();
+      
+      $('#revenue-breakdown-table tbody').children().remove();
+      $('#revenue-breakdown-table > tbody:last').append(tableData);
+      
+      var maxArray = new Array();
+      $('revenue-breakdown-table.budgeted.num').each(function(){
+        maxArray.push(parseInt($(this).html()));
+      });
+      $('revenue-breakdown-table.spent.num').each(function(){
+        maxArray.push(parseInt($(this).html()));
+      });
+      
+      $('.budgeted.num').formatCurrency();
+      $('.spent.num').formatCurrency();
+      
+      BudgetLib.breakdownTable = $("#revenue-breakdown-table").dataTable({
+        "aaSorting": [[1, "desc"]],
+        "aoColumns": [
+          null,
+          { "sType": "currency" },
+          { "sType": "currency" },
+        ],
+        "bFilter": false,
+        "bInfo": false,
+        "bPaginate": false
+      });
+    }).fadeIn('fast');
+  },
+  
+  updateRevenueTotals: function(json)
+  {
+    var rows = json["rows"];
+    var ytdActualTotal = 0;
+    var budgetedTotal = 0;
+    
+    for(i=0; i < rows.length; i++) {
+      ytdActualTotal += rows[i][1];
+      budgetedTotal += rows[i][2];
+    }
+    
+    $('#revenue-ytdactual-total').html(ytdActualTotal);
+    $('#revenue-budgeted-total').html(budgetedTotal);
+    $('#revenue-ytdactual-total').formatCurrency();
+    $('#revenue-budgeted-total').formatCurrency();
+    $('#revenue-breakdown').fadeIn();
+  },
+  
   //***************************************************************************
   //calls the functions that build out and update the breakdown table and pie 
   //chart for the fund's expenditures.
   //**************************************************************************
   updateExpenditureBlock: function(json)
   {
-    //TODO functions to update the expenditures table
-    //getBreakdownRows(json);
-    //updateExpenditureTable(); //TODO soon to be function
+    //functions to update the expenditures table
+    tableData = BudgetLib.getBreakdownRows(json);
+    BudgetLib.updateExpenditureTable(tableData);
+    BudgetLib.updateExpenditureTotals(json);
     
     //Update the expenditures pie chart
     BudgetLib.updateExpenditurePie(json);
@@ -490,29 +569,56 @@ var BudgetLib = {
     return;
   },
   
+  //***************************************************************************  
+  //updates the fund expenditure table
   //***************************************************************************
-  //builds out budget breakdown tables
-  //***************************************************************************
-  getBreakdownRows: function(json) //TODO not yet working
+  updateExpenditureTable: function(tableData) {
+    $('#expenditure-breakdown-table').fadeOut('fast', function(){
+      if (BudgetLib.breakdownTable2 != null) BudgetLib.breakdownTable2.fnDestroy();
+      
+      $('#expenditure-breakdown-table tbody').children().remove();
+      $('#expenditure-breakdown-table > tbody:last').append(tableData);
+      
+      var maxArray = new Array();
+      $('.expenditure-breakdown-table.num').each(function(){
+        maxArray.push(parseInt($(this).html()));
+      });
+      $('.expenditure-breakdown-table.num').each(function(){
+        maxArray.push(parseInt($(this).html()));
+      });
+      
+      $('.budgeted.num').formatCurrency();
+      $('.spent.num').formatCurrency();
+      
+      BudgetLib.breakdownTable2 = $("#expenditure-breakdown-table").dataTable({
+        "aaSorting": [[1, "desc"]],
+        "aoColumns": [
+          null,
+          { "sType": "currency" },
+          { "sType": "currency" },
+        ],
+        "bFilter": false,
+        "bInfo": false,
+        "bPaginate": false
+      });
+    }).fadeIn('fast');
+  },
+  
+  updateExpenditureTotals: function(json)
   {
     var rows = json["rows"];
-    var fusiontabledata;
+    var ytdActualTotal = 0;
+    var budgetedTotal = 0;
     
-    for(i = 0; i < rows.length; i++)
-    {
-      var rowName            = rows[i][0];
-      var ytdActual          = rows[i][1];
-      var budgeted           = rows[i][2];     
-      var rowId              = BudgetHelpers.convertToSlug(rowName);
-      var detailLoadFunction = "BudgetLib.loadAndShowFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");"; //TODO change this
-      
-      if (budgeted != 0 || spent != 0)
-      {
-        fusiontabledata += BudgetHelpers.generateTableRow(rowId, detailLoadFunction, rowName, budgeted, spent);
-      }
+    for(i=0; i < rows.length; i++) {
+      ytdActualTotal += rows[i][1];
+      budgetedTotal += rows[i][2];
     }
- 
-    BudgetLib.breakdownData = fusiontabledata;
-    BudgetLib.updateTable();
+    
+    $('#expenditure-ytdactual-total').html(ytdActualTotal);
+    $('#expenditure-budgeted-total').html(budgetedTotal);
+    $('#expenditure-ytdactual-total').formatCurrency();
+    $('#expenditure-budgeted-total').formatCurrency();
+    $('#expenditure-breakdown').fadeIn();
   },
 }

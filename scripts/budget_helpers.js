@@ -127,59 +127,13 @@ var BudgetHelpers =
   
   //***************************************************************************
   //***************************************************************************
-  generateExpandedRow: function(itemId, type) 
+  generateBreakdownTableRow: function(rowId, rowName, budgeted, spent) 
   {
-    var breakdownLink;
-    
-    if (type == 'fund')
-      breakdownLink = BudgetHelpers.getAddressLink(BudgetLib.loadYear, BudgetHelpers.convertToQueryString(itemId), "Breakdown by department&nbsp;&raquo;");
-      
     return "\
-      <tr class='expanded-content' id='" + itemId + "-expanded'>\
-        <td colspan='5'>\
-          <div class='expanded-primary'>\
-            <h2>" + BudgetHelpers.convertToPlainString(itemId) + "</h2>\
-            <p id='expanded-description'></p>\
-            <ul class='stats'>\
-              <li>" + breakdownLink + "</li>\
-            </ul>\
-            </div>\
-            <div class='expanded-secondary'>\
-            <div class='sparkline' id='selected-chart'></div>\
-            <ul class='stats'>\
-              <li id='sparkline-budgeted'></li>\
-              <li id='sparkline-spent'></li>\
-            </ul>\
-          </div>\
-        </td>\
-      </tr>";
-  },
-  
-  //***************************************************************************
-  //***************************************************************************
-  generateExpandedDeptRow: function(departmentId, department, description, linkToWebsite, departmentFund) 
-  {
-    if (linkToWebsite != '')
-      linkToWebsite = "<a href='" + linkToWebsite + "'>Official&nbsp;website&nbsp;&raquo;</a>";
-    
-    return "\
-      <tr class='expanded-content' id='department-" + departmentId + "-expanded'>\
-        <td colspan='5'>\
-          <div class='expanded-primary'>\
-            <h2>" + department + "</h2>\
-            <p>" + description + " " + linkToWebsite + "</p>\
-            <p>\
-              Fund: " + BudgetHelpers.getAddressLink(BudgetLib.loadYear, BudgetHelpers.convertToQueryString(departmentFund), departmentFund + " &raquo;") + "</a>\
-            </p>\
-          </div>\
-          <div class='expanded-secondary'>\
-            <div class='sparkline' id='selected-chart'></div>\
-            <ul class='stats'>\
-              <li id='sparkline-budgeted'></li>\
-              <li id='sparkline-spent'></li>\
-            </ul>\
-          </div>\
-        </td>\
+      <tr id='" + rowId + "'>\
+        <td>" + rowName + "</td>\
+        <td class='num spent'>" + spent + "</td>\
+        <td class='num budgeted'>" + budgeted + "</td>\
       </tr>";
   },
   

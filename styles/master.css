@@ -115,31 +115,33 @@ ul { list-style: disc; }
 
 /* Revenue Breakdown Table */
 #revenue-breakdown-table a { cursor: pointer; }
-#revenue-breakdown-table .num { text-align: right; }
+#revenue-breakdown-table .numR { text-align: center; }
 #revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
 #revenue-breakdown-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
 #revenue-breakdown-table th.charts { width: 50%; }
 #revenue-breakdown-table th.controls { width: 20px; }
 #revenue-breakdown-table th span { color: #f85204; cursor: pointer; }
+#revenue-breakdown {display: none}
 
-#expenditure-breakdown-table th.sorting_asc span {
+#revenue-breakdown-table th.sorting_asc span {
   background: url(../images/sort-up.png) no-repeat 100% 50%;
   padding-right: 10px;
 }
 
-#expenditure-breakdown-table th.sorting_desc span {
+#revenue-breakdown-table th.sorting_desc span {
   background: url(../images/sort-down.png) no-repeat 100% 50%;
   padding-right: 10px;
 }
 
 /* Expenditure Breakdown Table */
 #expenditure-breakdown-table a { cursor: pointer; }
-#expenditure-breakdown-table .num { text-align: right; }
+#expenditure-breakdown-table .numE { text-align: center; }
 #expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
 #expenditure-breakdown-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
 #expenditure-breakdown-table th.charts { width: 50%; }
 #expenditure-breakdown-table th.controls { width: 20px; }
 #expenditure-breakdown-table th span { color: #f85204; cursor: pointer; }
+#expenditure-breakdown {display: none}
 
 #expenditure-breakdown-table th.sorting_asc span {
   background: url(../images/sort-up.png) no-repeat 100% 50%;
@@ -159,16 +161,6 @@ ul { list-style: disc; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
 #net-revenue-table th span { color: #f85204; cursor: pointer; }
-
-#net-revenue-table th.sorting_asc span {
-  background: url(../images/sort-up.png) no-repeat 100% 50%;
-  padding-right: 10px;
-}
-
-#net-revenue-table th.sorting_desc span {
-  background: url(../images/sort-down.png) no-repeat 100% 50%;
-  padding-right: 10px;
-}
   
   /* Colors */
   .budgeted { color: #264870; }

@@ -122,13 +122,20 @@
 	    <table id="revenue-breakdown-table">
 	      <thead>
 		<tr>
-		  <th id='revenue-breakdown-item-title'><span id="secondary-title">Revenues</span></th>
-		  <th class="num"><span>YTD Actual</span></th>
-		  <th class="num"><span>Budgeted</span></th>
+		  <th><span>Revenues</span></th>
+		  <th class="numR"><span>YTD Actual</span></th>
+		  <th class="numR"><span>Budgeted</span></th>
 		</tr>
 	      </thead>
 	      <tbody>
 	      </tbody>
+	      <tfoot>
+		<tr>
+		  <td>TOTAL</td>
+		  <td id="revenue-ytdactual-total" class="spent"></td>
+		  <td id="revenue-budgeted-total" class="budgeted"></td>
+		</tr>
+	      </tfoot>
 	    </table>
 	  </div>
 	  <div id='revenue-pie' class='pieChart'>
@@ -146,13 +153,20 @@
 	    <table id="expenditure-breakdown-table">
 	      <thead>
 		<tr>
-		  <th id='expenditure-breakdown-item-title'><span id="secondary-title">Expenditures</span></th>
-		  <th class="num"><span>YTD Actual</span></th>
-		  <th class="num"><span>Budgeted</span></th>
+		  <th><span>Expenditures</span></th>
+		  <th class="numE"><span>YTD Actual</span></th>
+		  <th class="numE"><span>Budgeted</span></th>
 		</tr>
 	      </thead>
 	      <tbody>
 	      </tbody>
+	      <tfoot>
+		<tr>
+		  <td>TOTAL</td>
+		  <td id="expenditure-ytdactual-total" class="spent"></td>
+		  <td id="expenditure-budgeted-total" class="budgeted"></td>
+		</tr>
+	      </tfoot>
 	    </table>
 	  </div>
 	</div>

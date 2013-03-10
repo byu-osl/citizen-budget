@@ -129,9 +129,10 @@ var BudgetQueries = {
 	// tableType : breakdown table information to be retrieved (revenue or expense)
 	//
 	//**********************************************************************
-	getFundCatagories: function(fund, date, tableType, callback) {		
-		var myQuery = "SELECT 'category_name', 'ytd_actual', 'budgeted', 'fund_name', 'year', 'type' ";
-		myQuery += "FROM " + BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID;
+	getFundCatagories: function(fund, date, tableType, callback)
+	{
+		var myQuery = "SELECT 'category_name', 'ytd_actual', 'budgeted', 'fund_name', 'year', 'type'";
+		myQuery += " FROM " + BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID;
 		myQuery += " WHERE 'fund_name' = '" + fund + "' AND 'year' = '" + date + "' AND 'type' = '" + tableType + "'";			
 		BudgetHelpers.query(myQuery, callback);
 	},
