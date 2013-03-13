@@ -50,6 +50,22 @@ var BudgetQueries = {
 	},
 	
 	//**********************************************************************	
+	//This function will get the net-revenue-total, net-expenditure-total, and net-difference-total
+	//also called ytd_total_revenues, ytd_total_expenditures, and net_revenue_over_expenditures from the FUND fusion table.
+	//This data is retrieved to populate the bottom table
+	//**********************************************************************
+	getNetTotals: function(year, fund, callback)
+	{
+		var myQuery = "SELECT date, ytd_total_revenues, ytd_total_expenditures, net_revenue_over_expenditures ";
+		
+		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery += " WHERE date = '" + year + "' AND fund_name = '" + fund + "'";
+		
+		BudgetHelpers.query(myQuery, callback);
+	},
+	
+	//**********************************************************************	
 	//This function will get a Fund's budgeted and spent for each year
 	//from the FUND fusion table.
 	//This data is retrieved to populate the main line graph, for the

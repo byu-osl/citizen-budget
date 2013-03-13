@@ -417,8 +417,8 @@ var BudgetLib = {
     BudgetQueries.getFundCatagories(fundName, BudgetLib.loadYear,
                                     "expense", "BudgetLib.updateExpenditureBlock");
     
-    //TODO Queries and function calls for creating the net revenue table
-  
+    //Queries and function calls for creating the net revenue table
+    BudgetQueries.getNetTotals(BudgetLib.loadYear, fundName, "BudgetLib.updateDifferenceTable");
     
   },
   
@@ -541,6 +541,23 @@ var BudgetLib = {
     $('#revenue-budgeted-total').formatCurrency();
     $('#revenue-breakdown').fadeIn();
   },
+    
+  //***************************************************************************  
+  //updates the fund difference table
+  //***************************************************************************
+  updateDifferenceTable: function(json) {
+    var rows = json["rows"];
+    var net_rev = rows[0][1];
+    var net_expend = rows[0][2];
+    var net_diff = rows[0][3];
+    
+    $('#net-revenue-total').html(net_rev);
+    $('#net-expenditure-total').html(net_expend);
+    $('#net-difference-total').html(net_diff);
+    $('#net-revenue-total').formatCurrency();
+    $('#net-expenditure-total').formatCurrency();
+    $('#net-difference-total').formatCurrency();
+  },
   
   //***************************************************************************
   //calls the functions that build out and update the breakdown table and pie 
@@ -568,6 +585,7 @@ var BudgetLib = {
                                     BudgetHelpers.genArrayForPieChart(json));
     return;
   },
+
   
   //***************************************************************************  
   //updates the fund expenditure table
