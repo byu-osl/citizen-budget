@@ -175,7 +175,7 @@ var BudgetHighcharts =
       }
     });
     
-    //select the current year on load
+    //Find Index of the Current LoadYear
     var selectedYearIndex = undefined;
     for(var i=0; i < mainChart.series[0].data.length;i++)
       if (mainChart.series[0].data[i]["category"] == BudgetLib.loadYear)
@@ -184,11 +184,15 @@ var BudgetHighcharts =
         break;
       }
 
-    if (mainChart.series[0].data[selectedYearIndex].y != null)
-      mainChart.series[0].data[selectedYearIndex].select(true,true);
-      
-    if (mainChart.series[1].data[selectedYearIndex].y != null)
-      mainChart.series[1].data[selectedYearIndex].select(true,true);
+    //Select the Current Load Year on the Chart
+    if (selectedYearIndex != undefined)
+    {
+      if (mainChart.series[0].data[selectedYearIndex].y != null)
+        mainChart.series[0].data[selectedYearIndex].select(true,true);
+        
+      if (mainChart.series[1].data[selectedYearIndex].y != null)
+        mainChart.series[1].data[selectedYearIndex].select(true,true);
+    }
   },
   
   //*************************************************************************************
