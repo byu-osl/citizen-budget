@@ -77,7 +77,7 @@ var BudgetQueries =
 	//**********************************************************************
 	getFundTotals: function(fund, callback)
 	{
-		var myQuery = "SELECT date, ytd_total_expenditures, ytd_total_revenues, fund_name ";
+		var myQuery = "SELECT date, ytd_total_expenditures, total_budgeted_expenditures, fund_name ";
 		
 		myQuery    += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
