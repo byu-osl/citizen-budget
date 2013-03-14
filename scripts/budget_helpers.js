@@ -30,9 +30,7 @@ var BudgetHelpers =
   query: function(sql, callback) 
   {  
     var sql = encodeURIComponent(sql);
-    
-    console.log("https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&key="+BudgetLib.CB_FusionTableApiKey);
-    
+       
     $.ajax({
       url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql     
             +"&callback="+callback+"&key="+BudgetLib.CB_FusionTableApiKey, 
@@ -54,8 +52,8 @@ var BudgetHelpers =
   //***************************************************************************
   getQuery: function(query) 
   {
-    //console.log('http://www.google.com/fusiontables/gvizdata?tq='  + encodeURIComponent(query));
-    return query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq='  + encodeURIComponent(query));
+    return query = new google.visualization.Query('http://www.google.com/fusiontables/gvizdata?tq='
+						  + encodeURIComponent(query));
   },
   
   //***************************************************************************
@@ -108,7 +106,8 @@ var BudgetHelpers =
   getAddressLink: function(year, fund, title) 
   {
     var href = "/?year=" + year + "&amp;fund=" + fund;
-  	return ("<a class='adr' href='" + href + "' rel='address:" + href + "'>" + title + "</a>");
+  	return ("<a class='adr' href='" + href + "' rel='address:" + href + "'>"
+		+ title + "</a>");
   },
   
   //***************************************************************************
@@ -118,7 +117,8 @@ var BudgetHelpers =
     return "\
       <tr id='" + rowId + "'>\
         <td>\
-        <a onclick='" + detailLoadFunction + "'></a>&nbsp;<a onclick='" + detailLoadFunction + "'>" + rowName + "</a>\
+        <a onclick='" + detailLoadFunction + "'></a>&nbsp;<a onclick='"
+		      + detailLoadFunction + "'>" + rowName + "</a>\
         </td>\
         <td class='num spent'>" + spent + "</td>\
         <td class='num budgeted'>" + budgeted + "</td>\

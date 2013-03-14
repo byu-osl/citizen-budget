@@ -1,3 +1,14 @@
+/******************************************************************************
+ * Author: Christopher Morgan
+ *
+ * Date: 3/14/2013
+ *
+ * Desc: This file contains two major functions.  These two functions are used
+ *  to generate the main line graph and the pie charts for the index.html page.
+ *  These graphs are generated using the highcharts library.
+ *  (http://www.highcharts.com)
+ ******************************************************************************/
+
 var BudgetHighcharts = BudgetHighcharts || {};  
 var BudgetHighcharts = 
 {  
@@ -10,7 +21,7 @@ var BudgetHighcharts =
   expendTitle:  'Spent',
   
   //*************************************************************************************
-  //displays main graph using highcharts (http://www.highcharts.com)
+  //Creates and displays main line graph.
   //*************************************************************************************
   updateMainChart: function() 
   {
@@ -18,8 +29,10 @@ var BudgetHighcharts =
       function(val) { return val != null; });
     
     // Highcharts
-    mainChart = new Highcharts.Chart({
-      chart: {
+    mainChart = new Highcharts.Chart(
+    {
+      chart:
+      {
         borderColor: "#dddddd",
         borderRadius: 0,
         borderWidth: 1,
@@ -31,7 +44,8 @@ var BudgetHighcharts =
         renderTo: "timeline-chart"
       },
       credits: { enabled: false },
-      legend: {
+      legend:
+      {
         backgroundColor: "#ffffff",
         borderColor: "#cccccc",
         floating: true,
@@ -44,11 +58,13 @@ var BudgetHighcharts =
       plotOptions:
       {
         area: { fillOpacity: 0.25 },
-        series: {
+        series:
+        {
           lineWidth: 5,
           point:
           {
-            events: {
+            events:
+            {
               click: function() 
               {
                 var x        = this.x,
@@ -84,7 +100,8 @@ var BudgetHighcharts =
         {
           color: this.expendColor,
           data: BudgetLib.expendTotalArray,
-          marker: {
+          marker:
+          {
             radius: 8,
             symbol: this.expendSybmol
           },
@@ -94,7 +111,8 @@ var BudgetHighcharts =
         {
           color: this.apropColor,
           data: BudgetLib.appropTotalArray,
-          marker: {
+          marker:
+          {
             radius: 6,
             symbol: this.apropSymbol
           },
@@ -135,7 +153,7 @@ var BudgetHighcharts =
           },
           formatter: function()
           {
-              return BudgetLib.dateYearOnly ? this.value.split("/")[2] : this.value;
+            return BudgetLib.dateYearOnly ? this.value.split("/")[2] : this.value;
           }
         }
       },
@@ -182,37 +200,31 @@ var BudgetHighcharts =
   },
   
   //*************************************************************************************
-  // TOOD PIE
+  // This function creates and displays pie charts.
   //*************************************************************************************
   updatePieChart: function (renderToDiv, pieTitle, theData)
   {
     expenditurePie = new Highcharts.Chart(
     {
-        chart: {
+        chart:
+        {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
             renderTo: renderToDiv,
-            style: {
-                overflow: "visible"
-            }
-            
         },
         credits: { enabled: false },
-        title: {
-            text: pieTitle
-        },
-        tooltip: {
-            //pointFormat: '{series.name}: <b>'+ point.y+'%</b>',
+        title:   {text: pieTitle},
+        tooltip:
+        {
             formatter: function () {return this.point.name + '<br/><b>' + this.y + '%</b>';},
             percentageDecimals: 1,
             useHTML: true,
-            style: {
-              overflow: "visible"
-            }
         },
-        plotOptions: {
-            pie: {
+        plotOptions:
+        {
+            pie:
+            {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 showInLegend: true,

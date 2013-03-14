@@ -120,10 +120,13 @@ var BudgetLib = {
   
   //***************************************************************************
   //***************************************************************************
-  updateHeader: function(view, subtype){
+  updateHeader: function(view, subtype)
+  {
     $('h1').html(view);
     
-    $('#secondary-title').html((BudgetLib.dateYearOnly ? BudgetLib.loadYear.split("/")[2]: BudgetLib.loadYear)
+    $('#secondary-title').html((BudgetLib.dateYearOnly ?
+                                BudgetLib.loadYear.split("/")[2] :
+                                BudgetLib.loadYear)
                                + ' ' + BudgetLib.scTitle);
     $('#breakdown-item-title span').html(subtype);
   },
@@ -133,12 +136,14 @@ var BudgetLib = {
   
   //these all work by being called (callback function) once Fusion Tables returns a result. 
   //the function then takes the json and handles updating the page
-  updateAppropTotal: function(json) {
+  updateAppropTotal: function(json)
+  {
     BudgetLib.appropTotalArray = BudgetHelpers.getDataAsArray(json);
     BudgetHighcharts.updateMainChart();
   },
   
-  updateExpendTotal: function(json) {
+  updateExpendTotal: function(json)
+  {
     BudgetLib.expendTotalArray = BudgetHelpers.getDataAsArray(json);
     BudgetHighcharts.updateMainChart();
   },
@@ -193,7 +198,9 @@ var BudgetLib = {
     BudgetLib.loadYear = mostRecentYear;
     
     if (currentLoadYear == undefined)
-      BudgetLib.updateDisplay($.address.parameter('year'), $.address.parameter('fund'), true);
+      BudgetLib.updateDisplay($.address.parameter('year'),
+                              $.address.parameter('fund'),
+                              true);
     
   },
   
@@ -260,6 +267,7 @@ var BudgetLib = {
   {
     //Show Main Content
     $("#main-page").fadeIn();
+    $("#content-secondary").fadeIn();
     
     //Hide Fund Content
     $("#breadcrumbs").fadeOut();
@@ -268,6 +276,11 @@ var BudgetLib = {
     
     //Update page to display Main data
     BudgetLib.updateMainPage(externalLoad);
+    
+    //Update Dowload Data Link
+    $('#download-button').attr('href', "");
+    $('#download-button').attr('href', "https://www.google.com/fusiontables/DataSource?docid="+
+                                        BudgetLib.CB_FUND_TABLE_ID);
   },
   
   //***************************************************************************
@@ -281,7 +294,8 @@ var BudgetLib = {
     if (externalLoad)
       BudgetQueries.getDateTotals("BudgetLib.updateTotals");// Updates Main Chart
     
-    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear, "BudgetLib.getDataAsBudgetTable"); //Update Funds
+    BudgetQueries.getAllFundsForYear(BudgetLib.loadYear,
+                                     "BudgetLib.getDataAsBudgetTable"); //Update Funds
     
     $('#breakdown-item-title span').html('Fund');
     
@@ -293,14 +307,14 @@ var BudgetLib = {
     $('#breadcrumbs-link').attr('href', "");
     $('#breadcrumbs-link').attr('href', window.location.href);
   
-    
     return
   },
     
   //***************************************************************************  
   //displays secondary datatables fund listing
   //***************************************************************************
-  updateTable: function() {
+  updateTable: function()
+  {
     $('#breakdown').fadeOut('fast', function(){
       if (BudgetLib.breakdownTable != null) BudgetLib.breakdownTable.fnDestroy();
       
@@ -318,7 +332,8 @@ var BudgetLib = {
       $('.budgeted.num').formatCurrency();
       $('.spent.num').formatCurrency();
       
-      $('.adr').address(); //after adding the table rows, initialize the address plugin on all the links
+      //after adding the table rows, initialize the address plugin on all the links
+      $('.adr').address(); 
       
       BudgetLib.breakdownTable = $("#breakdown").dataTable({
         "aaSorting": [[1, "desc"]],
@@ -352,12 +367,15 @@ var BudgetLib = {
       var budgeted           = rows[i][2];
       var spent              = rows[i][3];      
       var rowId              = BudgetHelpers.convertToSlug(rowName);
-      var detailLoadFunction = "BudgetLib.loadAndShowFundDetails(\"" + BudgetHelpers.convertToSlug(rowName) + "\");";
+      var detailLoadFunction = "BudgetLib.loadAndShowFundDetails(\"" +
+                                BudgetHelpers.convertToSlug(rowName) + "\");";
       
       if (budgeted != 0 || spent != 0)
-      {
-        fusiontabledata += BudgetHelpers.generateTableRow(rowId, detailLoadFunction, rowName, budgeted, spent);
-      }
+        fusiontabledata += BudgetHelpers.generateTableRow(rowId,
+                                                          detailLoadFunction,
+                                                          rowName,
+                                                          budgeted,
+                                                          spent);
     }
  
     BudgetLib.breakdownData = fusiontabledata;
@@ -389,9 +407,16 @@ var BudgetLib = {
     
     //Hides Main page HTML
     $("#main-page").fadeOut();
-    
+    $("#content-secondary").fadeOut();
+
     //Update Fund Data
     BudgetLib.updateFundPage(fund, externalLoad);
+    
+    //Update Dowload Data Link
+    $('#download-button').attr('href', "");
+    $('#download-button').attr('href', "https://www.google.com/fusiontables/DataSource?docid="+
+                                        BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID);
+  
     return
   },
   
@@ -436,7 +461,8 @@ var BudgetLib = {
   
   
   //----------display callback functions----------------
-    
+  //---------------w/ a few helpers---------------------
+  
   //***************************************************************************
   //builds out budget breakdown tables
   //***************************************************************************
@@ -453,9 +479,10 @@ var BudgetLib = {
       var rowId              = BudgetHelpers.convertToSlug(rowName);
       
       if (budgeted != 0 || ytdActual != 0)
-      {
-        fusiontabledata += BudgetHelpers.generateBreakdownTableRow(rowId, rowName, budgeted, ytdActual);
-      }
+        fusiontabledata += BudgetHelpers.generateBreakdownTableRow(rowId,
+                                                                   rowName,
+                                                                   budgeted,
+                                                                   ytdActual);
     }
  
     return fusiontabledata;
@@ -474,7 +501,6 @@ var BudgetLib = {
    
     //Update the revenue pie chart
     BudgetLib.updateRevenuePie(json);
-    
   },
 
   //***************************************************************************
@@ -524,41 +550,28 @@ var BudgetLib = {
     }).fadeIn('fast');
   },
   
+  //***************************************************************************  
+  // Calculates and Sets the Totals for the Revenue table.
+  //***************************************************************************
   updateRevenueTotals: function(json)
   {
     var rows = json["rows"];
     var ytdActualTotal = 0;
-    var budgetedTotal = 0;
+    var budgetedTotal  = 0;
     
-    for(i=0; i < rows.length; i++) {
+    for(i=0; i < rows.length; i++)
+    {
       ytdActualTotal += rows[i][1];
-      budgetedTotal += rows[i][2];
+      budgetedTotal  += rows[i][2];
     }
     
     $('#revenue-ytdactual-total').html(ytdActualTotal);
-    $('#revenue-budgeted-total').html(budgetedTotal);
+    $('#revenue-budgeted-total' ).html(budgetedTotal);
     $('#revenue-ytdactual-total').formatCurrency();
-    $('#revenue-budgeted-total').formatCurrency();
+    $('#revenue-budgeted-total' ).formatCurrency();
     $('#revenue-breakdown').fadeIn();
   },
-    
-  //***************************************************************************  
-  //updates the fund difference table
-  //***************************************************************************
-  updateDifferenceTable: function(json) {
-    var rows = json["rows"];
-    var net_rev = rows[0][1];
-    var net_expend = rows[0][2];
-    var net_diff = rows[0][3];
-    
-    $('#net-revenue-total').html(net_rev);
-    $('#net-expenditure-total').html(net_expend);
-    $('#net-difference-total').html(net_diff);
-    $('#net-revenue-total').formatCurrency();
-    $('#net-expenditure-total').formatCurrency();
-    $('#net-difference-total').formatCurrency();
-  },
-  
+     
   //***************************************************************************
   //calls the functions that build out and update the breakdown table and pie 
   //chart for the fund's expenditures.
@@ -585,7 +598,6 @@ var BudgetLib = {
                                     BudgetHelpers.genArrayForPieChart(json));
     return;
   },
-
   
   //***************************************************************************  
   //updates the fund expenditure table
@@ -622,21 +634,44 @@ var BudgetLib = {
     }).fadeIn('fast');
   },
   
+  //***************************************************************************  
+  // Calculates and Sets the Totals for the Expenditure table.
+  //***************************************************************************
   updateExpenditureTotals: function(json)
   {
     var rows = json["rows"];
     var ytdActualTotal = 0;
-    var budgetedTotal = 0;
+    var budgetedTotal  = 0;
     
-    for(i=0; i < rows.length; i++) {
+    for(i=0; i < rows.length; i++)
+    {
       ytdActualTotal += rows[i][1];
-      budgetedTotal += rows[i][2];
+      budgetedTotal  += rows[i][2];
     }
     
     $('#expenditure-ytdactual-total').html(ytdActualTotal);
-    $('#expenditure-budgeted-total').html(budgetedTotal);
+    $('#expenditure-budgeted-total' ).html(budgetedTotal);
     $('#expenditure-ytdactual-total').formatCurrency();
-    $('#expenditure-budgeted-total').formatCurrency();
+    $('#expenditure-budgeted-total' ).formatCurrency();
     $('#expenditure-breakdown').fadeIn();
   },
+  
+  //***************************************************************************  
+  //updates the fund Net-Revenue-Minus-Expenditure table
+  //***************************************************************************
+  updateDifferenceTable: function(json)
+  {
+    var rows       = json["rows"];
+    var net_rev    = rows[0][1];
+    var net_expend = rows[0][2];
+    var net_diff   = rows[0][3];
+    
+    $('#net-revenue-total'    ).html(net_rev);
+    $('#net-expenditure-total').html(net_expend);
+    $('#net-difference-total' ).html(net_diff);
+    $('#net-revenue-total'    ).formatCurrency();
+    $('#net-expenditure-total').formatCurrency();
+    $('#net-difference-total' ).formatCurrency();
+  },
+ 
 }

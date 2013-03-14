@@ -13,8 +13,8 @@
  ***********************************************************************/
 
 var BudgetQueries = BudgetQueries || {};  
-var BudgetQueries = {
-
+var BudgetQueries =
+{
 	//**********************************************************************
 	// This funciton will get the most current date from the table and
 	// return its year.
@@ -50,17 +50,21 @@ var BudgetQueries = {
 	},
 	
 	//**********************************************************************	
-	//This function will get the net-revenue-total, net-expenditure-total, and net-difference-total
-	//also called ytd_total_revenues, ytd_total_expenditures, and net_revenue_over_expenditures from the FUND fusion table.
+	//This function will get the net-revenue-total, net-expenditure-total,
+	//and net-difference-total
+	//also called ytd_total_revenues, ytd_total_expenditures, and
+	//net_revenue_over_expenditures from the FUND fusion table.
 	//This data is retrieved to populate the bottom table
 	//**********************************************************************
 	getNetTotals: function(year, fund, callback)
 	{
-		var myQuery = "SELECT date, ytd_total_revenues, ytd_total_expenditures, net_revenue_over_expenditures ";
+		var myQuery = "SELECT date, ytd_total_revenues, ytd_total_expenditures, ";
 		
-		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		myQuery    += "net_revenue_over_expenditures ";
 		
-		myQuery += " WHERE date = '" + year + "' AND fund_name = '" + fund + "'";
+		myQuery    += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery    += " WHERE date = '" + year + "' AND fund_name = '" + fund + "'";
 		
 		BudgetHelpers.query(myQuery, callback);
 	},
@@ -75,9 +79,9 @@ var BudgetQueries = {
 	{
 		var myQuery = "SELECT date, ytd_total_expenditures, ytd_total_revenues, fund_name ";
 		
-		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		myQuery    += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
-		myQuery += " WHERE fund_name ='" + fund +"' ";
+		myQuery    += " WHERE fund_name ='" + fund +"' ";
 		
 		BudgetHelpers.query(myQuery, callback);
 	},
@@ -87,7 +91,9 @@ var BudgetQueries = {
 	//**********************************************************************
 	getTotalsForYear: function(year, callback)
 	{
-		var myQuery = "SELECT SUM (total_budgeted_expenditures), SUM (ytd_total_expenditures), date";
+		var myQuery = "SELECT SUM (total_budgeted_expenditures), ";
+		
+		myQuery    += "SUM (ytd_total_expenditures), date";
 
 		myQuery    += " FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
@@ -117,11 +123,13 @@ var BudgetQueries = {
 	//**********************************************************************
 	getAllFundsForYear: function(year, callback)
 	{		
-		var myQuery = "SELECT fund_name, date, total_budgeted_expenditures, ytd_total_expenditures ";
+		var myQuery = "SELECT fund_name, date, total_budgeted_expenditures,";
 		
-		myQuery += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		myQuery    += " ytd_total_expenditures ";
 		
-		myQuery += " WHERE date='" + year + "'";
+		myQuery    += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery    += " WHERE date='" + year + "'";
 		
 		BudgetHelpers.query(myQuery, callback);
 	},
@@ -132,8 +140,10 @@ var BudgetQueries = {
 	getFundDescription: function(fund, callback)
 	{
 		var myQuery = "SELECT 'description' FROM " +
-			       BudgetLib.CB_FUND_DESCRIPTION_TABLE_ID +
-			       " WHERE fund_name = '" + fund + "'";			
+			       BudgetLib.CB_FUND_DESCRIPTION_TABLE_ID;
+		
+		myQuery    +=  " WHERE fund_name = '" + fund + "'";
+		
 		BudgetHelpers.query(myQuery, callback);
 	},
 	
@@ -147,9 +157,15 @@ var BudgetQueries = {
 	//**********************************************************************
 	getFundCatagories: function(fund, date, tableType, callback)
 	{
-		var myQuery = "SELECT 'category_name', 'ytd_actual', 'budgeted', 'fund_name', 'year', 'type'";
-		myQuery += " FROM " + BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID;
-		myQuery += " WHERE 'fund_name' = '" + fund + "' AND 'year' = '" + date + "' AND 'type' = '" + tableType + "'";			
+		var myQuery = "SELECT 'category_name', 'ytd_actual', 'budgeted', ";
+		
+		myQuery    += "'fund_name', 'year', 'type'";
+		
+		myQuery    += " FROM " + BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID;
+		
+		myQuery    += " WHERE 'fund_name' = '" + fund + "' AND 'year' = '"
+		            + date + "' AND 'type' = '" + tableType + "'";			
+		
 		BudgetHelpers.query(myQuery, callback);
 	},
 }
