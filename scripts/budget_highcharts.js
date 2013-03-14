@@ -176,7 +176,14 @@ var BudgetHighcharts =
     });
     
     //select the current year on load
-    var selectedYearIndex = BudgetLib.loadYear - BudgetLib.startYear;
+    var selectedYearIndex = undefined;
+    for(var i=0; i < mainChart.series[0].data.length;i++)
+      if (mainChart.series[0].data[i]["category"] == BudgetLib.loadYear)
+      {
+        selectedYearIndex = i;
+        break;
+      }
+
     if (mainChart.series[0].data[selectedYearIndex].y != null)
       mainChart.series[0].data[selectedYearIndex].select(true,true);
       
