@@ -87,6 +87,20 @@ var BudgetQueries =
 	},
 	
 	//**********************************************************************
+	//This function will get the Note for a given fund/date.
+	//**********************************************************************
+	getAFundsNote: function(fundName, date, callback)
+	{
+		var myQuery = "SELECT notes, date, fund_name ";
+		
+		myQuery    += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
+		
+		myQuery    += " WHERE fund_name ='" + fundName +"' AND date = '" + date + "'";
+		
+		BudgetHelpers.query(myQuery, callback);
+	},
+	
+	//**********************************************************************
 	//returns total given year
 	//**********************************************************************
 	getTotalsForYear: function(year, callback)

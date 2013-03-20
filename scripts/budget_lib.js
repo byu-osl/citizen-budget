@@ -426,10 +426,12 @@ var BudgetLib = {
   updateFundPage: function(fundName, externalLoad)
   {
     //Update the historical line graph for the fund
-    if (externalLoad){
+    if (externalLoad)
       BudgetQueries.getFundTotals(fundName, "BudgetLib.updateTotals");// Updates Main Chart
-    }
+      
 
+    BudgetQueries.getAFundsNote(fundName, BudgetLib.loadYear, "BudgetLib.updateAFundsNote");
+      
     //Update Score Card
     BudgetLib.updateHeader(BudgetLib.title, 'Fund');
     BudgetQueries.getTotalsForYearFund(BudgetLib.loadYear, fundName,"BudgetLib.updateScorecard");
@@ -486,6 +488,22 @@ var BudgetLib = {
     }
  
     return fusiontabledata;
+  },
+  
+  //***************************************************************************
+  //This function will set a fund's note on the index.html page.
+  //**************************************************************************  
+  updateAFundsNote: function(json)
+  {
+    if (json["rows"][0][0] != undefined && json["rows"][0][0] != "")
+    {
+      $("#fund-notes").html(json["rows"][0][0]);
+      $("#fund-notes-div").fadeIn();
+    } 
+    else
+      $("#fund-notes-div").fadeOut();
+      
+    return;
   },
   
   //***************************************************************************

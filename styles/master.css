@@ -181,6 +181,9 @@ ul { list-style: disc; }
     font-weight: bold;
   }
   
+  #fund-notes-div { border: 5px solid #264870; overflow: hidden; }
+  #fund-notes-header {text-align: center; color: #264870;}
+  
   #revenue { border: 5px solid #264870; overflow: hidden; }
   #revenue-breakdown { width: 50%; float:left; }
   #revenue-pie { width: 49%; float: right; }
