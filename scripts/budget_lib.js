@@ -703,4 +703,9 @@ var BudgetLib = {
     $('#net-difference-total' ).formatCurrency();
   },
  
+ showBreakDownNote: function(id)
+ {
+    alert("Dabooay: " + id );
+ }
+ 
 }

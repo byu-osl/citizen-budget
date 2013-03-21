@@ -127,14 +127,14 @@ var BudgetHelpers =
   
   //***************************************************************************
   //***************************************************************************
-  generateBreakdownTableRow: function(rowId, rowName, budgeted, spent, note) 
+  generateBreakdownTableRow: function(rowId, rowName, budgeted, spent, note, id) 
   {
     var row = "\
       <tr id='" + rowId + "'>\
         <td>" + rowName;
     
     if (note != "") {
-      row += "  <img alt=\"Cedar Hills City Budget\" src=\"images/bubble.png\" height=\"15\" />";
+      row += "  <img onclick=\"BudgetLib.showBreakDownNote(10)\" alt=\"Cedar Hills City Budget\" src=\"images/bubble.png\" height=\"15\" />";
     }
     
     row += "</td>\
