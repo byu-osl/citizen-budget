@@ -181,14 +181,14 @@ ul { list-style: disc; }
     font-weight: bold;
   }
   
-  #fund-notes-div { border: 5px solid #264870; overflow: hidden; }
+  #fund-notes-div { padding: 10px; border: 5px solid #264870; overflow: hidden; }
   #fund-notes-header {text-align: center; color: #264870;}
   
-  #revenue { border: 5px solid #264870; overflow: hidden; }
+  #revenue { padding: 10px; border: 5px solid #264870; overflow: hidden; }
   #revenue-breakdown { width: 50%; float:left; }
   #revenue-pie { width: 49%; float: right; }
   
-  #expenditure { border: 5px solid #264870; overflow: hidden; }
+  #expenditure { padding: 10px; border: 5px solid #264870; overflow: hidden; }
   #expenditure-pie { width: 49%; float: left; }
   #expenditure-breakdown { width: 50%; float: right; }
   

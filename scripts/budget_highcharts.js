@@ -203,11 +203,55 @@ var BudgetHighcharts =
   //*************************************************************************************
   formatAmount: function(value) {
     if (value >= 1000000000)
-      return "$" + value / 1000000000 + "B";
+      return "$" + (value / 1000000000).toFixed(2) + "B";
     else if (value >= 1000000)
-      return "$" + value / 1000000 + "M";
+      return "$" + (value / 1000000).toFixed(2) + "M";
     else
       return "$" + value;
+  },
+  
+  //*************************************************************************************
+  // This function creates and displays the bar graphs.
+  //*************************************************************************************
+  updateBarGraph: function(renderToDiv, barTitle, catigories, data)
+  {
+    barChart = new Highcharts.Chart(
+    {
+      chart:
+      {
+        //backgroundColor: '#d3dfed',
+        /*{
+          linearGradient: [100, 100, 400, 400],
+          stops: [
+            [0, 'rgb(255, 255, 245)'],
+            [1, BudgetHighcharts.expendColor]
+          ]
+        },*/
+          //plotBorderWidth: null,
+          //plotShadow: false,
+          renderTo: renderToDiv,
+          type: 'bar',
+      },
+      credits: { enabled: false },
+      title:   {text: barTitle},
+      legend:  {enabled: false,},
+      xAxis:
+      {
+        categories: catigories,
+        title: {text: null}
+      },
+      yAxis:
+      {
+        title:  {text: 'Dollars', align: 'high'},
+        labels: {overflow: 'justify'}
+      },
+      tooltip:
+      {
+        formatter: function() {return ''+ BudgetHighcharts.formatAmount(this.y);}
+      },
+      plotOptions:{ bar:{colorByPoint: true} },
+      series: [{data: data}]
+    });
   },
   
   //*************************************************************************************

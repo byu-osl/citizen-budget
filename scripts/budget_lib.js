@@ -518,17 +518,21 @@ var BudgetLib = {
     BudgetLib.updateRevenueTotals(json);
    
     //Update the revenue pie chart
-    BudgetLib.updateRevenuePie(json);
+    BudgetLib.updateRevenueBar(json);
   },
 
   //***************************************************************************
   //This function will update the revenue pie chart.
   //**************************************************************************
-  updateRevenuePie: function(json)
+  updateRevenueBar: function(json)
   {
-    BudgetHighcharts.updatePieChart("revenue-pie-chart",
+    var catAndAct = BudgetHelpers.genArrayOfCatigoriesAndActuals(json);
+    
+    BudgetHighcharts.updateBarGraph("revenue-pie-chart",
                                     "Revenues",
-                                    BudgetHelpers.genArrayForPieChart(json));
+                                    catAndAct[0],//Catigories
+                                    catAndAct[1]//data
+                                    );
     return;
   },
   
@@ -611,9 +615,12 @@ var BudgetLib = {
   //**************************************************************************
   updateExpenditurePie: function(json)
   {
-    BudgetHighcharts.updatePieChart("expenditure-pie-chart",
+    var catAndAct = BudgetHelpers.genArrayOfCatigoriesAndActuals(json);
+   
+    BudgetHighcharts.updateBarGraph("expenditure-pie-chart",
                                     "Expenditures",
-                                    BudgetHelpers.genArrayForPieChart(json));
+                                    catAndAct[0],
+                                    catAndAct[1]);
     return;
   },
   

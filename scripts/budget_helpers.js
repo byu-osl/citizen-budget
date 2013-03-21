@@ -81,24 +81,21 @@ var BudgetHelpers =
   //This function will take in a table of the formate:
   // (catigory_name, ytd_act, ...)
   // And return an array with:
-  // [catigory_name, % of total ytd_actual]
+  // [ [Array of catigory_name], [Array of total ytd_actual]]
   //**************************************************************************
-  genArrayForPieChart: function(json)
+  genArrayOfCatigoriesAndActuals: function(json)
   {
     var rows = json["rows"];
-    var fusiontabledata = [];
-    var total = 0;
+    var catigories = [];
+    var data = [];
     
     for(i = 0; i < rows.length; i++)
     {
-      fusiontabledata.push(["" + rows[i][0], rows[i][1]]);
-      total += rows[i][1];
+      catigories.push("" + rows[i][0]);
+      data.push(rows[i][1]);
     }
-    
-    for(i=0; i < fusiontabledata.length; i++)
-      fusiontabledata[i][1] = Math.round((fusiontabledata[i][1] / total) * 100);
-    
-    return fusiontabledata;
+        
+    return [catigories, data];
   },
   
   //***************************************************************************
