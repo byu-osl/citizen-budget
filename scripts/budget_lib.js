@@ -705,7 +705,9 @@ var BudgetLib = {
  
  showBreakDownNote: function(id)
  {
-    alert("Dabooay: " + id );
+    //alert("Dabooay: " + id );
+    $("#modal-content").html("<p>"+"Dabooay: " + id+"</p>");
+    $('#basic-modal-content').modal();
  }
  
 }
