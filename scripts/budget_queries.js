@@ -173,7 +173,7 @@ var BudgetQueries =
 	{
 		var myQuery = "SELECT 'category_name', 'ytd_actual', 'budgeted', ";
 		
-		myQuery    += "'fund_name', 'year', 'type'";
+		myQuery    += "'fund_name', 'year', 'type', 'notes', 'rowid'";
 		
 		myQuery    += " FROM " + BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID;
 		

@@ -30,6 +30,9 @@ var BudgetHelpers =
   query: function(sql, callback) 
   {  
     var sql = encodeURIComponent(sql);
+    
+    console.log("https://www.googleapis.com/fusiontables/v1/query?sql="+sql     
+            +"&callback="+callback+"&key="+BudgetLib.CB_FusionTableApiKey);
        
     $.ajax({
       url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql     
@@ -124,14 +127,22 @@ var BudgetHelpers =
   
   //***************************************************************************
   //***************************************************************************
-  generateBreakdownTableRow: function(rowId, rowName, budgeted, spent) 
+  generateBreakdownTableRow: function(rowId, rowName, budgeted, spent, note) 
   {
-    return "\
+    var row = "\
       <tr id='" + rowId + "'>\
-        <td>" + rowName + "</td>\
+        <td>" + rowName;
+    
+    if (note != "") {
+      row += "  <img alt=\"Cedar Hills City Budget\" src=\"images/bubble.png\" height=\"15\" />";
+    }
+    
+    row += "</td>\
         <td class='num spent'>" + spent + "</td>\
         <td class='num budgeted'>" + budgeted + "</td>\
       </tr>";
+    
+    return row;
   },
   
   //***************************************************************************

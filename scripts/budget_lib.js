@@ -477,14 +477,18 @@ var BudgetLib = {
     {
       var rowName            = rows[i][0];
       var ytdActual          = rows[i][1];
-      var budgeted           = rows[i][2];     
+      var budgeted           = rows[i][2];
+      var note               = rows[i][6];
       var rowId              = BudgetHelpers.convertToSlug(rowName);
+      
+      console.log(rows);
       
       if (budgeted != 0 || ytdActual != 0)
         fusiontabledata += BudgetHelpers.generateBreakdownTableRow(rowId,
                                                                    rowName,
                                                                    budgeted,
-                                                                   ytdActual);
+                                                                   ytdActual,
+                                                                   note);
     }
  
     return fusiontabledata;
