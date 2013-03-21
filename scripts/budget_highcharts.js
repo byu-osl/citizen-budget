@@ -253,44 +253,4 @@ var BudgetHighcharts =
       series: [{data: data}]
     });
   },
-  
-  //*************************************************************************************
-  // This function creates and displays pie charts.
-  //*************************************************************************************
-  updatePieChart: function (renderToDiv, pieTitle, theData)
-  {
-    expenditurePie = new Highcharts.Chart(
-    {
-        chart:
-        {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            renderTo: renderToDiv,
-        },
-        credits: { enabled: false },
-        title:   {text: pieTitle},
-        tooltip:
-        {
-            formatter: function () {return this.point.name + '<br/><b>' + this.y + '%</b>';},
-            percentageDecimals: 1,
-            useHTML: true,
-        },
-        plotOptions:
-        {
-            pie:
-            {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                showInLegend: true,
-                dataLabels: {enabled: false}
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: theData
-        }]
-    });
-  }
 }
