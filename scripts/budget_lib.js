@@ -479,16 +479,16 @@ var BudgetLib = {
       var ytdActual          = rows[i][1];
       var budgeted           = rows[i][2];
       var note               = rows[i][6];
+      var fusiontableRowid   = rows[i][7];
       var rowId              = BudgetHelpers.convertToSlug(rowName);
-      
-      console.log(rows);
       
       if (budgeted != 0 || ytdActual != 0)
         fusiontabledata += BudgetHelpers.generateBreakdownTableRow(rowId,
                                                                    rowName,
                                                                    budgeted,
                                                                    ytdActual,
-                                                                   note);
+                                                                   note,
+                                                                   fusiontableRowid);
     }
  
     return fusiontabledata;
@@ -703,11 +703,26 @@ var BudgetLib = {
     $('#net-difference-total' ).formatCurrency();
   },
  
- showBreakDownNote: function(id)
+ showBreakDownNote: function(fusiontableRowid)
  {
-    //alert("Dabooay: " + id );
-    $("#modal-content").html("<p>"+"Dabooay: " + id+"</p>");
+    BudgetQueries.getNotesPopoutInfo(fusiontableRowid, "BudgetLib.updateModalInformation");
     $('#basic-modal-content').modal();
- }
+ },
  
+ updateModalInformation: function(json)
+ {
+
+    var rows       = json["rows"];
+    var catagory   = rows[0][0];
+    var ytdActual  = rows[0][1];
+    var budgeted   = rows[0][2];
+    var note       = rows[0][3];
+    
+    $('#modal-header'  ).html(catagory);
+    $('#modal-spent'   ).html(ytdActual);
+    $('#modal-budgeted').html(budgeted);
+    $('#modal-spent'   ).formatCurrency();
+    $('#modal-budgeted').formatCurrency();
+    $('#modal-note'    ).html(note);
+ },
 }

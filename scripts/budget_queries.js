@@ -182,4 +182,20 @@ var BudgetQueries =
 		
 		BudgetHelpers.query(myQuery, callback);
 	},
+	
+	//**********************************************************************
+	//gets the information for the notes modal window.
+	//**********************************************************************
+	getNotesPopoutInfo: function(id, callback)
+	{
+		var myQuery = "SELECT 'category_name', 'ytd_actual',";
+		
+		myQuery    += " 'budgeted', 'notes'";
+		
+		myQuery    += " FROM " + BudgetLib.CB_FUND_BREAK_DOWN_TABLE_ID;
+		
+		myQuery    += " WHERE 'rowid' = '" + id + "'";			
+		
+		BudgetHelpers.query(myQuery, callback);
+	},
 }
