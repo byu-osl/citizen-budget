@@ -17,14 +17,16 @@ body, #credit { font-family: Arial, sans-serif; }
 
 /* Basics
 ======================================================================*/
-a { color: #f85204; text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: black; text-decoration: none; }
+a:hover { text-decoration: underline; color: #f85204}
 
 body {
-  background: #213b57 url(../images/bg.jpg);
+  /* background: #213b57 url(../images/bg.jpg); */
+  background: #CFCE86;
   font-size: 15px;
   line-height: 1.45;
-  padding: 50px 0;
+  /* padding: 50px 0; */
+  padding: 0px 0px 40px 0px;
 }
 
 dl, ol, p, ul, table { margin-bottom: 1.5em; }
@@ -37,7 +39,7 @@ h3 { font-size: 20px; line-height: 1.2; }
 hr { background: #e5e6e7; border: 0; clear: both; color: #e5e6e7; height: 1px; margin: 1em 0; }
 ol { list-style: decimal; }
 ol, ul { margin-left: 2em; }
-table { border-collapse: collapse; width: 100% !important; }
+table { border-collapse: collapse; border: 5px solid #423938; width: 100% !important; }
 td { vertical-align: top; }
 sup { font-size: 11px; vertical-align: top; }
 ul { list-style: disc; }
@@ -98,10 +100,10 @@ ul { list-style: disc; }
 #breakdown a { cursor: pointer; }
 #breakdown .num { text-align: right; }
 #breakdown td, #breakdown th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#breakdown th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#breakdown th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
 #breakdown th.charts { width: 50%; }
 #breakdown th.controls { width: 20px; }
-#breakdown th span { color: #f85204; cursor: pointer; }
+#breakdown th span { color: #ffffff; cursor: pointer; font-size: 20px}
 
 #breakdown th.sorting_asc span {
   background: url(../images/sort-up.png) no-repeat 100% 50%;
@@ -117,10 +119,10 @@ ul { list-style: disc; }
 #revenue-breakdown-table a { cursor: pointer; }
 #revenue-breakdown-table .numR { text-align: center; }
 #revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#revenue-breakdown-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#revenue-breakdown-table th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
 #revenue-breakdown-table th.charts { width: 50%; }
 #revenue-breakdown-table th.controls { width: 20px; }
-#revenue-breakdown-table th span { color: #f85204; cursor: pointer; }
+#revenue-breakdown-table th span { color: #ffffff; cursor: pointer; font-size: 15px}
 #revenue-breakdown {display: none}
 
 #revenue-breakdown-table th.sorting_asc span {
@@ -137,10 +139,10 @@ ul { list-style: disc; }
 #expenditure-breakdown-table a { cursor: pointer; }
 #expenditure-breakdown-table .numE { text-align: center; }
 #expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#expenditure-breakdown-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#expenditure-breakdown-table th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
 #expenditure-breakdown-table th.charts { width: 50%; }
 #expenditure-breakdown-table th.controls { width: 20px; }
-#expenditure-breakdown-table th span { color: #f85204; cursor: pointer; }
+#expenditure-breakdown-table th span { color: #ffffff; cursor: pointer; font-size: 15px}
 #expenditure-breakdown {display: none}
 
 #expenditure-breakdown-table th.sorting_asc span {
@@ -156,18 +158,18 @@ ul { list-style: disc; }
 /* Net Revenue Table */
 #net-revenue-table a { cursor: pointer; }
 #net-revenue-table .num { text-align: right; }
-#net-revenue-table td, #net-revenue-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#net-revenue-table th { background: #e1e9f2; font-size: 12px; font-weight: bold; text-align: left; }
+#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.3em 10px; border-top: 1px solid;}
+#net-revenue-table th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
-#net-revenue-table th span { color: #f85204; cursor: pointer; }
+#net-revenue-table th span { color: #ffffff; cursor: pointer; font-size: 20px}
 
   
   /* Colors */
   .budgeted { color: #264870; }
-  .spent { color: #7d9abb; }
+  .spent { color: #7C6954; }
   .bars .budgeted { background: #264870; border-color: #264870; }
-  .bars .spent { background: #7d9abb; border-color: #7d9abb; }
+  .bars .spent { background: #7C6954; border-color: #7d9abb; }
   
   /* Expanded rows */
   #breakdown .expanded-content td {
@@ -181,14 +183,15 @@ ul { list-style: disc; }
     font-weight: bold;
   }
   
-  #fund-notes-div { padding: 10px; border: 5px solid #264870; overflow: hidden; }
-  #fund-notes-header {text-align: center; color: #264870;}
+  #fund-notes-div { padding: 10px; border: 5px solid #423938; overflow: hidden; }
+  #fund-notes-header {text-align: center; color: #423938;}
   
-  #revenue { padding: 10px; border: 5px solid #264870; overflow: hidden; }
+  /* #revenue { padding: 10px; border: 5px solid #264870; overflow: hidden; } */
+  #revenue { padding: 10px; border: 5px solid #423938; overflow: hidden; }
   #revenue-breakdown { width: 50%; float:left; }
   #revenue-pie { width: 49%; float: right; }
   
-  #expenditure { padding: 10px; border: 5px solid #264870; overflow: hidden; }
+  #expenditure { padding: 10px; border: 5px solid #423938; overflow: hidden; }
   #expenditure-pie { width: 49%; float: left; }
   #expenditure-breakdown { width: 50%; float: right; }
   
@@ -203,7 +206,7 @@ ul { list-style: disc; }
   #breakdown-nav ul { list-style: none; margin: 0; }
   
   /* Scorecard */
-  #scorecard { border-top: 5px solid #264870; border-bottom: 5px solid #264870; margin: 0; text-align: center;}
+  #scorecard { border-top: 7px solid #423938; border-bottom: 5px solid #264870; margin: 0; text-align: center;}
   #scorecard h2 { font-size: 20px; }
   #scorecard h2, #scorecard p { margin: 0; }
   #scorecard h3 {font-size: 15px;}
@@ -227,8 +230,11 @@ ul { list-style: disc; }
 #faq { list-style: none; margin-left: 0; }
 
 /* Footer */
-#footer { color: #7c8a9b; font-size: 12px; padding: 15px 0 0; }
-#footer a { color: #fff; }
+/*#footer { color: #7c8a9b; font-size: 12px; padding: 15px 0 0; }
+#footer a { color: #fff; }*/
+
+#footer { color: #b7c6d6; font-size: 0px; padding-bottom: 0px; position: relative; }
+#footer a { color: #fff; position: relative; margin-left: -184px}
 
   /* Credit */
   #credit { float: right; text-align: right; }
@@ -245,8 +251,13 @@ ul { list-style: disc; }
 #footnotes ul { list-style: none; margin: 0; }
 
 /* Header */
-#header { color: #b7c6d6; font-size: 13px; padding-bottom: 30px; position: relative; }
+/*#header { color: #b7c6d6; font-size: 13px; padding-bottom: 30px; position: relative; }
 #header a { color: #fff; }
+#header-secondary { float: right; font-style: italic; padding-top: 23px; text-align: right; }
+#header-secondary p { margin: 0; }*/
+
+#header { color: #b7c6d6; font-size: 0px; padding-bottom: 0px; position: relative; }
+#header a { color: #fff; position: relative; margin-left: -184px}
 #header-secondary { float: right; font-style: italic; padding-top: 23px; text-align: right; }
 #header-secondary p { margin: 0; }
 
@@ -256,6 +267,7 @@ ul { list-style: disc; }
   
   /* Logo */
   #logo { float: left; }
+  #logo-logo {float: left; margin: 0px 0px 0px 194px;}
   #logo-print { display: none; }
 
 /* Icons */
