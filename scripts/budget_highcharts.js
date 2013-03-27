@@ -233,7 +233,17 @@ var BudgetHighcharts =
           type: 'bar',
       },
       credits: { enabled: false },
-      title:   {text: barTitle},
+      title:
+      {
+        text: barTitle,
+        style:
+        {
+          color: BudgetHighcharts.apropColor,
+          fontSize: '20px',
+          fontStyle: 'bold',
+          fontWeight: 'bold'
+        }
+      },
       legend:  {enabled: false,},
       xAxis:
       {
