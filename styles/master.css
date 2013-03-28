@@ -11,9 +11,9 @@
 
 /* Fonts
 ======================================================================*/
-body, #credit { font-family: Arial, sans-serif; }
-#header { font-family: Georgia, "Times New Roman", Times, serif; }
-
+/*#header {
+    font-family: Georgia, "Times New Roman", Times, serif;
+ }*/
 
 /* Basics
 ======================================================================*/
@@ -21,12 +21,11 @@ a { color: black; text-decoration: none; }
 a:hover { text-decoration: underline; color: #f85204}
 
 body {
-  /* background: #213b57 url(../images/bg.jpg); */
-  background: #CFCE86;
-  font-size: 15px;
-  line-height: 1.45;
-  /* padding: 50px 0; */
-  padding: 0px 0px 40px 0px;
+    background: #FFF url(http://www.cedarhills.org/themes/cedar_hills/images/body-bg.png) repeat-x;
+    line-height: 1.5em;
+    font-size: 12px;
+    font-family: Helvetica,sans-serif;
+    color: #423938;
 }
 
 dl, ol, p, ul, table { margin-bottom: 1.5em; }
@@ -52,14 +51,18 @@ ul { list-style: disc; }
 /* Core layout
 ======================================================================*/
 .clear { clear: both; }
-#page { margin: 0 auto; width: 980px; }
+#page {
+    background-color: #BFD6CE;
+}
 
 /* Content */
 #content {
+    margin: 0 auto;
+    width: 980px; 
   background: #fff;
-  -moz-box-shadow: 0 0 30px rgba(0, 0, 0, 0.33);
-  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.33);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.33);
+  -moz-box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.33);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.33);
   clear: both;
 }
 
@@ -206,7 +209,7 @@ ul { list-style: disc; }
   #breakdown-nav ul { list-style: none; margin: 0; }
   
   /* Scorecard */
-  #scorecard { border-top: 7px solid #423938; border-bottom: 5px solid #264870; margin: 0; text-align: center;}
+  #scorecard { border-top: 7px solid #423938; border-bottom: 5px solid #423938; margin: 0; text-align: center;}
   #scorecard h2 { font-size: 20px; }
   #scorecard h2, #scorecard p { margin: 0; }
   #scorecard h3 {font-size: 15px;}
@@ -236,9 +239,6 @@ ul { list-style: disc; }
 #footer { color: #b7c6d6; font-size: 0px; padding-bottom: 0px; position: relative; }
 #footer a { color: #fff; position: relative; margin-left: -184px}
 
-  /* Credit */
-  #credit { float: right; text-align: right; }
-  
   /* Sharing links */
   .share { list-style: none; margin: 0; }
   .share img { float: left; margin-right: 5px; }
@@ -256,19 +256,73 @@ ul { list-style: disc; }
 #header-secondary { float: right; font-style: italic; padding-top: 23px; text-align: right; }
 #header-secondary p { margin: 0; }*/
 
-#header { color: #b7c6d6; font-size: 0px; padding-bottom: 0px; position: relative; }
-#header a { color: #fff; position: relative; margin-left: -184px}
-#header-secondary { float: right; font-style: italic; padding-top: 23px; text-align: right; }
-#header-secondary p { margin: 0; }
+#header {
+    height: 110px;
+    width: 100%;
+    background: url(http://www.cedarhills.org/themes/cedar_hills/images/header-bg.png) repeat-x center 0;
+    background-position: center 10px;
+    color: #FFF
+    z-index: 10;
+}
 
-  /* Credit */
-  #header #credit { color: #93a4b8; font-size: 11px; font-style: normal; }
-  #header #credit a { color: #c8ced5; }
+#header .border {
+}
+
+#header .border {
+    top: 20px;
+    position: absolute;
+    height: 68px;
+    left: 11px;
+    right: 11px;
+    border: 1px solid #B0A598;
+}
+
+#header .border > .content {
+    width: 960px;
+    height: 70px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#title {
+    font-size: 40px; 
+    font-weight: bold;
+    float: left;
+    color: white;
+    margin-top: 25px;
+    margin-left: 150px;
+}
+
+#subheader {
+    z-index: 100;
+    padding-top: 18px;
+    color: white;
+}
+
+#subheader .credit {
+    float: right;
+    padding-top: 0px;
+    text-align: right;
+}
+
+#subheader .credit .project {
+    font-size: 15px;
+}
+
+#subheader .credit .tagline {
+    font-size: 10px;
+}
   
-  /* Logo */
-  #logo { float: left; }
-  #logo-logo {float: left; margin: 0px 0px 0px 194px;}
-  #logo-print { display: none; }
+/* Logo */
+#logo {
+    position: absolute;
+    width: 120px;
+    height: 130px;
+    top: -20px;
+    left: 0px;
+}
+#logo-logo {float: left; margin: 0px 0px 0px 194px;}
+#logo-print { display: none; }
 
 /* Icons */
 a[class*="icon"] {
