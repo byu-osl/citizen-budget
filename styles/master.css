@@ -21,11 +21,10 @@ a { color: black; text-decoration: none; }
 a:hover { text-decoration: underline; color: #f85204}
 
 body {
-    background: #FFF url(http://www.cedarhills.org/themes/cedar_hills/images/body-bg.png) repeat-x;
+    background: #EFEED7;
     line-height: 1.5em;
     font-size: 12px;
     font-family: Helvetica,sans-serif;
-    color: #423938;
 }
 
 dl, ol, p, ul, table { margin-bottom: 1.5em; }
@@ -38,7 +37,7 @@ h3 { font-size: 20px; line-height: 1.2; }
 hr { background: #e5e6e7; border: 0; clear: both; color: #e5e6e7; height: 1px; margin: 1em 0; }
 ol { list-style: decimal; }
 ol, ul { margin-left: 2em; }
-table { border-collapse: collapse; border: 5px solid #423938; width: 100% !important; }
+table { border-collapse: collapse; width: 100% !important; }
 td { vertical-align: top; }
 sup { font-size: 11px; vertical-align: top; }
 ul { list-style: disc; }
@@ -52,7 +51,7 @@ ul { list-style: disc; }
 ======================================================================*/
 .clear { clear: both; }
 #page {
-    background-color: #BFD6CE;
+    background-color: #EFEED7;
 }
 
 /* Content */
@@ -102,8 +101,8 @@ ul { list-style: disc; }
 /* Breakdown table */
 #breakdown a { cursor: pointer; }
 #breakdown .num { text-align: right; }
-#breakdown td, #breakdown th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#breakdown th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
+#breakdown td, #breakdown th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 76px; }
+#breakdown th { background: #264870; font-size: 12px; font-weight: bold; text-align: center; }
 #breakdown th.charts { width: 50%; }
 #breakdown th.controls { width: 20px; }
 #breakdown th span { color: #ffffff; cursor: pointer; font-size: 20px}
@@ -121,8 +120,8 @@ ul { list-style: disc; }
 /* Revenue Breakdown Table */
 #revenue-breakdown-table a { cursor: pointer; }
 #revenue-breakdown-table .numR { text-align: center; }
-#revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#revenue-breakdown-table th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
+#revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 17px; }
+#revenue-breakdown-table th { background: #264870; font-size: 12px; font-weight: bold; text-align: center; }
 #revenue-breakdown-table th.charts { width: 50%; }
 #revenue-breakdown-table th.controls { width: 20px; }
 #revenue-breakdown-table th span { color: #ffffff; cursor: pointer; font-size: 15px}
@@ -141,8 +140,8 @@ ul { list-style: disc; }
 /* Expenditure Breakdown Table */
 #expenditure-breakdown-table a { cursor: pointer; }
 #expenditure-breakdown-table .numE { text-align: center; }
-#expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.3em 10px; }
-#expenditure-breakdown-table th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
+#expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 18px; }
+#expenditure-breakdown-table th { background: #264870; font-size: 12px; font-weight: bold; text-align: center; }
 #expenditure-breakdown-table th.charts { width: 50%; }
 #expenditure-breakdown-table th.controls { width: 20px; }
 #expenditure-breakdown-table th span { color: #ffffff; cursor: pointer; font-size: 15px}
@@ -160,19 +159,19 @@ ul { list-style: disc; }
 
 /* Net Revenue Table */
 #net-revenue-table a { cursor: pointer; }
-#net-revenue-table .num { text-align: right; }
-#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.3em 10px; border-top: 1px solid;}
-#net-revenue-table th { background: #423938; font-size: 12px; font-weight: bold; text-align: left; }
+#net-revenue-table .net { text-align: center; }
+#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.8em 60px; border-top: 1px solid; text-align: left; }
+#net-revenue-table th { background: #264870; font-size: 12px; font-weight: bold; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
 #net-revenue-table th span { color: #ffffff; cursor: pointer; font-size: 20px}
 
   
   /* Colors */
-  .budgeted { color: #264870; }
-  .spent { color: #7C6954; }
-  .bars .budgeted { background: #264870; border-color: #264870; }
-  .bars .spent { background: #7C6954; border-color: #7d9abb; }
+  .budgeted { color: #2F4168; }
+  .spent { color: #9B7E46; }
+  .bars .budgeted { background: #264870; border-color: #2F4168; }
+  .bars .spent { background: #7C6954; border-color: #9B7E46; }
   
   /* Expanded rows */
   #breakdown .expanded-content td {
@@ -256,13 +255,21 @@ ul { list-style: disc; }
 #header-secondary { float: right; font-style: italic; padding-top: 23px; text-align: right; }
 #header-secondary p { margin: 0; }*/
 
+/* Totals Bold */
+#revenue-ytdactual-total { font-weight: bold; border-top: 7px solid #423938;}
+#revenue-budgeted-total { font-weight: bold; }
+#expenditure-ytdactual-total { font-weight: bold; }
+#expenditure-budgeted-total { font-weight: bold; }
+#total { font-weight: bold }
+#net-difference-total{ font-weight: bold }
+
 #header {
     height: 110px;
     width: 100%;
     background: url(http://www.cedarhills.org/themes/cedar_hills/images/header-bg.png) repeat-x center 0;
     background-position: center 10px;
-    color: #FFF
-    z-index: 10;
+    color: #FFF;
+    
 }
 
 #header .border {
