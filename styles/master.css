@@ -30,7 +30,7 @@ body {
 dl, ol, p, ul, table { margin-bottom: 1.5em; }
 cite, em { font-style: italic; }
 h1 { font-family: serif; font-size: 42px; margin-bottom: 0.3em; line-height: 1.1; }
-h1, h2 { color: #264870; }
+h1, h2 { color: #2F4168; }
 h1, h2, h3, h4, h5, h6, strong { font-weight: bold; }
 h2 { font-size: 25px; line-height: 1.2; margin-bottom: 0.3em; }
 h3 { font-size: 20px; line-height: 1.2; }
@@ -102,7 +102,7 @@ ul { list-style: disc; }
 #breakdown a { cursor: pointer; }
 #breakdown .num { text-align: right; }
 #breakdown td, #breakdown th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 76px; }
-#breakdown th { background: #264870; font-size: 12px; font-weight: bold; text-align: center; }
+#breakdown th { background: #2F4168; font-size: 12px; font-weight: bold; text-align: center; }
 #breakdown th.charts { width: 50%; }
 #breakdown th.controls { width: 20px; }
 #breakdown th span { color: #ffffff; cursor: pointer; font-size: 20px}
@@ -121,7 +121,7 @@ ul { list-style: disc; }
 #revenue-breakdown-table a { cursor: pointer; }
 #revenue-breakdown-table .numR { text-align: center; }
 #revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 17px; }
-#revenue-breakdown-table th { background: #264870; font-size: 12px; font-weight: bold; text-align: center; }
+#revenue-breakdown-table th { background: #2F4168; font-size: 12px; font-weight: bold; text-align: center; }
 #revenue-breakdown-table th.charts { width: 50%; }
 #revenue-breakdown-table th.controls { width: 20px; }
 #revenue-breakdown-table th span { color: #ffffff; cursor: pointer; font-size: 15px}
@@ -141,7 +141,7 @@ ul { list-style: disc; }
 #expenditure-breakdown-table a { cursor: pointer; }
 #expenditure-breakdown-table .numE { text-align: center; }
 #expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 18px; }
-#expenditure-breakdown-table th { background: #264870; font-size: 12px; font-weight: bold; text-align: center; }
+#expenditure-breakdown-table th { background: #2F4168; font-size: 12px; font-weight: bold; text-align: center; }
 #expenditure-breakdown-table th.charts { width: 50%; }
 #expenditure-breakdown-table th.controls { width: 20px; }
 #expenditure-breakdown-table th span { color: #ffffff; cursor: pointer; font-size: 15px}
@@ -161,7 +161,7 @@ ul { list-style: disc; }
 #net-revenue-table a { cursor: pointer; }
 #net-revenue-table .net { text-align: center; }
 #net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.8em 60px; border-top: 1px solid; text-align: left; }
-#net-revenue-table th { background: #264870; font-size: 12px; font-weight: bold; }
+#net-revenue-table th { background: #2F4168; font-size: 12px; font-weight: bold; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
 #net-revenue-table th span { color: #ffffff; cursor: pointer; font-size: 20px}
@@ -169,9 +169,9 @@ ul { list-style: disc; }
   
   /* Colors */
   .budgeted { color: #2F4168; }
-  .spent { color: #9B7E46; }
+  .spent { color: #493000; }
   .bars .budgeted { background: #264870; border-color: #2F4168; }
-  .bars .spent { background: #7C6954; border-color: #9B7E46; }
+  .bars .spent { background: #7C6954; border-color: #493000; }
   
   /* Expanded rows */
   #breakdown .expanded-content td {
@@ -185,15 +185,15 @@ ul { list-style: disc; }
     font-weight: bold;
   }
   
-  #fund-notes-div { padding: 10px; border: 5px solid #423938; overflow: hidden; }
-  #fund-notes-header {text-align: center; color: #423938;}
+  #fund-notes-div { padding: 10px; border: 5px solid #493000; overflow: hidden; }
+  #fund-notes-header { text-align: center; color: #2F4168 }
   
   /* #revenue { padding: 10px; border: 5px solid #264870; overflow: hidden; } */
-  #revenue { padding: 10px; border: 5px solid #423938; overflow: hidden; }
+  #revenue { padding: 10px; border: 5px solid #493000; overflow: hidden; }
   #revenue-breakdown { width: 50%; float:left; }
   #revenue-pie { width: 49%; float: right; }
   
-  #expenditure { padding: 10px; border: 5px solid #423938; overflow: hidden; }
+  #expenditure { padding: 10px; border: 5px solid #493000; overflow: hidden; }
   #expenditure-pie { width: 49%; float: left; }
   #expenditure-breakdown { width: 50%; float: right; }
   
@@ -204,11 +204,11 @@ ul { list-style: disc; }
   #breakdown-nav { margin-top: -1px; }
   #breakdown-nav a { display: block; padding: 0.4em 1em 0.3em; }
   #breakdown-nav li { float: left; }
-  #breakdown-nav li.current { background: #264870; color: #fff; padding: 0.4em 1em 0.3em; }
+  #breakdown-nav li.current { background: #2F4168; color: #fff; padding: 0.4em 1em 0.3em; }
   #breakdown-nav ul { list-style: none; margin: 0; }
   
   /* Scorecard */
-  #scorecard { border-top: 7px solid #423938; border-bottom: 5px solid #423938; margin: 0; text-align: center;}
+  #scorecard { border-top: 12px solid #2F4168; border-bottom: 5px solid #493000; margin: 0; text-align: center;}
   #scorecard h2 { font-size: 20px; }
   #scorecard h2, #scorecard p { margin: 0; }
   #scorecard h3 {font-size: 15px;}
@@ -256,12 +256,12 @@ ul { list-style: disc; }
 #header-secondary p { margin: 0; }*/
 
 /* Totals Bold */
-#revenue-ytdactual-total { font-weight: bold; border-top: 7px solid #423938;}
-#revenue-budgeted-total { font-weight: bold; }
-#expenditure-ytdactual-total { font-weight: bold; }
-#expenditure-budgeted-total { font-weight: bold; }
-#total { font-weight: bold }
-#net-difference-total{ font-weight: bold }
+#revenue-ytdactual-total { font-weight: bold; border-top: 7px solid #493000; background: #D3DFED; }
+#revenue-budgeted-total { font-weight: bold; background: #D3DFED; }
+#expenditure-ytdactual-total { font-weight: bold; background: #D3DFED; }
+#expenditure-budgeted-total { font-weight: bold; background: #D3DFED; }
+#total { font-weight: bold ; background: #D3DFED; color: #2F4168; }
+#net-difference-total{ font-weight: bold; background: #D3DFED; }
 
 #header {
     height: 110px;
@@ -371,18 +371,18 @@ a[class*="icon"] {
 #simplemodal-overlay {background-color: #000;}
 
 /* Container */
-#simplemodal-container {height:360px; width:600px; color:#bbb; background: #EFEED7; border:4px solid #8A8279; padding:12px;}
+#simplemodal-container {height:360px; width:600px; color:#bbb; background: #EFEED7; border:4px solid #493000; padding:12px;}
 #simplemodal-container .simplemodal-data {padding:8px;}
-#simplemodal-container code {background:#141414; border-left:3px solid #65B43D; color:#bbb; display:block; font-size:12px; margin-bottom:12px; padding:4px 6px 6px;}
+#simplemodal-container code {background:#EFEED7; border-left:3px solid #493000; color:#bbb; display:block; font-size:12px; margin-bottom:12px; padding:4px 6px 6px;}
 #simplemodal-container a {color:#ddd;}
 #simplemodal-container a.modalCloseImg {background:url(../images/closex.png) no-repeat; width:54px; height:20px; display:inline; z-index:3200; position:absolute; top:4px; right: 4px; cursor:pointer;}
-#simplemodal-container h3, #simplemodal-container h5 {color:#706450;}
+#simplemodal-container h3, #simplemodal-container h5 {color:#000000;}
 
 /* Modal Table */
-#modal-table .modal { text-align: center; color: #ffffff; font-size: 16px}
-#modal-table td, #modal-table th { border: 3px solid #706450; padding: 0.4em 30px; }
+#modal-table .modal { text-align: center; font-size: 16px; padding: 0.8em 100px; }
+#modal-table td, #modal-table th { padding: 0.4em 30px; color: #000000}
 #modal-table td { font-size: 16px; }
-#modal-table th { background: #8F8065; font-size: 13px; font-weight: bold; text-align: left; }
+#modal-table th { background: #EFEED7; font-size: 13px; font-weight: bold; text-align: left; }
 
   
   
