@@ -90,7 +90,7 @@ ul { list-style: disc; }
 	-moz-box-shadow: 0 1px 3px #999;
 	-webkit-box-shadow: 0 1px 3px #999;
 	box-shadow: 0 1px 3px #999;
-	color: #653733;
+	color: #493000;
 	display: inline-block;
 	font-size: 21px;
 	font-weight: bold;
@@ -208,7 +208,7 @@ ul { list-style: disc; }
   #breakdown-nav ul { list-style: none; margin: 0; }
   
   /* Scorecard */
-  #scorecard { border-top: 12px solid #2F4168; border-bottom: 5px solid #493000; margin: 0; text-align: center;}
+  #scorecard { border-top: 12px solid #493000; border-bottom: 5px solid #2F4168; margin: 0; text-align: center;}
   #scorecard h2 { font-size: 20px; }
   #scorecard h2, #scorecard p { margin: 0; }
   #scorecard h3 {font-size: 15px;}
