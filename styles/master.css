@@ -160,7 +160,7 @@ ul { list-style: disc; }
 /* Net Revenue Table */
 #net-revenue-table a { cursor: pointer; }
 #net-revenue-table .net { text-align: center; }
-#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.8em 60px; border-top: 1px solid; text-align: left; }
+#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.8em 60px; text-align: left; }
 #net-revenue-table th { background: #2F4168; font-size: 12px; font-weight: bold; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
@@ -260,7 +260,7 @@ ul { list-style: disc; }
 #revenue-budgeted-total { font-weight: bold; background: #D3DFED; }
 #expenditure-ytdactual-total { font-weight: bold; background: #D3DFED; }
 #expenditure-budgeted-total { font-weight: bold; background: #D3DFED; }
-#total { font-weight: bold ; background: #D3DFED; color: #2F4168; }
+#total { font-weight: bold ; background: #D3DFED; color: #2F4168;}
 #net-difference-total{ font-weight: bold; background: #D3DFED; }
 
 #header {
