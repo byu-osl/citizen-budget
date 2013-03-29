@@ -190,12 +190,12 @@ ul { list-style: disc; }
   
   /* #revenue { padding: 10px; border: 5px solid #264870; overflow: hidden; } */
   #revenue { padding: 10px; border: 5px solid #423938; overflow: hidden; }
-  #revenue-breakdown { width: 50%; float:left; }
-  #revenue-pie { width: 49%; float: right; }
+  #revenue-pie { width: 49%; vertical-align: middle; display: inline-block;}
+  #revenue-breakdown { width: 50%; vertical-align: middle; display: inline-block;}
   
   #expenditure { padding: 10px; border: 5px solid #423938; overflow: hidden; }
-  #expenditure-pie { width: 49%; float: left; }
-  #expenditure-breakdown { width: 50%; float: right; }
+  #expenditure-pie { width: 49%; vertical-align: middle; display: inline-block;}
+  #expenditure-breakdown { width: 50%; vertical-align: middle; display: inline-block;}
   
   .expanded-primary { float: left; width: 48%; }
   .expanded-secondary { float: right; width: 48%; }

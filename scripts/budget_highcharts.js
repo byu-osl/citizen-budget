@@ -236,6 +236,7 @@ var BudgetHighcharts =
       title:
       {
         text: barTitle,
+        enabled: false,
         style:
         {
           color: BudgetHighcharts.apropColor,
