@@ -17,7 +17,7 @@
 
 /* Basics
 ======================================================================*/
-a { color: black; text-decoration: none; }
+a { color: black; text-decoration: underline; }
 a:hover { text-decoration: underline; color: #f85204}
 
 body {
