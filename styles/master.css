@@ -90,7 +90,7 @@ ul { list-style: disc; }
 	-moz-box-shadow: 0 1px 3px #999;
 	-webkit-box-shadow: 0 1px 3px #999;
 	box-shadow: 0 1px 3px #999;
-	color: #653733;
+	color: #493000;
 	display: inline-block;
 	font-size: 21px;
 	font-weight: bold;
@@ -160,7 +160,7 @@ ul { list-style: disc; }
 /* Net Revenue Table */
 #net-revenue-table a { cursor: pointer; }
 #net-revenue-table .net { text-align: center; }
-#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.8em 60px; border: 1px solid #ddd;; text-align: left; }
+#net-revenue-table td, #net-revenue-table th { font-size: 14px; padding: 0.8em 60px; text-align: left; }
 #net-revenue-table th { background: #2F4168; font-size: 12px; font-weight: bold; }
 #net-revenue-table th.charts { width: 50%; }
 #net-revenue-table th.controls { width: 20px; }
@@ -210,7 +210,7 @@ ul { list-style: disc; }
   #breakdown-nav ul { list-style: none; margin: 0; }
   
   /* Scorecard */
-  #scorecard { border-top: 12px solid #2F4168; border-bottom: 5px solid #493000; margin: 0; text-align: center;}
+  #scorecard { border-top: 12px solid #493000; border-bottom: 5px solid #2F4168; margin: 0; text-align: center;}
   #scorecard h2 { font-size: 20px; }
   #scorecard h2, #scorecard p { margin: 0; }
   #scorecard h3 {font-size: 15px;}
@@ -262,7 +262,7 @@ ul { list-style: disc; }
 #revenue-budgeted-total { font-weight: bold; background: #D3DFED; }
 #expenditure-ytdactual-total { font-weight: bold; background: #D3DFED; }
 #expenditure-budgeted-total { font-weight: bold; background: #D3DFED; }
-#total { font-weight: bold ; background: #D3DFED; color: #2F4168; }
+#total { font-weight: bold ; background: #D3DFED; color: #2F4168;}
 #net-difference-total{ font-weight: bold; background: #D3DFED; }
 
 #header {
