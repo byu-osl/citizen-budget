@@ -174,19 +174,19 @@ ul { list-style: disc; }
   .bars .budgeted { background: #264870; border-color: #2F4168; }
   .bars .spent { background: #7C6954; border-color: #493000; }
   
-  #fund-notes-div { padding: 10px; border: 5px solid #493000; overflow: hidden; }
+  #fund-notes-div { padding: 10px; border: 1px solid #493000; overflow: hidden; }
   #fund-notes-header { text-align: center; color: #2F4168 }
   
-  /* #revenue { padding: 10px; border: 5px solid #264870; overflow: hidden; } */
-  #revenue { padding: 10px; border: 5px solid #493000; overflow: hidden; }
+  /* #revenue { padding: 10px; border: 1px solid #264870; overflow: hidden; } */
+  #revenue { padding: 10px; border: 1px solid #493000; overflow: hidden; }
   #revenue-pie { width: 49%; vertical-align: middle; display: inline-block;}
   #revenue-breakdown { width: 50%; vertical-align: middle; display: inline-block;}
   
-  #expenditure { padding: 10px; border: 5px solid #493000; overflow: hidden; }
+  #expenditure { padding: 10px; border: 1px solid #493000; overflow: hidden; }
   #expenditure-pie { width: 49%; vertical-align: middle; display: inline-block;}
   #expenditure-breakdown { width: 50%; vertical-align: middle; display: inline-block;}
   
-  #net-revenue { padding: 10px; border: 5px solid #493000; overflow: hidden; }
+  #net-revenue { padding: 10px; border: 1px solid #493000; overflow: hidden; }
   
   /* Scorecard */
   #scorecard { border-top: 12px solid #493000; border-bottom: 5px solid #2F4168; margin: 0; text-align: center;}
