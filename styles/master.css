@@ -173,18 +173,6 @@ ul { list-style: disc; }
   .bars .budgeted { background: #264870; border-color: #2F4168; }
   .bars .spent { background: #7C6954; border-color: #493000; }
   
-  /* Expanded rows */
-  #breakdown .expanded-content td {
-    border-bottom: 2px solid #7f7f7f;
-    border-top: 0;
-    padding-top: 20px;
-  }
-  
-  #breakdown .expanded-head td {
-    border-top: 2px solid #7f7f7f;
-    font-weight: bold;
-  }
-  
   #fund-notes-div { padding: 10px; border: 5px solid #493000; overflow: hidden; }
   #fund-notes-header { text-align: center; color: #2F4168 }
   
@@ -198,16 +186,6 @@ ul { list-style: disc; }
   #expenditure-breakdown { width: 50%; vertical-align: middle; display: inline-block;}
   
   #net-revenue { padding: 10px; border: 5px solid #493000; overflow: hidden; }
-  
-  .expanded-primary { float: left; width: 48%; }
-  .expanded-secondary { float: right; width: 48%; }
-  
-  /* Nav */
-  #breakdown-nav { margin-top: -1px; }
-  #breakdown-nav a { display: block; padding: 0.4em 1em 0.3em; }
-  #breakdown-nav li { float: left; }
-  #breakdown-nav li.current { background: #2F4168; color: #fff; padding: 0.4em 1em 0.3em; }
-  #breakdown-nav ul { list-style: none; margin: 0; }
   
   /* Scorecard */
   #scorecard { border-top: 12px solid #493000; border-bottom: 5px solid #2F4168; margin: 0; text-align: center;}
@@ -230,32 +208,8 @@ ul { list-style: disc; }
 /* End Pie Charts */
 
 
-/* FAQ */
-#faq { list-style: none; margin-left: 0; }
-
-/* Footer */
-/*#footer { color: #7c8a9b; font-size: 12px; padding: 15px 0 0; }
-#footer a { color: #fff; }*/
-
 #footer { color: #b7c6d6; font-size: 0px; padding-bottom: 0px; position: relative; }
 #footer a { color: #fff; position: relative; margin-left: -184px}
-
-  /* Sharing links */
-  .share { list-style: none; margin: 0; }
-  .share img { float: left; margin-right: 5px; }
-  .share li { float: left; font-size: 11px; line-height: 1.1; width: 155px; }
-  .share strong { display: block; font-size: 20px; }
-
-/* Footnotes */
-#footnotes { color: #777; font-size: 13px; }
-#footnotes li { display: none; }
-#footnotes ul { list-style: none; margin: 0; }
-
-/* Header */
-/*#header { color: #b7c6d6; font-size: 13px; padding-bottom: 30px; position: relative; }
-#header a { color: #fff; }
-#header-secondary { float: right; font-style: italic; padding-top: 23px; text-align: right; }
-#header-secondary p { margin: 0; }*/
 
 /* Totals Bold */
 #revenue-ytdactual-total { font-weight: bold; border-top: 7px solid #493000; background: #D3DFED; }
@@ -339,9 +293,6 @@ a[class*="icon"] {
   background-position: 0 0.1em;
   padding: 3px 0 3px 22px;
 }
-
-.icon-facebook { background-image: url(../images/facebook-sm.png); }
-.icon-twitter { background-image: url(../images/twitter-sm.png); }
 
 /* Muted text */
 .mute { color: #777; font-size: 13px; }
