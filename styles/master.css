@@ -106,6 +106,7 @@ ul { list-style: disc; }
 #breakdown th.charts { width: 50%; }
 #breakdown th.controls { width: 20px; }
 #breakdown th span { color: #ffffff; cursor: pointer; font-size: 20px}
+/*#breakdown .odd {background-color: #d3dfed}*/
 
 #breakdown th.sorting_asc span {
   background: url(../images/sort-up.png) no-repeat 100% 50%;
@@ -120,7 +121,7 @@ ul { list-style: disc; }
 /* Revenue Breakdown Table */
 #revenue-breakdown-table a { cursor: pointer; }
 #revenue-breakdown-table .numR { text-align: center; }
-#revenue-breakdown-table td, #revenue-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 17px; }
+#revenue-breakdown-table td, #revenue-breakdown-table th { font-size: 14px; padding: 0.5em 17px; }
 #revenue-breakdown-table th { background: #2F4168; font-size: 12px; font-weight: bold; text-align: center; }
 #revenue-breakdown-table th.charts { width: 50%; }
 #revenue-breakdown-table th.controls { width: 20px; }
@@ -140,7 +141,7 @@ ul { list-style: disc; }
 /* Expenditure Breakdown Table */
 #expenditure-breakdown-table a { cursor: pointer; }
 #expenditure-breakdown-table .numE { text-align: center; }
-#expenditure-breakdown-table td, #expenditure-breakdown-table th { border: 1px solid #ddd; font-size: 14px; padding: 0.5em 18px; }
+#expenditure-breakdown-table td, #expenditure-breakdown-table th { font-size: 14px; padding: 0.5em 18px; }
 #expenditure-breakdown-table th { background: #2F4168; font-size: 12px; font-weight: bold; text-align: center; }
 #expenditure-breakdown-table th.charts { width: 50%; }
 #expenditure-breakdown-table th.controls { width: 20px; }
@@ -258,12 +259,12 @@ ul { list-style: disc; }
 #header-secondary p { margin: 0; }*/
 
 /* Totals Bold */
-#revenue-ytdactual-total { font-weight: bold; border-top: 7px solid #493000; background: #D3DFED; }
-#revenue-budgeted-total { font-weight: bold; background: #D3DFED; }
-#expenditure-ytdactual-total { font-weight: bold; background: #D3DFED; }
-#expenditure-budgeted-total { font-weight: bold; background: #D3DFED; }
-#total { font-weight: bold ; background: #D3DFED; color: #2F4168;}
-#net-difference-total{ font-weight: bold; background: #D3DFED; }
+#revenue-ytdactual-total {border-top: 3px solid rgb(14,13,12); font-weight: bold; background: #D3DFED; }
+#revenue-budgeted-total {border-top: 3px solid rgb(14,13,12); font-weight: bold; background: #D3DFED; }
+#expenditure-ytdactual-total {border-top: 3px solid rgb(14,13,12); font-weight: bold; background: #D3DFED; }
+#expenditure-budgeted-total {border-top: 3px solid rgb(14,13,12); font-weight: bold; background: #D3DFED; }
+#total { border-top: 3px solid rgb(14,13,12); font-weight: bold ; background: #D3DFED; color: #2F4168;}
+#net-difference-total{ border-top: 3px solid rgb(14,13,12); font-weight: bold; background: #D3DFED; }
 
 #header {
     height: 110px;
