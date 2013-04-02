@@ -26,7 +26,7 @@ from oauth2client.tools  import run
 from apiclient.http      import MediaFileUpload
 
 ###############################################################################
-# Show Me The Money
+# Citizen Budget
 # Authors: Christopher LaJon Morgan, Eric Lazalde
 #
 # The purpose of this utitlity is to read data from a csv file into
