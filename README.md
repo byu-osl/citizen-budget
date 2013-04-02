@@ -22,9 +22,9 @@ This budget visualization is built entirely using HTML and jQuery. There is no s
 
 The bulk of the code is in /scripts/budget_lib.js. This file contains all of the init, data fetching, display and helper functions that the visualization uses to run. To get a good idea of how it works, you should first look at the data in Fusion Tables that it uses:
 
- - [Main fund table](https://www.google.com/fusiontables/DataSource?docid=1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o) (expenditures and appropriations per department per year)
+ - [Main fund table](https://www.google.com/fusiontables/DataSource?docid=1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o) (expenditures and appropriations per fund per year)
  - [Fund descriptions](https://www.google.com/fusiontables/DataSource?docid=1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE)
- - [Fund Break Down Items](https://www.google.com/fusiontables/DataSource?docid=1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o)
+ - [Fund Break Down Items](https://www.google.com/fusiontables/DataSource?docid=1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o) (Line items per fund per year)
 
 The data is read from these tables and the appropriate content on the page is updated via asynchronous callback (for more info on callbacks see: http://docs.jquery.com/Tutorials:How_jQuery_Works#Callback_and_Functions). Whenever a chart point or link are clicked or the URL changes, the jQuery address code detects the change and updates the page using the 'updateDisplay' function. Through the fund parameter, two views are loaded onto the page.  In other words, the index.html page supports two pages, or views.  One view is for the main over all budget, and the other view is for a specific fund.  If there is no fund specified then the main page is loaded, however, if a fund is specfied the fund page is loaded.
 
