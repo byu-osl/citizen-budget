@@ -32,6 +32,18 @@ The appropriations and expenditures per year are then fetched based on the view 
 
 When a row is clicked, the details for that fund are fetch and the page transitions to the fund view.
 
+General Flow
+------------
+- URL Change -> budgetLib.UpdateDisplay --|
+-                                         |-> budgetLib.LoadMainPage -> budgetLib.UpdateMainPage
+-                                         |
+-                                         |-> budgetLib.LoadFundPage -> busgetLib.UpdateFundPage
+
+Both update methods then call function in the BudgetQuery file.  This file generate the sql queries
+used to pull data from the fusion tables.  Via passed in call back function the json data is returned
+to method in the BudgetLib file.  The methods in the BudgetLib then parse the json if needed and
+populate the page with the aquired information.
+
 Known issues
 ------------
 
