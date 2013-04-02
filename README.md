@@ -44,6 +44,15 @@ used to pull data from the fusion tables.  Via passed in call back function the 
 to method in the BudgetLib file.  The methods in the BudgetLib then parse the json if needed and
 populate the page with the aquired information.
 
+
+Explaination of Files
+------------
+- BudgetLib -- Main: This is the main driver for the application.  It drives the feting, loading, and display of data.
+- BudgetQueries -- This file contains all of the sql queries required to retrive data from the fushion tables.
+- BudgetHelpers -- This file contain misilanious helper functions to create url slugs, generate tables, and perform other functions.
+- BudgetHighCharts -- This file contains code to generate and render the line graph and bar charts.
+
+
 Known issues
 ------------
 
