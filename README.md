@@ -52,6 +52,34 @@ Explaination of Files
 - BudgetHelpers -- This file contain misilanious helper functions to create url slugs, generate tables, and perform other functions.
 - BudgetHighCharts -- This file contains code to generate and render the line graph and bar charts.
 
+How to Step up the System
+------------
+==Generate Auth Token==
+- 1. https://code.google.com/apis/console/
+- 2. Create Project
+- 3. Services > Google Fusion Table API | Turn on Google Fusion API
+- 4. Accept Terms
+- 5. API Access | Create and Auth 2.0 Client ID
+- - Enter info
+- - Select Web Application
+- - Your site or host name select more options:
+- - Authorized java origins enter : https://localhost
+- - Authorized Redirect URL enter: https://localhost/oauth2callback http://localhost:8080/
+- 6. Copy client secret and client id into uploader script
+
+==Obtain Google API Key==
+- 1. Follow direction in Generate Auth Token up to step 4.
+- 2. Navigate to API Access
+- 3. Copy API key and add it to BudgetLib
+
+==Generating Fusion Tables==
+- 1. Log in with you Google Account
+- 2. Navigate to each of the Fusion Tables
+- 3. Select Copy table.
+- 4. Share file with anyone on the web.
+- 5. Rename Table
+- 6. Get table ID: File > About this Table
+- 7. Copy table ID to uploader and budgetLib files
 
 Known issues
 ------------
