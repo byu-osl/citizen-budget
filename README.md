@@ -14,15 +14,6 @@ Dependencies
 - [Google Fusion Tables v1 API](https://developers.google.com/fusiontables/docs/v1/getting_started)
 - [jQuery Address](http://www.asual.com/jquery/address/) (for RESTful URLs)
 - [Highcharts](http://www.highcharts.com/) (for the line graph)
-- [Datatables](http://datatables.net) (for the appropriations and expenditures lists)
-
-Press
------
-
-- [O'reilly Radar](http://radar.oreilly.com/2011/09/look-at-cook-gov-data-visualization.html)
-- [govfresh](http://govfresh.com/2011/09/beautiful-budgets-look-at-cook/)
-- [Civic Commons](http://civiccommons.org/2011/11/look-at-cook-open-sourced/)
-- [Metafilter Projects](http://projects.metafilter.com/3241/Look-at-Cook-A-Budget-Visualization-for-Cook-County-IL)
 
 Overview
 --------
@@ -31,23 +22,15 @@ This budget visualization is built entirely using HTML and jQuery. There is no s
 
 The bulk of the code is in /scripts/budget_lib.js. This file contains all of the init, data fetching, display and helper functions that the visualization uses to run. To get a good idea of how it works, you should first look at the data in Fusion Tables that it uses:
 
- - [Main budget table](http://www.google.com/fusiontables/DataSource?dsrcid=1227404) (expenditures and appropriations per department per year)
- - [Fund descriptions](http://www.google.com/fusiontables/DataSource?dsrcid=1270538)
- - [Control officer descriptions](http://www.google.com/fusiontables/DataSource?dsrcid=1270539)
+ - [Main fund table](https://www.google.com/fusiontables/DataSource?docid=1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o) (expenditures and appropriations per department per year)
+ - [Fund descriptions](https://www.google.com/fusiontables/DataSource?docid=1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE)
+ - [Fund Break Down Items](https://www.google.com/fusiontables/DataSource?docid=1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o)
 
-The data is read from these tables and the appropriate content on the page is updated via asynchronous callback (for more info on callbacks see: http://docs.jquery.com/Tutorials:How_jQuery_Works#Callback_and_Functions). Whenever a chart point or link are clicked or the URL changes, the jQuery address code detects the change and updates the page using the 'updateDisplay' function. The 'loadFor' function updates all the internal variables and sets the display mode to either default, control officer list, fund detail or control officer detail.
+The data is read from these tables and the appropriate content on the page is updated via asynchronous callback (for more info on callbacks see: http://docs.jquery.com/Tutorials:How_jQuery_Works#Callback_and_Functions). Whenever a chart point or link are clicked or the URL changes, the jQuery address code detects the change and updates the page using the 'updateDisplay' function. Through the fund parameter, two views are loaded onto the page.  In other words, the index.html page supports two pages, or views.  One view is for the main over all budget, and the other view is for a specific fund.  If there is no fund specified then the main page is loaded, however, if a fund is specfied the fund page is loaded.
 
-The appropriations and expenditures per year are then fetched based on the view using the 'getTotalArray' which in turn updates the main chart (which uses Highcharts) via 'updateMainChart'. The list of departments for that particular view are also fetched via 'getDepartments' which then calls 'getDataAsBudgetTable' to build an HTML table (which then uses DataTables to do sorting).
+The appropriations and expenditures per year are then fetched based on the view using the 'getTotalArray' which in turn updates the main chart (which uses Highcharts) via 'updateMainChart'. 
 
-When a row is clicked, the details for that row are fetched and then displayed using either the 'getFundDetails', 'getControlOfficerDetails' or 'updateDepartmentDetails' functions. From inside that expanded row are links to other views (depending on your current view) which are handled the same way as above. 
-
-View paths / hierarchy 
-----------------------
-
-Note: the year could also be updated by clicking on a point on the main chart.
-
- - List of funds (default view when loading the site) -> Expanded fund detail -> Fund view with list of departments -> Expanded department detail
- - List of control officers -> Expanded control officer detail -> Control officer view with list of departments -> Expanded department detail
+When a row is clicked, the details for that fund are fetch and the page transitions to the fund view.
 
 Known issues
 ------------
@@ -59,16 +42,8 @@ Errors / bugs
 -------------
 
 If something is not behaving intuitively, it is a bug, and should be reported.
-Report it here: https://github.com/open-city/look-at-cook/issues
+Report it here: https://github.com/byu-osl/citizen-budget/issues
 
-You can also email me at derek.eder+git@gmail.com or tweet @derek_eder.
-
-Note on patches/pull requests
------------------------------
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Commit and send me a pull request. Bonus points for topic branches.
 
 Copyright
 ---------
