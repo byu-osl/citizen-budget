@@ -76,10 +76,10 @@ How to Step up the System
 - 1. Log in with you Google Account
 - 2. Navigate to each of the Fusion Tables
 - 3. Select Copy table.
-- 4. Share file with anyone on the web.
-- 5. Rename Table
-- 6. Get table ID: File > About this Table
-- 7. Copy table ID to uploader and budgetLib files
+- 4. Share each table with anyone on the web.
+- 5. Rename each Table
+- 6. Get each table's ID: File > About this Table
+- 7. Copy each table's ID to uploader and budgetLib files
 
 Known issues
 ------------
