@@ -49,10 +49,14 @@ var BudgetLib = BudgetLib || {};
 var BudgetLib = {
   
   //Citizen Budget Keys: IDs used to reference and access Fusion Tables, where the data is stored.
-  CB_FusionTableApiKey:         "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
-  CB_FUND_TABLE_ID:             "1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE",
-  CB_FUND_BREAK_DOWN_TABLE_ID:  "1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o",
-  CB_FUND_DESCRIPTION_TABLE_ID: "1HKXIvUWkx7W1R9YG0qsLnkCBCnsSj3CeMVeLHF8",
+  CB_FusionTableApiKey:       "AIzaSyBQF_xXJq0CPC8OYvFxrNTG78SoesEvODc",
+  CB_FUND_TABLE_ID:             "1Ut9a-JXbWKcNv3BounuySJIrBNytBkO_IBkiw9Q",
+  CB_FUND_BREAK_DOWN_TABLE_ID:  "1pSsq-EGnKnDlA3MElr6vtLRTpkFLePdxNmbD-zc",
+  CB_FUND_DESCRIPTION_TABLE_ID: "1aMYIbxgib--c_RrFSupk3I5nASP-yTbxrl0ZzGY",
+//  CB_FusionTableApiKey:         "AIzaSyBiDIkXJCdmnUQoyGQNcUXVLj0i35nAk90",
+//  CB_FUND_TABLE_ID:             "1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE",
+//  CB_FUND_BREAK_DOWN_TABLE_ID:  "1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o",
+//  CB_FUND_DESCRIPTION_TABLE_ID: "1HKXIvUWkx7W1R9YG0qsLnkCBCnsSj3CeMVeLHF8",
   
   // ecl This is the title that will show up to the left of the budget/spent blocks and under the graph.
   title:        "Overview",
