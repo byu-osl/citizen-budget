@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block page %}
+
+<div class="container">
+  <div class="row-fluid heading">
+    <div class="span12">
+      <h1>Administrative Use Only</h1>
+      <p class="bigtext"><i>Login is restricted to authorized users.</i></p>
+    </div>
+  </div>
+  <div class="row-fluid spacing20">
+  </div>
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">1</span> Get a login code
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <p id="code-error"></p>
+      <form class="form" id="code-form" method="post">
+	<table>
+	  <tr>
+	    <td>
+	      Email:
+	    </td>
+	    <td>
+	      {{ code_form.email }}
+	    </td>
+	  </tr>
+	</table>
+	<p>Login using:</p>
+	<table>
+	  <tr>
+	    <td>
+	      {{ code_form.kind }}
+	    </td>
+	    <td></td>
+	  </tr>
+	</table>
+      </form>
+      <button class="btn btn-success" onclick="getCode();">Get Code</button>
+      <p id="code-spinner"><img src="/static/img/spinner.gif" /></p>
+      <p id="code-info"></p>
+    </div>
+  </div>
+  <div class="row-fluid spacing20">
+  </div>
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">2</span> Enter the code you were sent
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <p id="login-error"></p>
+      <form class="form" id="login-form" method="post">
+	<table>
+	  <tr>
+	    <td>
+	      Email:
+	    </td>
+	    <td>
+	      {{ login_form.email }}
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+	      Code:
+	    </td>
+	    <td>
+	      {{ login_form.code }}
+	    </td>
+	  </tr>
+	</table>
+      </form>
+      <button class="btn btn-primary" onclick="sendCode()">Login</button>
+      <p id="login-spinner"><img src="/static/img/spinner.gif" /></p>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/admin.js"></script>
+
+
+{% endblock %}

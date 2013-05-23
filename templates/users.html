@@ -1,0 +1,22 @@
+{% for user in users %}
+<div class="row-fluid">
+  <div class="span3 smalltext">
+    {{ user.name }}
+  </div>
+  <div class="span3 smalltext">
+    {{ user.email }}
+  </div>
+  <div class="span4 smalltext">
+    {{ user.phone }} ({{ user.carrier }})
+  </div>
+  <div class="span2">
+    <a class="btn btn-link" href="#user-modal" data-toggle="modal" onclick="setForm({{ user.jsonify() }})">Edit</a>
+    <a class="btn btn-link" onclick="removeUser({{ user.id }})">Remove</a>
+  </div>
+</div>
+{% endfor %}
+<div class="row-fluid">
+  <div class="span12">
+    <a class="btn btn-success" href="#user-modal" data-toggle="modal" onclick="setForm()">Add</a>
+  </div>
+</div>

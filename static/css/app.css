@@ -1,0 +1,167 @@
+/* Admin and Install Page */
+
+#install {
+    margin-top: 50px;
+}
+
+#install .title {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#city-info img {
+    height: 100px;
+    margin-bottom: 5px;
+}
+
+/* Header */
+
+#header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #B0A598;
+    border-bottom: 1px solid #B0A598;
+}
+
+.title {
+    font-size: 3.5em; 
+    font-weight: bold;
+    color: black;
+    vertical-align: middle;
+}
+
+#subheader {
+    z-index: 100;
+    padding-top: 18px;
+    color: black;
+}
+
+#subheader .credit {
+    padding-top: 0px;
+    text-align: right;
+}
+
+#subheader .credit .project {
+    font-size: 15px;
+}
+
+#subheader .credit .tagline {
+    font-size: 10px;
+}
+
+#logo img {
+    height: 100px;
+    margin-bottom: 5px;
+}
+
+/* Miscellaneous */
+
+body {
+    font-size: 16px;
+}
+
+h1 {
+    font-size:2em;
+}
+
+.heading {
+    margin-bottom: 10px;
+}
+
+.bigtext {
+    font-size: 1.5em;
+}
+
+.smalltext {
+    font-size: 0.9em;
+}
+
+.spacing40 {
+    margin-bottom: 40px;
+}
+
+.spacing20 {
+    margin-bottom: 20px;
+}
+
+.btn-link {
+    padding: 0px;
+}
+
+.circle {
+    display:inline-block;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: #ccc;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
+
+/* Admin Page */
+
+#code-spinner {
+    display: none;
+}
+
+#code-spinner img {
+    height: 50px;
+}
+
+#login-spinner {
+    display: none;
+}
+
+#login-spinner img {
+    height: 50px;
+}
+
+#code-error {
+    color: #700;
+}
+
+#code-info {
+    margin-top: 10px;
+    color: #700;
+}
+
+#login-error {
+    color: #700;
+}
+
+
+.form {
+    margin-bottom: 0px;
+}
+
+.form td {
+    padding-left: 5px;
+}
+
+
+.form input {
+    float: left;
+    padding-left: 5px;
+}
+
+.form label {
+    float: left;
+    padding-left: 5px;
+}
+
+.form p {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.form ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 10px;
+}
+
+.form li {
+    clear: both;
+}

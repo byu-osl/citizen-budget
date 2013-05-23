@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Citizen Budget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/css/app.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  </head>
+  <body>
+    {% block header %}
+    <div class="container">
+      <div id="header" class="row-fluid">
+	<div id="logo" class="span7 offset1">
+	  <a href="/" title="Home"><img src="/static/img/cedar-hills-logo.jpg" /></a>
+	  <span class="title">Cedar Hills Budget</span>
+	</div>
+	<div class="span4 pullright">
+	  <div id="subheader">
+	    <div class="credit">
+	      <div class="project">Brought to you by Citizen Budget</div>
+	      <div class="tagline">A project from the <a href="http://osl.byu.edu">BYU Open Source Lab</a></div>
+	    </div>
+
+	  </div>
+	  <div class="pull-right">
+	    <div class="btn-group">
+	      <a class="btn" href="#"><i class="icon-user"></i></a>
+	      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+	      <ul class="dropdown-menu">
+		{% if 'auth' in session %}
+		<li><a id="admin-button" href="/admin">Admin</a></li>
+		<li><a id="logout-button" href="/admin/logout">Logout</a></li>
+		{% else %}
+		<li><a href="/admin/login">Login</a></li>
+		{% endif %}
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+    {% endblock %}
+
+    <div id="page">
+      {% block page %}{% endblock %}
+    </div>
+
+    <script src="/static/js/bootstrap.min.js"></script>
+    {% block login %}
+    {% endblock %}
+    <script type="text/javascript">
+      function ajaxErrorHandler(xhr,text,response) { 
+      if (xhr.status == 403) { 
+      window.location.href = "/admin/login?callback="+window.location.href;
+      } else { 
+      window.location.href = "/error";
+      }
+      };
+    </script>
+  </body>
+</html>

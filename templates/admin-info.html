@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">1</span> City Information
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <span id="city-info">
+	{% include "city.html" %}
+      </span>
+      <a class="btn btn-success" href="#city-modal" data-toggle="modal">Edit</a>
+    </div>
+  </div>
+  <div class="row-fluid spacing40">
+  </div>
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">2</span> Administrative users
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <span id="user-info">
+      {% include "users.html" %}
+      </span>
+    </div>
+  </div>
+  <div class="row-fluid spacing40">
+  </div>
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">3</span> Budget Files
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <span id="budget-info">
+      {% include "budget.html" %}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div id="city-modal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>City Information</h3>
+  </div>
+  <div class="modal-body">
+    <form id="city-form" method="post">
+      <table>
+	<tr>
+	  <td>{{ city_form.logo.label }}</td>
+	  <td>{{ city_form.logo }}</td>
+	</tr>
+	<tr>
+	  <td>{{ city_form.name.label }}</td>
+	  <td>{{ city_form.name }}</td>
+	</tr>
+      </table>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
+    <button class="btn btn-primary" data-dismiss="modal" onclick="updateCity(document.getElementById('city-form'),'/admin/city','city-info');">Save</button>
+  </div>
+</div>
+
+<div id="user-modal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>User Information</h3>
+  </div>
+  <div class="modal-body">
+    <form id="user-form" method="post">
+      <table>
+	<tr>
+	  <td>{{ user_form.name.label }}</td>
+	  <td>{{ user_form.name }}</td>
+	</tr>
+	<tr id="user-email">
+	  <td>{{ user_form.email.label }}</td>
+	  <td>{{ user_form.email }}</td>
+	</tr>
+	<tr id="user-phone">
+	  <td>{{ user_form.phone.label }}</td>
+	  <td>{{ user_form.phone }}</td>
+	</tr>
+	<tr id="user-carrier">
+	  <td>{{ user_form.carrier.label }}</td>
+	  <td>{{ user_form.carrier }}</td>
+	</tr>
+      </table>
+      <p><em>Citizen Budget supports login via both email and text message.</em></p>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
+    <button id="user-modal-submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+  </div>
+</div>
+
+<script src="/static/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+jQuery(function($) {
+    $("#phone").mask("(999) 999-9999");
+});
+</script>
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/admin.js"></script>
