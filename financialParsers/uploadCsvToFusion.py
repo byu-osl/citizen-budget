@@ -26,20 +26,15 @@ from oauth2client.tools  import run
 from apiclient.http      import MediaFileUpload
 
 ###############################################################################
-# Show Me The Money
+# Citizen Budget
 # Authors: Christopher LaJon Morgan, Eric Lazalde
 #
-# The purpose of this utitlity is to read data from a csv file into
+# The purpose of this utility is to read data from a csv file into
 # the appropiate google fusion table.
 ###############################################################################
 
-client_id     = "796457455883-928d42p0tf0n9720goi6gmqululhqcpf.apps.googleusercontent.com"
-client_secret = "hYQZRmxogtng3KCa5_E_w9k0"
-scope         = 'https://www.googleapis.com/auth/fusiontables'
+from config import CLIENT_ID,CLIENT_SECRET,SCOPE,TABLE_ID
 
-tableIndexDescription = "Table Index: 0 -- FUNDS, 1 -- FundBreakDownCategory"
-table_id              = ("1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE",#FUND TABLE
-                         "1WAx1a_FduyZIme5LG2LwkLgoqKfXahlagTctJ_o")#FundBreakDownCategory TABLE
 ###############################################################################
 # Main
 # This function will authenticate with google fushion api, using OAuth 2.0.
@@ -53,7 +48,7 @@ table_id              = ("1qrXUrlwMlihxJiBDLcLQFE5w-4lvrR3YWcuj2EE",#FUND TABLE
 ###############################################################################
 def main(filename, tableIndex):
 
-  flow = OAuth2WebServerFlow(client_id, client_secret, scope)
+  flow = OAuth2WebServerFlow(CLIENT_ID, CLIENT_SECRET, SCOPE)
   
   # Create a Storage object. This object holds the credentials that your
   # application needs to authorize access to the user's data. The name of the
@@ -92,7 +87,7 @@ def main(filename, tableIndex):
   resource = service.table()
     
   media    = MediaFileUpload(filename, mimetype="application/octet-stream")
-  request  = resource.importRows(tableId=table_id[tableIndex], media_body=media)
+  request  = resource.importRows(tableId=TABLE_ID[tableIndex], media_body=media)
   
   response = request.execute()
   
@@ -109,6 +104,6 @@ def main(filename, tableIndex):
 if __name__ == '__main__':
   if len(sys.argv) != 3 or int(sys.argv[2]) < 0 or int(sys.argv[2]) > 1:
     print "\nUSAGE: \tuploadCsvToFushion <file.csv> <table_index=\"0 or 1\">"
-    print "\t", tableIndexDescription, "\n"
+    print "\tTable Index: 0 -- FUNDS, 1 -- FundBreakDownCategory"
   else:
     main(sys.argv[1], int(sys.argv[2]))

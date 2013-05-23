@@ -1,4 +1,6 @@
+*.dat
 *.pyc
+*.csv
 *~
 config.py
 app.wsgi

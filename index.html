@@ -142,21 +142,22 @@
 	
 	<!-- modal content -->
 	<div id="basic-modal-content">
-	  <h3 id="modal-header"></h3>
 	  <br />
 	  
 	  <div id="modal-content">
 	    <table id="modal-table">
 	      <thead>
 		<tr>
+		  <th id="modal-title"><h2 id="modal-header"></h2></th>
 		  <th class="modal"><span>Spent</span></th>
 		  <th class="modal"><span>Budgeted</span></th>
 		</tr>
 	      </thead>
 	      <tbody>
 		<tr>
-		  <th class="modal" id="modal-spent"><span></span></th>
-		  <th class="modal" id="modal-budgeted"><span></span></th>
+		  <th></th>
+		  <td class="modal" id="modal-spent"><span></span></td>
+		  <td class="modal" id="modal-budgeted"><span></span></td>
 		</tr>
 	      </tbody>
 	    </table>
@@ -182,7 +183,7 @@
 	      </tbody>
 	      <tfoot>
 		<tr>
-		  <td>TOTAL</td>
+		  <td id="total">TOTAL</td>
 		  <td id="revenue-ytdactual-total" class="spent"></td>
 		  <td id="revenue-budgeted-total"  class="budgeted"></td>
 		</tr>
@@ -213,7 +214,7 @@
 	      </tbody>
 	      <tfoot>
 		<tr>
-		  <td>TOTAL</td>
+		  <td id="total">TOTAL</td>
 		  <td id="expenditure-ytdactual-total" class="spent"></td>
 		  <td id="expenditure-budgeted-total"  class="budgeted"></td>
 		</tr>
@@ -229,35 +230,36 @@
 	    <thead>
 	      <tr>
 		<th><span>Net Revenue Minus Expenditures</span></th>
-		<th class="num"><span>Totals</span></th>
+		<th class="net"><span>Totals</span></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	      <tr>
 		<td>Revenues</td>
-		<td id="net-revenue-total" class="num"></td>
+		<td id="net-revenue-total" class="net"></td>
 	      </tr>
 	      <tr>
 		<td>Expenditures</td>
-		<td id="net-expenditure-total" class="num"></td>
+		<td id="net-expenditure-total" class="net"></td>
 	      </tr>
 	      <tr>
-		<td>Total</td>
-		<td id="net-difference-total" class="num"></td>
+		<td id="total">Total</td>
+		<td id="net-difference-total" class="net"></td>
 	      </tr>
 	    </tbody>
 	  </table>
 	</div>
       </div>
     
-    <b />
-    
+    <br />
+
     <div id="content-secondary">
       <h2>Where's the money going?</h2>
       <p>Place for a description of the Cedar Hills city budget.</p>
-  	  <p>We also want to put up a little description about the budget website and how it works. This will also require us to modify the FAQ page to match out site. Check out the <a href="faq.html">FAQ</a> for more information.</p>
-	  <!--<p class="mute">If you have technical questions or want your city or municipality to use this tool for their budget, feel free to contact <a href='http://twitter.com/derek_eder'>Derek Eder</a> or <a href='http://twitter.com/rougeux'>Nick Rougeux</a> at <a href='http://opencityapps.org'>Open City</a>.</p>-->
-	</div>
+  	  <p>We also want to put up a little description about the budget website and how it works.</p>
+	  </div>
+    
+    <br />
 
     <div id="content-tertiary">
       <a id="download-button" class="action" href="">View &amp; Download Data</a>
@@ -267,11 +269,6 @@
   </div>
 
   <div id="footer">
-	<!-- <div id="logo"><img alt="Cedar Hills City Budget" src="images/base.png" /></div> -->
-    <!-- <ul class="share"> -->
-      <!--<li><a href="http://www.facebook.com/share.php?u=http%3a%2f%2flookatcook.com"><img alt="Facebook" src="images/facebook-lg.png" /> Share budget on <strong>Facebook</strong></a></li>
-      <li><a href="http://twitter.com/share?text=Where's%20the%20money%20going%3F%20Explore%20Cook%20County's%20budget&amp;url=http%3a%2f%2flookatcook.com"><img alt="Twitter" src="images/twitter-lg.png" /> Share budget on <strong>Twitter</strong></a></li>-->
-    <!-- </ul> -->
   </div>
 </div>
 

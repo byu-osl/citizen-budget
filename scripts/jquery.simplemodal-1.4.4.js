@@ -206,7 +206,7 @@
 		closeHTML: '<a class="modalCloseImg" title="Close"></a>',
 		closeClass: 'simplemodal-close',
 		escClose: true,
-		overlayClose: false,
+		overlayClose: true,
 		fixed: true,
 		position: null,
 		persist: false,
