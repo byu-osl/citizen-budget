@@ -1,0 +1,22 @@
+{% for file in files %}
+<div class="row-fluid">
+  <div class="span3 smalltext">
+    {{ file.year }}
+  </div>
+  <div class="span3 smalltext">
+    {{ file.name }}
+  </div>
+  <div class="span4 smalltext">
+    {{ file.size }}
+  </div>
+  <div class="span2">
+    <a class="btn btn-link" href="#file-modal" data-toggle="modal" onclick="setFileForm({{ file.jsonify() }})">Edit</a>
+    <a class="btn btn-link" onclick="removeFile({{ file.id }})">Remove</a>
+  </div>
+</div>
+{% endfor %}
+<div class="row-fluid">
+  <div class="span12">
+    <a class="btn btn-success" href="#file-modal" data-toggle="modal" onclick="setFileForm()">Add</a>
+  </div>
+</div>

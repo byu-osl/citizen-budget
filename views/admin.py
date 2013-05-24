@@ -4,13 +4,14 @@ from werkzeug import secure_filename
 
 from models.user import *
 from models.city import *
+from models.file import *
 from config import *
 
 from datetime import datetime
 import os
 import re
 
-### Admin Info ### 
+### Admin Page ### 
 
 admin = Blueprint('admin', __name__)
 
@@ -20,15 +21,28 @@ def show():
         session['callback'] = "/admin"
         return redirect(url_for('admin.login'))
 
+    return adminPage()
+
+def adminPage(install=False):
     city = City.get()
     city_form = CityForm()
     city_form.copy(city)
     users = User.all()
-    return render_template('admin.html',
+    files = File.all()
+    template = 'admin.html'
+    if install:
+        template = 'install.html'
+    return render_template(template,
+                           install=install,
                            city=city,
                            city_form=city_form,
                            users=users,
-                           user_form=UserForm())
+                           user_form=UserForm(),
+                           files=files,
+                           file_form=FileForm())
+
+
+#### Login ####
 
 @admin.route('/login')
 def login():
@@ -43,7 +57,6 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('index.show'))
-
 
 @admin.route('/login/getcode',methods=['POST'])
 def getCode():
@@ -136,10 +149,15 @@ def authenticated():
     return 'auth' in session
 
 def installed():
-    users = User.all()
+    try:
+        users = User.all()
+    except:
+        users = None
     if users:
         return True
     return False
+
+#### City ####
 
 @admin.route('/city',methods=['POST'])
 def updateCity():
@@ -151,16 +169,17 @@ def updateCity():
     form = CityForm(request.form)
     if form.validate():
         city.name = form.name.data
-        file = request.files['logo']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        upload = request.files['logo']
+        if upload and allowed_file(upload.filename):
+            filename = secure_filename(upload.filename)
+            upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             city.logo = filename
         db.session.add(city)
         db.session.commit()
 
-    return render_template('city.html',city=city)
+    return render_template('admin-city.html',city=city)
 
+#### Users ####
 
 @admin.route('/user/add',methods=['POST'])
 def addUser():
@@ -178,7 +197,7 @@ def addUser():
         db.session.commit()
 
     users = User.all()
-    return render_template('users.html',users=users)
+    return render_template('admin-users.html',users=users)
 
 @admin.route('/user/edit/<userID>',methods=['POST'])
 def editUser(userID):
@@ -196,7 +215,7 @@ def editUser(userID):
         db.session.commit()
 
     users = User.all()
-    return render_template('users.html',users=users)
+    return render_template('admin-users.html',users=users)
 
 @admin.route('/user/remove/<userID>',methods=['POST'])
 def removeUser(userID):
@@ -210,7 +229,92 @@ def removeUser(userID):
         db.session.commit()
 
     users = User.all()
-    return render_template('users.html',users=users)
+    return render_template('admin-users.html',users=users)
+
+#### Files ####
+
+@admin.route('/file/add',methods=['POST'])
+def addFile():
+    # If not authenticated, only allow if in the process of installing
+    if not authenticated() and installed():
+        return 'Authentication needed.',401
+
+    form = FileForm(request.form)
+    # TBD: be sure this year hasn't been added already
+    # TBD: be sure the file name is unique
+    if form.validate():
+        file = File(year=form.year.data)
+        upload = request.files['budget']
+        if upload and allowed_file(upload.filename):
+            filename = secure_filename(upload.filename)
+            path = os.path.join(app.config['BUDGET_FOLDER'], filename)
+            upload.save(path)
+            file.name = filename
+            file.size = os.path.getsize(path)
+
+            db.session.add(file)
+            db.session.commit()
+
+    files = File.all()
+    return render_template('admin-files.html',files=files)
+
+@admin.route('/file/edit/<fileID>',methods=['POST'])
+def editFile(fileID):
+    # If not authenticated, only allow if in the process of installing
+    if not authenticated() and installed():
+        return 'Authentication needed.',401
+
+    file = File.get(fileID)
+    form = FileForm(request.form)
+    if form.validate():
+        print "OK"
+        # TBD remove old data
+        upload = request.files['budget']
+        if upload and allowed_file(upload.filename):
+            print "remove"
+            # remove old file
+            if file.name:
+                path = os.path.join(app.config['BUDGET_FOLDER'], file.name)
+                try:
+                    os.remove(path)
+                except:
+                    pass
+            # upload new file
+            file.year = form.year.data
+            filename = secure_filename(upload.filename)
+            path = os.path.join(app.config['BUDGET_FOLDER'], filename)
+            upload.save(path)
+            file.name = filename
+            file.size = os.path.getsize(path)
+
+            db.session.commit()
+
+    files = File.all()
+    return render_template('admin-files.html',files=files)
+
+@admin.route('/file/remove/<fileID>',methods=['POST'])
+def removeFile(fileID):
+    # If not authenticated, only allow if in the process of installing
+    if not authenticated() and installed():
+        return 'Authentication needed.',401
+
+    file = File.get(fileID)
+    if file:
+        # remove old file
+        if file.name:
+            path = os.path.join(app.config['BUDGET_FOLDER'], file.name)
+            try:
+                os.remove(path)
+            except:
+                pass
+
+        # TBD remove old data
+
+        db.session.delete(file)
+        db.session.commit()
+
+    files = File.all()
+    return render_template('admin-files.html',files=files)
 
 def allowed_file(filename):
     return '.' in filename and \

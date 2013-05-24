@@ -10,13 +10,13 @@
     {{ user.phone }} ({{ user.carrier }})
   </div>
   <div class="span2">
-    <a class="btn btn-link" href="#user-modal" data-toggle="modal" onclick="setForm({{ user.jsonify() }})">Edit</a>
+    <a class="btn btn-link" href="#user-modal" data-toggle="modal" onclick="setUserForm({{ user.jsonify() }})">Edit</a>
     <a class="btn btn-link" onclick="removeUser({{ user.id }})">Remove</a>
   </div>
 </div>
 {% endfor %}
 <div class="row-fluid">
   <div class="span12">
-    <a class="btn btn-success" href="#user-modal" data-toggle="modal" onclick="setForm()">Add</a>
+    <a class="btn btn-success" href="#user-modal" data-toggle="modal" onclick="setUserForm()">Add</a>
   </div>
 </div>

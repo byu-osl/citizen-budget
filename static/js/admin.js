@@ -1,20 +1,3 @@
-function setForm(user) {
-    if (user == undefined) {
-	$('#user-modal input[name="name"]').val('');
-	$('#user-modal input[name="email"]').val('');
-	$('#user-modal input[name="phone"]').val('');
-	$('#user-modal input[name="carrier"]').val('');
-	$('#user-modal-submit').click(addUser);
-    } else {
-	$('#user-modal input[name="name"]').val(user['name']);
-	$('#user-modal input[name="email"]').val(user['email']);
-	$('#user-modal input[name="phone"]').val(user['phone']);
-	$('#user-modal input[name="carrier"]').val(user['carrier']);
-	$('#user-modal-submit').attr('data-id',user['id']);
-	$('#user-modal-submit').click(editUser);
-    }
-}
-
 /* Login */
 
 function getCode() {
@@ -71,6 +54,23 @@ function updateCity() {
 
 /* Users */
 
+function setUserForm(user) {
+    if (user == undefined) {
+	$('#user-modal input[name="name"]').val('');
+	$('#user-modal input[name="email"]').val('');
+	$('#user-modal input[name="phone"]').val('');
+	$('#user-modal input[name="carrier"]').val('');
+	$('#user-modal-submit').click(addUser);
+    } else {
+	$('#user-modal input[name="name"]').val(user['name']);
+	$('#user-modal input[name="email"]').val(user['email']);
+	$('#user-modal input[name="phone"]').val(user['phone']);
+	$('#user-modal input[name="carrier"]').val(user['carrier']);
+	$('#user-modal-submit').attr('data-id',user['id']);
+	$('#user-modal-submit').click(editUser);
+    }
+}
+
 function addUser() {
     $('#user-form').ajaxSubmit({
         method : 'post',
@@ -104,6 +104,61 @@ function removeUser(userID) {
         url : '/admin/user/remove/' + userID,
 	success: function(html) {
 	    $('#user-info').html(html);
+	},
+	error: function (xhr, ajaxOptions, thrownError) {
+	    window.location.replace('/admin/login');
+	}
+    });
+}
+
+/* Users */
+
+function setFileForm(file) {
+    if (file == undefined) {
+	$('#file-modal input[name="year"]').val('');
+	$('#file-modal input[name="name"]').val('');
+	$('#file-modal-submit').click(addFile);
+    } else {
+	$('#file-modal input[name="year"]').val(file['year']);
+	$('#file-modal input[name="name"]').val(file['name']);
+	$('#file-modal-submit').attr('data-id',file['id']);
+	$('#file-modal-submit').click(editFile);
+    }
+}
+
+function addFile() {
+    $('#file-form').ajaxSubmit({
+        method : 'post',
+        url : '/admin/file/add',
+	success: function(html) {
+	    $('#file-info').html(html);
+	},
+	error: function (xhr, ajaxOptions, thrownError) {
+	    window.location.replace('/admin/login');
+	}
+    });
+}
+
+function editFile() {
+    var fileID = $(this).attr('data-id');
+    $('#file-form').ajaxSubmit({
+        method : 'post',
+        url : '/admin/file/edit/' + fileID,
+	success: function(html) {
+	    $('#file-info').html(html);
+	},
+	error: function (xhr, ajaxOptions, thrownError) {
+	    window.location.replace('/admin/login');
+	}
+    });
+}
+
+function removeFile(fileID) {
+    $.ajax({
+        method : 'post',
+        url : '/admin/file/remove/' + fileID,
+	success: function(html) {
+	    $('#file-info').html(html);
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
 	    window.location.replace('/admin/login');

@@ -7,7 +7,7 @@
   <div class="row-fluid">
     <div class="span11 offset1">
       <span id="city-info">
-	{% include "city.html" %}
+	{% include "admin-city.html" %}
       </span>
       <a class="btn btn-success" href="#city-modal" data-toggle="modal">Edit</a>
     </div>
@@ -22,7 +22,7 @@
   <div class="row-fluid">
     <div class="span11 offset1">
       <span id="user-info">
-      {% include "users.html" %}
+      {% include "admin-users.html" %}
       </span>
     </div>
   </div>
@@ -35,8 +35,8 @@
   </div>
   <div class="row-fluid">
     <div class="span11 offset1">
-      <span id="budget-info">
-      {% include "budget.html" %}
+      <span id="file-info">
+      {% include "admin-files.html" %}
       </span>
     </div>
   </div>
@@ -70,7 +70,7 @@
 <div id="user-modal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>User Information</h3>
+    <h3>Administrative User</h3>
   </div>
   <div class="modal-body">
     <form id="user-form" method="post">
@@ -98,6 +98,32 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
     <button id="user-modal-submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+  </div>
+</div>
+
+<div id="file-modal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Budget File</h3>
+  </div>
+  <div class="modal-body">
+    <form id="file-form" method="post">
+      <table>
+	<tr>
+	  <td>{{ file_form.year.label }}</td>
+	  <td>{{ file_form.year }}</td>
+	</tr>
+	<tr>
+	  <td>{{ file_form.budget.label }}</td>
+	  <td>{{ file_form.budget }}</td>
+	</tr>
+      </table>
+      <p><em>Citizen Budget supports CSV text files exported from Caselle.</em></p>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
+    <button id="file-modal-submit" class="btn btn-primary" data-dismiss="modal">Save</button>
   </div>
 </div>
 

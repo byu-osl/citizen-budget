@@ -3,7 +3,7 @@ from flask import Blueprint, request, redirect, render_template, session, url_fo
 from models.user import *
 from models.city import *
 
-from admin import authenticated
+from admin import authenticated, adminPage, installed
 
 ### Home Page ### 
 
@@ -11,8 +11,11 @@ index = Blueprint('index', __name__)
 
 @index.route('/')
 def show():
-    # TBD
-    # check if we are installing
+    if installed():
+        # return home page
+        return render_template('index.html')
+
+    # create DB if needed
     create = False
     try:
         users = User.all()
@@ -20,16 +23,5 @@ def show():
         create = True
     if create:
         db.create_all()
-    if create or not users:
-        city = City.get()
-        city_form = CityForm()
-        city_form.copy(city)
-        users = User.all()
-        return render_template('install.html',
-                               city=city,
-                               city_form=city_form,
-                               users=users,
-                               user_form=UserForm())
 
-    # return unauthenticated home page
-    return render_template('index.html')
+    return adminPage(install=True)
