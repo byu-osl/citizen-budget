@@ -1,22 +1,7 @@
 <div class="container">
   <div class="row-fluid heading">
     <div class="span12">
-      <span class="circle">1</span> City Information
-    </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span11 offset1">
-      <span id="city-info">
-	{% include "admin-city.html" %}
-      </span>
-      <a class="btn btn-success" href="#city-modal" data-toggle="modal">Edit</a>
-    </div>
-  </div>
-  <div class="row-fluid spacing40">
-  </div>
-  <div class="row-fluid heading">
-    <div class="span12">
-      <span class="circle">2</span> Administrative users
+      <span class="circle">1</span> Administrative users
     </div>
   </div>
   <div class="row-fluid">
@@ -30,7 +15,7 @@
   </div>
   <div class="row-fluid heading">
     <div class="span12">
-      <span class="circle">3</span> Budget Files
+      <span class="circle">2</span> Budget Files
     </div>
   </div>
   <div class="row-fluid">
@@ -39,31 +24,6 @@
       {% include "admin-files.html" %}
       </span>
     </div>
-  </div>
-</div>
-
-<div id="city-modal" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>City Information</h3>
-  </div>
-  <div class="modal-body">
-    <form id="city-form" method="post">
-      <table>
-	<tr>
-	  <td>{{ city_form.logo.label }}</td>
-	  <td>{{ city_form.logo }}</td>
-	</tr>
-	<tr>
-	  <td>{{ city_form.name.label }}</td>
-	  <td>{{ city_form.name }}</td>
-	</tr>
-      </table>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
-    <button class="btn btn-primary" data-dismiss="modal" onclick="updateCity(document.getElementById('city-form'),'/admin/city','city-info');">Save</button>
   </div>
 </div>
 

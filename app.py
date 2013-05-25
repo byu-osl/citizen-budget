@@ -11,8 +11,8 @@ app.register_blueprint(index)
 from views.admin import admin
 app.register_blueprint(admin, url_prefix="/admin")
 
-#from views.auth import auth
-#app.register_blueprint(auth, url_prefix='/auth')
+from views.city import city
+app.register_blueprint(city, url_prefix="/city")
 
 if __name__ == '__main__': 
     app.debug = True

@@ -36,22 +36,6 @@ function sendCode() {
     });
 }
 
-
-/* City */
-
-function updateCity() {
-    $('#city-form').ajaxSubmit({
-        method : 'post',
-        url : '/admin/city',
-	success: function(html) {
-	    $('#city-info').html(html);
-	},
-	error: function (xhr, ajaxOptions, thrownError) {
-	    window.location.replace('/admin/login');
-	}
-    });
-}
-
 /* Users */
 
 function setUserForm(user) {

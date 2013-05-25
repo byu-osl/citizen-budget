@@ -24,9 +24,7 @@ def show():
     return adminPage()
 
 def adminPage(install=False):
-    city = City.get()
-    city_form = CityForm()
-    city_form.copy(city)
+    city = City.get_name(city_name)
     users = User.all()
     files = File.all()
     template = 'admin.html'
@@ -35,7 +33,6 @@ def adminPage(install=False):
     return render_template(template,
                            install=install,
                            city=city,
-                           city_form=city_form,
                            users=users,
                            user_form=UserForm(),
                            files=files,
@@ -156,28 +153,6 @@ def installed():
     if users:
         return True
     return False
-
-#### City ####
-
-@admin.route('/city',methods=['POST'])
-def updateCity():
-    # If not authenticated, only allow if in the process of installing
-    if not authenticated() and installed():
-        return 'Authentication needed.',401
-
-    city = City.get()
-    form = CityForm(request.form)
-    if form.validate():
-        city.name = form.name.data
-        upload = request.files['logo']
-        if upload and allowed_file(upload.filename):
-            filename = secure_filename(upload.filename)
-            upload.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            city.logo = filename
-        db.session.add(city)
-        db.session.commit()
-
-    return render_template('admin-city.html',city=city)
 
 #### Users ####
 
