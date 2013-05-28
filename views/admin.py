@@ -2,7 +2,7 @@ from flask import Blueprint, request, redirect, render_template, session, url_fo
 from flask.ext.mail import Message
 from werkzeug import secure_filename
 
-from models.city import *
+from models.app import *
 from models.user import *
 from models.financial import *
 from models.fund import *
@@ -20,16 +20,16 @@ admin = Blueprint('admin', __name__)
 def install():
     users = User.all()
     if users:
-        city = City.get()
-        city.installed = True
+        app = App.get()
+        app.installed = True
         db.session.commit()
         return url_for('index.show')
     return "You must add at least one administrative user.",401
 
 def installed():
     try:
-        city = City.get()
-        return city.installed
+        app = App.get()
+        return app.installed
     except:
         return False
 
@@ -40,7 +40,6 @@ def login():
     if authenticated():
         return redirect(url_for('index.show'))
 
-    city = City.get()
     return render_template('login.html',
                            city=city,
                            code_form=CodeForm(),
@@ -149,7 +148,6 @@ def users():
         session['callback'] = "/users"
         return redirect(url_for('admin.login'))
 
-    city = City.get()
     users = User.all()
     return render_template('users.html',
                            city = city,
@@ -215,7 +213,6 @@ def financials():
         session['callback'] = "/financials"
         return 'Authentication needed.',401
 
-    city = City.get()
     financials = Financial.all()
     return render_template('financials.html',
                            city = city,
@@ -313,7 +310,6 @@ def funds():
         session['callback'] = "/funds"
         return 'Authentication needed.',401
 
-    city = City.get()
     funds = Fund.all()
     return render_template('funds.html',
                            city = city,

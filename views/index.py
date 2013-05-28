@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, render_template, session, url_for
 
 from models.user import *
-from models.city import *
+from models.app import *
 from config import *
 
 from admin import authenticated, installed
@@ -13,14 +13,12 @@ index = Blueprint('index', __name__)
 @index.route('/')
 def show():
     if installed():
-        city = City.get()
         # return home page
         return render_template('index.html',city=city)
 
     # create database
     create_db()
 
-    city = City.get()
     users = User.all()
     return render_template('install.html',
                            city=city,
@@ -38,7 +36,7 @@ def create_db():
         return
     # create Db tables
     db.create_all()
-    # populate city table
-    city = City(name=city_name,logo=city_logo)
-    db.session.add(city)
+    # populate app table
+    app = App()
+    db.session.add(app)
     db.session.commit()
