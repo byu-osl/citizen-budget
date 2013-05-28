@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block page %}
+<div class="container">
+  <div class="row-fluid">
+    <div class="span12">
+      <h1>Financials</h1>
+      <span id="financial-info">
+	{% include "financials-info.html" %}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div id="financial-modal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Financials</h3>
+  </div>
+  <div class="modal-body">
+    <form id="financial-form" method="post">
+      <table>
+	<tr>
+	  <td>{{ financial_form.year.label }}</td>
+	  <td>{{ financial_form.year }}</td>
+	</tr>
+	<tr>
+	  <td>{{ financial_form.budget.label }}</td>
+	  <td>{{ financial_form.budget }}</td>
+	</tr>
+      </table>
+      <p><em>Citizen Budget supports CSV text files exported from Caselle.</em></p>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
+    <button id="financial-modal-submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+  </div>
+</div>
+
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/admin.js"></script>
+
+{% endblock %}

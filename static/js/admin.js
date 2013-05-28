@@ -1,3 +1,18 @@
+/* Install */
+
+function finish() {
+    $.ajax({
+        method : 'post',
+        url : '/admin/install',
+	success: function(url) {
+	    window.location.replace(url);
+	},
+	error: function (xhr, ajaxOptions, thrownError) {
+	    $('#user-error').html(xhr.responseText);
+	}
+    });
+}
+
 /* Login */
 
 function getCode() {
@@ -58,8 +73,9 @@ function setUserForm(user) {
 function addUser() {
     $('#user-form').ajaxSubmit({
         method : 'post',
-        url : '/admin/user/add',
+        url : '/admin/users/add',
 	success: function(html) {
+	    $('#user-error').html('');
 	    $('#user-info').html(html);
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
@@ -72,7 +88,7 @@ function editUser() {
     var userID = $(this).attr('data-id');
     $('#user-form').ajaxSubmit({
         method : 'post',
-        url : '/admin/user/edit/' + userID,
+        url : '/admin/users/edit/' + userID,
 	success: function(html) {
 	    $('#user-info').html(html);
 	},
@@ -85,7 +101,7 @@ function editUser() {
 function removeUser(userID) {
     $.ajax({
         method : 'post',
-        url : '/admin/user/remove/' + userID,
+        url : '/admin/users/remove/' + userID,
 	success: function(html) {
 	    $('#user-info').html(html);
 	},
@@ -97,25 +113,25 @@ function removeUser(userID) {
 
 /* Users */
 
-function setFileForm(file) {
-    if (file == undefined) {
-	$('#file-modal input[name="year"]').val('');
-	$('#file-modal input[name="name"]').val('');
-	$('#file-modal-submit').click(addFile);
+function setFinancialForm(financial) {
+    if (financial == undefined) {
+	$('#financial-modal input[name="year"]').val('');
+	$('#financial-modal input[name="name"]').val('');
+	$('#financial-modal-submit').click(addFinancial);
     } else {
-	$('#file-modal input[name="year"]').val(file['year']);
-	$('#file-modal input[name="name"]').val(file['name']);
-	$('#file-modal-submit').attr('data-id',file['id']);
-	$('#file-modal-submit').click(editFile);
+	$('#financial-modal input[name="year"]').val(financial['year']);
+	$('#financial-modal input[name="name"]').val(financial['name']);
+	$('#financial-modal-submit').attr('data-id',financial['id']);
+	$('#financial-modal-submit').click(editFinancial);
     }
 }
 
-function addFile() {
-    $('#file-form').ajaxSubmit({
+function addFinancial() {
+    $('#financial-form').ajaxSubmit({
         method : 'post',
-        url : '/admin/file/add',
+        url : '/admin/financials/add',
 	success: function(html) {
-	    $('#file-info').html(html);
+	    $('#financial-info').html(html);
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
 	    window.location.replace('/admin/login');
@@ -123,13 +139,13 @@ function addFile() {
     });
 }
 
-function editFile() {
+function editFinancial() {
     var fileID = $(this).attr('data-id');
-    $('#file-form').ajaxSubmit({
+    $('#financial-form').ajaxSubmit({
         method : 'post',
-        url : '/admin/file/edit/' + fileID,
+        url : '/admin/financials/edit/' + fileID,
 	success: function(html) {
-	    $('#file-info').html(html);
+	    $('#financial-info').html(html);
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
 	    window.location.replace('/admin/login');
@@ -137,12 +153,12 @@ function editFile() {
     });
 }
 
-function removeFile(fileID) {
+function removeFinancial(fileID) {
     $.ajax({
         method : 'post',
-        url : '/admin/file/remove/' + fileID,
+        url : '/admin/financials/remove/' + fileID,
 	success: function(html) {
-	    $('#file-info').html(html);
+	    $('#financial-info').html(html);
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
 	    window.location.replace('/admin/login');

@@ -1,0 +1,22 @@
+{% for financial in financials %}
+<div class="row-fluid">
+  <div class="span3 smalltext">
+    {{ financial.year }}
+  </div>
+  <div class="span3 smalltext">
+    {{ financial.name }}
+  </div>
+  <div class="span4 smalltext">
+    {{ financial.size }}
+  </div>
+  <div class="span2">
+    <a class="btn btn-link" href="#financial-modal" data-toggle="modal" onclick="setFinancialForm({{ financial.jsonify() }})">Edit</a>
+    <a class="btn btn-link" onclick="removeFinancial({{ financial.id }})">Remove</a>
+  </div>
+</div>
+{% endfor %}
+<div class="row-fluid">
+  <div class="span12">
+    <a class="btn btn-success" href="#financial-modal" data-toggle="modal" onclick="setFinancialForm()">Add</a>
+  </div>
+</div>

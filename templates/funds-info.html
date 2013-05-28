@@ -1,0 +1,22 @@
+{% for fund in funds %}
+<div class="row-fluid">
+  <div class="span3 smalltext">
+    {{ fund.year }}
+  </div>
+  <div class="span3 smalltext">
+    {{ fund.name }}
+  </div>
+  <div class="span4 smalltext">
+    {{ fund.size }}
+  </div>
+  <div class="span2">
+    <a class="btn btn-link" href="#fund-modal" data-toggle="modal" onclick="setFundForm({{ fund.jsonify() }})">Edit</a>
+    <a class="btn btn-link" onclick="removeFund({{ fund.id }})">Remove</a>
+  </div>
+</div>
+{% endfor %}
+<div class="row-fluid">
+  <div class="span12">
+    <a class="btn btn-success" href="#fund-modal" data-toggle="modal" onclick="setFundForm()">Add</a>
+  </div>
+</div>

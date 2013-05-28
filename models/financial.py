@@ -6,7 +6,7 @@ import json
 import random
 import string
 
-class File(db.Model):
+class Financial(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     year = db.Column(db.Integer)
     name = db.Column(db.String)
@@ -19,16 +19,16 @@ class File(db.Model):
 
     @staticmethod
     def all():
-        return File.query.all()
+        return Financial.query.all()
 
     @staticmethod
     def get(fileID):
-        return File.query.get(fileID)
+        return Financial.query.get(fileID)
 
     def jsonify(self):
         return json.dumps({'id':self.id,'year':self.year,
                            'name':self.name,'size':self.size})
 
-class FileForm(Form):
+class FinancialForm(Form):
     year = IntegerField('Year')
     budget = FileField('Budget',default='')

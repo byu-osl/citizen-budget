@@ -1,0 +1,67 @@
+<p id="user-error" class="error"></p>
+{% for user in users %}
+<div class="row-fluid">
+  <div class="span3 smalltext">
+    {{ user.name }}
+  </div>
+  <div class="span3 smalltext">
+    {{ user.email }}
+  </div>
+  <div class="span4 smalltext">
+    {{ user.phone }} ({{ user.carrier }})
+  </div>
+  <div class="span2">
+    <a class="btn btn-link" href="#user-modal" data-toggle="modal" onclick="setUserForm({{ user.jsonify() }})">Edit</a>
+    <a class="btn btn-link" onclick="removeUser({{ user.id }})">Remove</a>
+  </div>
+</div>
+{% endfor %}
+<div class="row-fluid">
+  <div class="span12">
+    <a class="btn btn-success" href="#user-modal" data-toggle="modal" onclick="setUserForm()">Add</a>
+  </div>
+</div>
+
+<div id="user-modal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Administrative User</h3>
+  </div>
+  <div class="modal-body">
+    <form id="user-form" method="post">
+      <table>
+	<tr>
+	  <td>{{ user_form.name.label }}</td>
+	  <td>{{ user_form.name }}</td>
+	</tr>
+	<tr id="user-email">
+	  <td>{{ user_form.email.label }}</td>
+	  <td>{{ user_form.email }}</td>
+	</tr>
+	<tr id="user-phone">
+	  <td>{{ user_form.phone.label }}</td>
+	  <td>{{ user_form.phone }}</td>
+	</tr>
+	<tr id="user-carrier">
+	  <td>{{ user_form.carrier.label }}</td>
+	  <td>{{ user_form.carrier }}</td>
+	</tr>
+      </table>
+      <p><em>Citizen Budget supports login via both email and text message.</em></p>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aia-hidden="true">Cancel</button>
+    <button id="user-modal-submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+  </div>
+</div>
+
+<script src="/static/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+jQuery(function($) {
+    $("#phone").mask("(999) 999-9999");
+});
+</script>
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/admin.js"></script>
+

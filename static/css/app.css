@@ -68,7 +68,7 @@ body {
 }
 
 h1 {
-    font-size:2em;
+    font-size:1.5em;
 }
 
 .heading {
@@ -76,7 +76,7 @@ h1 {
 }
 
 .bigtext {
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .smalltext {
@@ -124,17 +124,14 @@ h1 {
     height: 50px;
 }
 
-#code-error {
-    color: #700;
-}
-
 #code-info {
     margin-top: 10px;
     color: #700;
 }
 
-#login-error {
+.error {
     color: #700;
+    font-weight: bold;
 }
 
 

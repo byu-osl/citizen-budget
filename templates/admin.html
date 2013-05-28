@@ -1,5 +1,38 @@
 {% extends "base.html" %}
 
 {% block page %}
-{% include "admin-info.html" %}
+<div class="container">
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">1</span> Administrative users
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <span id="user-info">
+      {% include "admin-users.html" %}
+      </span>
+    </div>
+  </div>
+  <div class="row-fluid spacing40">
+  </div>
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">2</span> Budget Files
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span11 offset1">
+      <span id="file-info">
+      {% include "admin-files.html" %}
+      </span>
+    </div>
+  </div>
+  <div class="row-fluid heading">
+    <div class="span12">
+      <span class="circle">3</span> Finish
+    </div>
+  </div>
+</div>
+
 {% endblock %}

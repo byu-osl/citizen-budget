@@ -13,9 +13,9 @@
     {% block header %}
     <div class="container">
       <div id="header" class="row-fluid">
-	<div id="logo" class="span7 offset1">
-	  <a href="/" title="Home"><img src="/city/{{city.name}}/logo.png" /></a>
-	  <span class="title">{{ city.display }} Budget</span>
+	<div id="logo" class="span8">
+	  <a href="/" title="Home"><img src="/static/img/{{ city.logo }}" /></a>
+	  <span class="title">{{ city.name }} Budget</span>
 	</div>
 	<div class="span4 pullright">
 	  <div id="subheader">
@@ -31,8 +31,10 @@
 	      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 	      <ul class="dropdown-menu">
 		{% if 'auth' in session %}
-		<li><a id="admin-button" href="/admin">Admin</a></li>
-		<li><a id="logout-button" href="/admin/logout">Logout</a></li>
+		<li><a href="/admin/financials">Financials</a></li>
+		<li><a href="/admin/funds">Funds</a></li>
+		<li><a href="/admin/users">Users</a></li>
+		<li><a href="/admin/logout">Logout</a></li>
 		{% else %}
 		<li><a href="/admin/login">Login</a></li>
 		{% endif %}

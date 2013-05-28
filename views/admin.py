@@ -2,42 +2,36 @@ from flask import Blueprint, request, redirect, render_template, session, url_fo
 from flask.ext.mail import Message
 from werkzeug import secure_filename
 
-from models.user import *
 from models.city import *
-from models.file import *
+from models.user import *
+from models.financial import *
+from models.fund import *
 from config import *
 
 from datetime import datetime
 import os
 import re
 
-### Admin Page ### 
-
 admin = Blueprint('admin', __name__)
 
-@admin.route('/')
-def show():
-    if not authenticated() and installed():
-        session['callback'] = "/admin"
-        return redirect(url_for('admin.login'))
+### Installation ### 
 
-    return adminPage()
-
-def adminPage(install=False):
-    city = City.get_name(city_name)
+@admin.route('/install',methods=['POST'])
+def install():
     users = User.all()
-    files = File.all()
-    template = 'admin.html'
-    if install:
-        template = 'install.html'
-    return render_template(template,
-                           install=install,
-                           city=city,
-                           users=users,
-                           user_form=UserForm(),
-                           files=files,
-                           file_form=FileForm())
+    if users:
+        city = City.get()
+        city.installed = True
+        db.session.commit()
+        return url_for('index.show')
+    return "You must add at least one administrative user.",401
 
+def installed():
+    try:
+        city = City.get()
+        return city.installed
+    except:
+        return False
 
 #### Login ####
 
@@ -46,7 +40,9 @@ def login():
     if authenticated():
         return redirect(url_for('index.show'))
 
+    city = City.get()
     return render_template('login.html',
+                           city=city,
                            code_form=CodeForm(),
                            login_form=LoginForm())
 
@@ -145,18 +141,23 @@ def sendCode():
 def authenticated():
     return 'auth' in session
 
-def installed():
-    try:
-        users = User.all()
-    except:
-        users = None
-    if users:
-        return True
-    return False
-
 #### Users ####
 
-@admin.route('/user/add',methods=['POST'])
+@admin.route('/users')
+def users():
+    if not authenticated():
+        session['callback'] = "/users"
+        return redirect(url_for('admin.login'))
+
+    city = City.get()
+    users = User.all()
+    return render_template('users.html',
+                           city = city,
+                           users=users,
+                           user_form=UserForm())
+
+
+@admin.route('/users/add',methods=['POST'])
 def addUser():
     # If not authenticated, only allow if in the process of installing
     if not authenticated() and installed():
@@ -172,9 +173,9 @@ def addUser():
         db.session.commit()
 
     users = User.all()
-    return render_template('admin-users.html',users=users)
+    return render_template('users-info.html',users=users,user_form=UserForm())
 
-@admin.route('/user/edit/<userID>',methods=['POST'])
+@admin.route('/users/edit/<userID>',methods=['POST'])
 def editUser(userID):
     # If not authenticated, only allow if in the process of installing
     if not authenticated() and installed():
@@ -190,9 +191,9 @@ def editUser(userID):
         db.session.commit()
 
     users = User.all()
-    return render_template('admin-users.html',users=users)
+    return render_template('users-info.html',users=users,user_form=UserForm())
 
-@admin.route('/user/remove/<userID>',methods=['POST'])
+@admin.route('/users/remove/<userID>',methods=['POST'])
 def removeUser(userID):
     # If not authenticated, only allow if in the process of installing
     if not authenticated() and installed():
@@ -204,21 +205,33 @@ def removeUser(userID):
         db.session.commit()
 
     users = User.all()
-    return render_template('admin-users.html',users=users)
+    return render_template('users-info.html',users=users,user_form=UserForm())
 
-#### Files ####
+#### Financials ####
 
-@admin.route('/file/add',methods=['POST'])
-def addFile():
-    # If not authenticated, only allow if in the process of installing
-    if not authenticated() and installed():
+@admin.route('/financials')
+def financials():
+    if not authenticated():
+        session['callback'] = "/financials"
         return 'Authentication needed.',401
 
-    form = FileForm(request.form)
+    city = City.get()
+    financials = Financial.all()
+    return render_template('financials.html',
+                           city = city,
+                           financials=financials,
+                           financial_form=FinancialForm())
+
+@admin.route('/financials/add',methods=['POST'])
+def addFinancial():
+    if not authenticated():
+        return 'Authentication needed.',401
+
+    form = FinancialForm(request.form)
     # TBD: be sure this year hasn't been added already
     # TBD: be sure the file name is unique
     if form.validate():
-        file = File(year=form.year.data)
+        file = Financial(year=form.year.data)
         upload = request.files['budget']
         if upload and allowed_file(upload.filename):
             filename = secure_filename(upload.filename)
@@ -230,54 +243,52 @@ def addFile():
             db.session.add(file)
             db.session.commit()
 
-    files = File.all()
-    return render_template('admin-files.html',files=files)
+    financials = Financial.all()
+    return render_template('financials-info.html',financials=financials)
 
-@admin.route('/file/edit/<fileID>',methods=['POST'])
-def editFile(fileID):
+@admin.route('/financials/edit/<fileID>',methods=['POST'])
+def editFinancial(fileID):
     # If not authenticated, only allow if in the process of installing
     if not authenticated() and installed():
         return 'Authentication needed.',401
 
-    file = File.get(fileID)
-    form = FileForm(request.form)
-    if form.validate():
-        print "OK"
+    financial = Financial.get(fileID)
+    financial_form = FinancialForm(request.form)
+    if financial_form.validate():
         # TBD remove old data
         upload = request.files['budget']
         if upload and allowed_file(upload.filename):
-            print "remove"
             # remove old file
-            if file.name:
-                path = os.path.join(app.config['BUDGET_FOLDER'], file.name)
+            if financial.name:
+                path = os.path.join(app.config['BUDGET_FOLDER'], financial.name)
                 try:
                     os.remove(path)
                 except:
                     pass
             # upload new file
-            file.year = form.year.data
+            financial.year = financial_form.year.data
             filename = secure_filename(upload.filename)
             path = os.path.join(app.config['BUDGET_FOLDER'], filename)
             upload.save(path)
-            file.name = filename
-            file.size = os.path.getsize(path)
+            financial.name = filename
+            financial.size = os.path.getsize(path)
 
             db.session.commit()
 
-    files = File.all()
-    return render_template('admin-files.html',files=files)
+    financials = Financial.all()
+    return render_template('financials-info.html',financials=financials)
 
-@admin.route('/file/remove/<fileID>',methods=['POST'])
-def removeFile(fileID):
+@admin.route('/financials/remove/<fileID>',methods=['POST'])
+def removeFinancial(fileID):
     # If not authenticated, only allow if in the process of installing
     if not authenticated() and installed():
         return 'Authentication needed.',401
 
-    file = File.get(fileID)
-    if file:
+    financial = Financial.get(fileID)
+    if financial:
         # remove old file
-        if file.name:
-            path = os.path.join(app.config['BUDGET_FOLDER'], file.name)
+        if financial.name:
+            path = os.path.join(app.config['BUDGET_FOLDER'], financial.name)
             try:
                 os.remove(path)
             except:
@@ -285,12 +296,25 @@ def removeFile(fileID):
 
         # TBD remove old data
 
-        db.session.delete(file)
+        db.session.delete(financial)
         db.session.commit()
 
-    files = File.all()
-    return render_template('admin-files.html',files=files)
+    financials = Financial.all()
+    return render_template('financials-info.html',financials=financials)
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@admin.route('/funds')
+def funds():
+    if not authenticated():
+        session['callback'] = "/funds"
+        return 'Authentication needed.',401
+
+    city = City.get()
+    funds = Fund.all()
+    return render_template('funds.html',
+                           city = city,
+                           funds=funds)

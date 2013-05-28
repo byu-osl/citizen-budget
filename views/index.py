@@ -4,7 +4,7 @@ from models.user import *
 from models.city import *
 from config import *
 
-from admin import authenticated, adminPage, installed
+from admin import authenticated, installed
 
 ### Home Page ### 
 
@@ -12,13 +12,20 @@ index = Blueprint('index', __name__)
 
 @index.route('/')
 def show():
-    city = City.get_name(city_name)
     if installed():
+        city = City.get()
         # return home page
         return render_template('index.html',city=city)
 
+    # create database
     create_db()
-    return adminPage(install=True)
+
+    city = City.get()
+    users = User.all()
+    return render_template('install.html',
+                           city=city,
+                           users=users,
+                           user_form=UserForm())
 
 def create_db():
     # create DB if needed
@@ -32,6 +39,6 @@ def create_db():
     # create Db tables
     db.create_all()
     # populate city table
-    city = City(name='cedarhills-utah',display='Cedar Hills')
+    city = City(name=city_name,logo=city_logo)
     db.session.add(city)
     db.session.commit()
