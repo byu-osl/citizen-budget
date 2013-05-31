@@ -224,21 +224,28 @@ def addFinancial():
     if not authenticated():
         return 'Authentication needed.',401
 
-    form = FinancialForm(request.form)
+    financial_form = FinancialForm(request.form)
     # TBD: be sure this year hasn't been added already
     # TBD: be sure the file name is unique
-    if form.validate():
-        file = Financial(year=form.year.data)
+    if financial_form.validate():
+        financial = Financial(year=financial_form.year.data)
         upload = request.files['budget']
         if upload and allowed_file(upload.filename):
             filename = secure_filename(upload.filename)
             path = os.path.join(app.config['BUDGET_FOLDER'], filename)
             upload.save(path)
-            file.name = filename
-            file.size = os.path.getsize(path)
+            financial.name = filename
+            financial.size = os.path.getsize(path)
 
-            db.session.add(file)
+            db.session.add(financial)
+            print "added financial",financial.year
             db.session.commit()
+
+            # parse the new data
+            if city.parser == 'caselle':
+                from parsers.caselle import Caselle
+                parser = Caselle()
+                parser.parse(path,financial.year)
 
     financials = Financial.all()
     return render_template('financials-info.html',financials=financials)
@@ -251,8 +258,7 @@ def editFinancial(fileID):
 
     financial = Financial.get(fileID)
     financial_form = FinancialForm(request.form)
-    if financial_form.validate():
-        # TBD remove old data
+    if financial and financial_form.validate():
         upload = request.files['budget']
         if upload and allowed_file(upload.filename):
             # remove old file
@@ -262,6 +268,9 @@ def editFinancial(fileID):
                     os.remove(path)
                 except:
                     pass
+            # remove old data
+            year = Year.get_date(financial_form.year.data)
+            db.session.delete(year)
             # upload new file
             financial.year = financial_form.year.data
             filename = secure_filename(upload.filename)
@@ -291,7 +300,10 @@ def removeFinancial(fileID):
             except:
                 pass
 
-        # TBD remove old data
+            # remove old data
+            year = Year.get_date(financial.year)
+            if year:
+                db.session.delete(year)
 
         db.session.delete(financial)
         db.session.commit()

@@ -17,6 +17,10 @@ class Financial(db.Model):
         self.name = name
         self.size = size
 
+    def jsonify(self):
+        return json.dumps({'id':self.id,'year':self.year,
+                           'name':self.name,'size':self.size})
+
     @staticmethod
     def all():
         return Financial.query.all()
@@ -24,10 +28,6 @@ class Financial(db.Model):
     @staticmethod
     def get(fileID):
         return Financial.query.get(fileID)
-
-    def jsonify(self):
-        return json.dumps({'id':self.id,'year':self.year,
-                           'name':self.name,'size':self.size})
 
 class FinancialForm(Form):
     year = IntegerField('Year')

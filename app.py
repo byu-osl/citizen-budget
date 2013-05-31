@@ -3,6 +3,13 @@ from flask import redirect, session, url_for
 ### Configuration ###
 from config import app
 
+### Custom Filters ###
+
+def currency(value):
+    return "{:,.2f}".format(value)
+
+app.jinja_env.filters['currency'] = currency
+
 ### Handlers ###
 
 from views.index import index

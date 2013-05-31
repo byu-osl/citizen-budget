@@ -20,8 +20,8 @@
 #header {
     margin-top: 20px;
     margin-bottom: 20px;
-    border-top: 1px solid #B0A598;
-    border-bottom: 1px solid #B0A598;
+/*    border-top: 1px solid #B0A598;
+    border-bottom: 1px solid #B0A598;*/
 }
 
 .title {
@@ -69,6 +69,10 @@ body {
 
 h1 {
     font-size:1.5em;
+}
+
+h2 {
+    font-size:1.3em;
 }
 
 .heading {
@@ -167,4 +171,45 @@ h1 {
 
 .form li {
     clear: both;
+}
+
+/* Plots */
+
+#frontplot {
+    height: 200px;
+}
+
+#revenueplot {
+    height: 300px;
+}
+
+/* Tables */
+
+table.budget {
+    width: 100%;
+    font-size: 0.9em;
+}
+
+table.budget tr:nth-child(odd) {
+    background: #eee;
+}
+
+table.budget tr:first-child {
+    background: #afd8f8;
+/*    background: #edc240;
+    background: #2f4168;
+    color: white;*/
+}
+
+table.budget th {
+    text-align: left;
+    padding: 2px 5px;
+}
+
+table.budget td {
+    padding: 2px 5px;
+}
+
+.right {
+    text-align: right !important;
 }

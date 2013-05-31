@@ -59,14 +59,14 @@ function setUserForm(user) {
 	$('#user-modal input[name="email"]').val('');
 	$('#user-modal input[name="phone"]').val('');
 	$('#user-modal input[name="carrier"]').val('');
-	$('#user-modal-submit').click(addUser);
+	$('#user-modal-submit').unbind('click').click(addUser);
     } else {
 	$('#user-modal input[name="name"]').val(user['name']);
 	$('#user-modal input[name="email"]').val(user['email']);
 	$('#user-modal input[name="phone"]').val(user['phone']);
 	$('#user-modal input[name="carrier"]').val(user['carrier']);
 	$('#user-modal-submit').attr('data-id',user['id']);
-	$('#user-modal-submit').click(editUser);
+	$('#user-modal-submit').unbind('click').click(editUser);
     }
 }
 
@@ -117,12 +117,12 @@ function setFinancialForm(financial) {
     if (financial == undefined) {
 	$('#financial-modal input[name="year"]').val('');
 	$('#financial-modal input[name="name"]').val('');
-	$('#financial-modal-submit').click(addFinancial);
+	$('#financial-modal-submit').unbind('click').click(addFinancial);
     } else {
 	$('#financial-modal input[name="year"]').val(financial['year']);
 	$('#financial-modal input[name="name"]').val(financial['name']);
 	$('#financial-modal-submit').attr('data-id',financial['id']);
-	$('#financial-modal-submit').click(editFinancial);
+	$('#financial-modal-submit').unbind('click').click(editFinancial);
     }
 }
 
