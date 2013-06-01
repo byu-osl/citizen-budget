@@ -1,6 +1,0 @@
-[submodule "flot"]
-	path = flot
-	url = https://github.com/flot/flot.git
-[submodule "SideBySideImproved"]
-	path = SideBySideImproved
-	url = https://github.com/pkoltermann/SideBySideImproved.git
