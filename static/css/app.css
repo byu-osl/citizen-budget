@@ -110,6 +110,12 @@ h2 {
     line-height: 30px;
 }
 
+/* Links */
+
+a {
+    text-decoration: underline;
+}
+
 /* Admin Page */
 
 #code-spinner {

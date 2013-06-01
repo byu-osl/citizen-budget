@@ -15,7 +15,7 @@
       </tr>
       {% for fund in funds %}
       <tr>
-	<td>{{ fund.name }}</td>
+	<td><a href="/fund/{{fund.id}}">{{ fund.name }}</a></td>
 	<td class="right">{{ fund.total_revenue|currency }}</td>
 	<td class="right">{{ fund.total_expenditures|currency }}</td>
 	<td class="right">{{ (100*fund.total_expenditures/fund.total_revenue)|round(1) }}</td>
