@@ -250,40 +250,6 @@ def addFinancial():
     financials = Financial.all()
     return render_template('financials-info.html',financials=financials)
 
-@admin.route('/financials/edit/<fileID>',methods=['POST'])
-def editFinancial(fileID):
-    # If not authenticated, only allow if in the process of installing
-    if not authenticated() and installed():
-        return 'Authentication needed.',401
-
-    financial = Financial.get(fileID)
-    financial_form = FinancialForm(request.form)
-    if financial and financial_form.validate():
-        upload = request.files['budget']
-        if upload and allowed_file(upload.filename):
-            # remove old file
-            if financial.name:
-                path = os.path.join(app.config['BUDGET_FOLDER'], financial.name)
-                try:
-                    os.remove(path)
-                except:
-                    pass
-            # remove old data
-            year = Year.get_date(financial_form.year.data)
-            db.session.delete(year)
-            # upload new file
-            financial.year = financial_form.year.data
-            filename = secure_filename(upload.filename)
-            path = os.path.join(app.config['BUDGET_FOLDER'], filename)
-            upload.save(path)
-            financial.name = filename
-            financial.size = os.path.getsize(path)
-
-            db.session.commit()
-
-    financials = Financial.all()
-    return render_template('financials-info.html',financials=financials)
-
 @admin.route('/financials/remove/<fileID>',methods=['POST'])
 def removeFinancial(fileID):
     # If not authenticated, only allow if in the process of installing
