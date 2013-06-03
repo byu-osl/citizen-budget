@@ -111,41 +111,26 @@ function removeUser(userID) {
     });
 }
 
-/* Users */
+/* Financial Statements */
 
-function setFinancialForm(financial) {
-    if (financial == undefined) {
-	$('#financial-modal input[name="year"]').val('');
-	$('#financial-modal input[name="name"]').val('');
-	$('#financial-modal-submit').unbind('click').click(addFinancial);
-    } else {
-	$('#financial-modal input[name="year"]').val(financial['year']);
-	$('#financial-modal input[name="name"]').val(financial['name']);
-	$('#financial-modal-submit').attr('data-id',financial['id']);
-	$('#financial-modal-submit').unbind('click').click(editFinancial);
-    }
-}
+$(document).ready(function(){
+    $("#statement").change(function(){
+	if ($(this).val() != "") {
+	    addFinancial();
+	}
+    });
+});
 
 function addFinancial() {
+    $("#financial-form").hide()
+    $("#financial-spinner").show()
     $('#financial-form').ajaxSubmit({
         method : 'post',
         url : '/admin/financials/add',
 	success: function(html) {
 	    $('#financial-info').html(html);
-	},
-	error: function (xhr, ajaxOptions, thrownError) {
-	    window.location.replace('/admin/login');
-	}
-    });
-}
-
-function editFinancial() {
-    var fileID = $(this).attr('data-id');
-    $('#financial-form').ajaxSubmit({
-        method : 'post',
-        url : '/admin/financials/edit/' + fileID,
-	success: function(html) {
-	    $('#financial-info').html(html);
+	    $("#financial-spinner").hide()
+	    $("#financial-form").show()
 	},
 	error: function (xhr, ajaxOptions, thrownError) {
 	    window.location.replace('/admin/login');
@@ -154,6 +139,8 @@ function editFinancial() {
 }
 
 function removeFinancial(fileID) {
+    $("#remove-link-"+fileID).hide()
+    $("#remove-spinner-"+fileID).show()
     $.ajax({
         method : 'post',
         url : '/admin/financials/remove/' + fileID,

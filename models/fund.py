@@ -39,7 +39,6 @@ class Year(db.Model):
 class Fund(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    description = db.Column(db.String)
     total_revenue = db.Column(db.Float, default=0)
     budgeted_revenue = db.Column(db.Float, default=0)
     total_expenditures = db.Column(db.Float, default=0)

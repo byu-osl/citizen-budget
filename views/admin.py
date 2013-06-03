@@ -213,10 +213,10 @@ def financials():
         session['callback'] = "/financials"
         return 'Authentication needed.',401
 
-    financials = Financial.all()
+    financial_info = get_financial_info()
     return render_template('financials.html',
                            city = city,
-                           financials=financials,
+                           financial_info=financial_info,
                            financial_form=FinancialForm())
 
 @admin.route('/financials/add',methods=['POST'])
@@ -224,31 +224,39 @@ def addFinancial():
     if not authenticated():
         return 'Authentication needed.',401
 
-    financial_form = FinancialForm(request.form)
-    # TBD: be sure this year hasn't been added already
-    # TBD: be sure the file name is unique
-    if financial_form.validate():
-        financial = Financial(year=financial_form.year.data)
-        upload = request.files['budget']
-        if upload and allowed_file(upload.filename):
-            filename = secure_filename(upload.filename)
-            path = os.path.join(app.config['BUDGET_FOLDER'], filename)
-            upload.save(path)
-            financial.name = filename
-            financial.size = os.path.getsize(path)
+    statements = request.files.getlist('statements[]')
+    for statement in statements:
+        if allowed_file(statement.filename):
+            # upload the file
+            filename = secure_filename(statement.filename)
+            path = os.path.join(app.config['FINANCIALS'], filename)
+            statement.save(path)
 
-            db.session.add(financial)
-            print "added financial",financial.year
-            db.session.commit()
-
-            # parse the new data
             if city.parser == 'caselle':
+                # setup parser
                 from parsers.caselle import Caselle
                 parser = Caselle()
-                parser.parse(path,financial.year)
+                date = parser.date(path)
+            else:
+                # TBD: parser misconfiguration
+                pass
 
-    financials = Financial.all()
-    return render_template('financials-info.html',financials=financials)
+            # remove old data
+            year = Year.get_date(date)
+            if year:
+                db.session.delete(year)
+                db.session.commit()
+
+            # parse the new data
+            parser.parse(path,date)
+
+            # add financial to the database
+            financial = Financial(year=date,name=filename)
+            db.session.add(financial)
+            db.session.commit()
+
+    financial_info = get_financial_info()
+    return render_template('financials-info.html',financial_info=financial_info)
 
 @admin.route('/financials/remove/<fileID>',methods=['POST'])
 def removeFinancial(fileID):
@@ -260,7 +268,7 @@ def removeFinancial(fileID):
     if financial:
         # remove old file
         if financial.name:
-            path = os.path.join(app.config['BUDGET_FOLDER'], financial.name)
+            path = os.path.join(app.config['FINANCIALS'], financial.name)
             try:
                 os.remove(path)
             except:
@@ -274,13 +282,21 @@ def removeFinancial(fileID):
         db.session.delete(financial)
         db.session.commit()
 
-    financials = Financial.all()
-    return render_template('financials-info.html',financials=financials)
+    financial_info = get_financial_info()
+    return render_template('financials-info.html',financial_info=financial_info)
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
+def get_financial_info():
+    financials = Financial.all()
+    financial_info = []
+    for financial in financials:
+        year = Year.get_date(financial.year)
+        financial_info.append((financial,year))
+    return financial_info
 
 @admin.route('/funds')
 def funds():
@@ -292,3 +308,4 @@ def funds():
     return render_template('funds.html',
                            city = city,
                            funds=funds)
+

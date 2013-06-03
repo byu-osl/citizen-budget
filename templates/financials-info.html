@@ -1,21 +1,37 @@
-{% for financial in financials %}
 <div class="row-fluid">
-  <div class="span3 smalltext">
+  <div class="span2 smalltext bold">
+    Year
+  </div>
+  <div class="span3 smalltext bold">
+    File Name
+  </div>
+  <div class="span2 smalltext bold">
+    Total Revenue
+  </div>
+  <div class="span2 smalltext bold">
+    Total Expenditures
+  </div>
+  <div class="span3">
+  </div>
+</div>
+
+{% for financial,year in financial_info %}
+<div class="row-fluid">
+  <div class="span2 smalltext">
     {{ financial.year }}
   </div>
   <div class="span3 smalltext">
     {{ financial.name }}
   </div>
-  <div class="span4 smalltext">
-    {{ financial.size }}
+  <div class="span2 smalltext">
+    {{ year.total_revenue|currency }}
   </div>
-  <div class="span2">
-    <a class="btn btn-link" onclick="removeFinancial({{ financial.id }})">Remove</a>
+  <div class="span2 smalltext">
+    {{ year.total_expenditures|currency }}
+  </div>
+  <div class="span3">
+    <span id="remove-spinner-{{ financial.id }}" class="spinner"><img src="/static/img/spinner.gif" /></span>
+    <a id="remove-link-{{ financial.id }}" class="btn btn-link" onclick="removeFinancial({{ financial.id }})">Remove</a>
   </div>
 </div>
 {% endfor %}
-<div class="row-fluid">
-  <div class="span12">
-    <a class="btn btn-success" href="#financial-modal" data-toggle="modal" onclick="setFinancialForm()">Add</a>
-  </div>
-</div>

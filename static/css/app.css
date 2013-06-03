@@ -79,6 +79,10 @@ h2 {
     margin-bottom: 10px;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .bigtext {
     font-size: 1.2em;
 }
@@ -109,8 +113,6 @@ h2 {
     text-align: center;
     line-height: 30px;
 }
-
-/* Links */
 
 a {
     text-decoration: underline;
@@ -177,6 +179,42 @@ a {
 
 .form li {
     clear: both;
+}
+
+/* Financial Statements Page */
+
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 23px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+#financial-spinner {
+    display: none;
+}
+
+#financial-spinner img {
+    height: 50px;
+}
+
+.spinner {
+    display: none;
+}
+
+.spinner img {
+    height: 25px;
 }
 
 /* Plots */

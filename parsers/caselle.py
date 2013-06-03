@@ -8,6 +8,21 @@ class Caselle(Parser):
     def __init__(self):
         self.pushed = None
 
+    def date(self,filename):
+        with open(filename, 'rb') as csvfile:
+            self.reader = csv.reader(csvfile)
+            while True:
+                row = self.next_row()
+                # skip blank lines
+                if self.blank(row):
+                    continue
+                if self.begins(row,"CITY OF CEDAR HILLS"):
+                    # read section
+                    row = self.next_row()
+                    row = self.next_row()
+                    month, day, year = row[0].split()
+                    return int(year)
+
     def parse(self,filename,date):
         year = Year.get_date(date)
         if not year:
