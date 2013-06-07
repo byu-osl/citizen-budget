@@ -21,3 +21,6 @@ class Data:
 
     def color(self,name):
         self.data['color'] = name
+
+    def reverse(self):
+        self.data['data'].reverse()

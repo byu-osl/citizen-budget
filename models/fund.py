@@ -79,10 +79,10 @@ class Fund(db.Model):
         return Fund.query.filter_by(url=url).join(Year).filter_by(date=date).one()
 
     def revenues(self):
-        return self.categories.filter_by(revenue=True).order_by(Category.total)
+        return self.categories.filter_by(revenue=True).order_by(Category.total.desc())
 
     def expenditures(self):
-        return self.categories.filter_by(revenue=False).order_by(Category.total)
+        return self.categories.filter_by(revenue=False).order_by(Category.total.desc())
 
     def get_category(self,name='',revenue=False):
         try:

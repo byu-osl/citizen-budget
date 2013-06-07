@@ -37,12 +37,14 @@ def show(url,date):
     data = Data()
     for category in fund.revenues():
         data.add([category.total,category.name])
+    data.reverse()
     revenueSeries.add(data)
     expendituresSeries = Series()
     data = Data()
     for category in fund.expenditures():
         data.add([category.total,category.name])
-        data.color('#afd8f8')
+    data.color('#afd8f8')
+    data.reverse()
     expendituresSeries.add(data)
 
     return render_template('year.html',city=city,year=year,fund=fund,
