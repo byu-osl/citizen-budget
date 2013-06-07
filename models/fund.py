@@ -39,6 +39,7 @@ class Year(db.Model):
 class Fund(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    url = db.Column(db.String)
     total_revenue = db.Column(db.Float, default=0)
     budgeted_revenue = db.Column(db.Float, default=0)
     total_expenditures = db.Column(db.Float, default=0)
@@ -48,6 +49,7 @@ class Fund(db.Model):
 
     def __init__(self, name='', description='', year=None):
         self.name = name
+        self.url = name.replace(" ","-")
         self.description = description
         if year:
             self.year_id = year.id
@@ -63,6 +65,24 @@ class Fund(db.Model):
     @staticmethod
     def unique():
         return Fund.query.all()
+
+    @staticmethod
+    def get(fundID):
+        return Fund.query.get(fundID)
+
+    @staticmethod
+    def get_name(name):
+        return Fund.query.filter_by(name=name)
+
+    @staticmethod
+    def get_url_year(url,date):
+        return Fund.query.filter_by(url=url).join(Year).filter_by(date=date).one()
+
+    def revenues(self):
+        return self.categories.filter_by(revenue=True).order_by(Category.total)
+
+    def expenditures(self):
+        return self.categories.filter_by(revenue=False).order_by(Category.total)
 
     def get_category(self,name='',revenue=False):
         try:

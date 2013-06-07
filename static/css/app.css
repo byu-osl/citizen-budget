@@ -99,6 +99,14 @@ h2 {
     margin-bottom: 20px;
 }
 
+.spacing2 {
+    margin-bottom: 2px;
+}
+
+.blank {
+    background: #fff !important;
+}
+
 .btn-link {
     padding: 0px;
 }
@@ -116,6 +124,18 @@ h2 {
 
 a {
     text-decoration: underline;
+}
+
+.modal.fade {
+  top: 20%;
+  -webkit-transition: opacity 0.3s linear;
+     -moz-transition: opacity 0.3s linear;
+       -o-transition: opacity 0.3s linear;
+          transition: opacity 0.3s linear;
+}
+
+.modal.fade.in {
+  top: 20%;
 }
 
 /* Admin Page */
@@ -219,13 +239,26 @@ a {
 
 /* Plots */
 
-#frontplot {
+#yearplot {
     height: 200px;
 }
 
 #revenueplot {
     height: 300px;
 }
+
+#fundplot {
+    height: 200px;
+}
+
+#categoryrevenueplot {
+    height: 300px;
+}
+
+#categoryexpendituresplot {
+    height: 300px;
+}
+
 
 /* Tables */
 
@@ -240,9 +273,20 @@ table.budget tr:nth-child(odd) {
 
 table.budget tr:first-child {
     background: #afd8f8;
-/*    background: #edc240;
-    background: #2f4168;
-    color: white;*/
+}
+
+table.budget tr:last-child {
+    background: #d2ebfa;
+    background: #e4f3fc;
+}
+
+table.revenue tr:first-child {
+    background: #edc240;
+}
+
+table.revenue tr:last-child {
+    margin-top: 10px;
+    background: #f6df9a;
 }
 
 table.budget th {
@@ -256,4 +300,8 @@ table.budget td {
 
 .right {
     text-align: right !important;
+}
+
+.category-modal {
+    width: 800px;
 }

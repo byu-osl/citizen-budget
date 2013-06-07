@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block page %}
+
+<div class="container">
+  <div class="row-fluid">
+    <div class="span12">
+      <h1>{{fund.name}}</h1>
+      <div id="fundplot"></div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <h2>{{ year.date }} Revenue</h2>
+  </div>
+  <div class="row-fluid">
+    <div class="span6">
+      <div id="categoryrevenueplot"></div>
+    </div>
+    <div class="span6">
+      <table class="budget revenue">
+	<tr>
+	  <th>Category</th>
+	  <th class="right">Revenue</th>
+	  <th class="right">Budget</th>
+	  <th class="right">Percentage</th>
+	</tr>
+	{% for category in fund.revenues() %}
+	<tr>
+	  <td><a href="#category-modal-{{category.id}}" data-toggle="modal">{{ category.name }}</a></td>
+	  <td class="right">{{ category.total|currency }}</td>
+	  <td class="right">{{ category.budget|currency }}</td>
+	  {% if category.budget == 0 %}
+	  <td class="right">---</td>
+	  {% else %}
+	  <td class="right">{{ (100*category.total/category.budget)|round(1) }}</td>
+	  {% endif %}
+	</tr>
+	{% endfor %}
+	<tr class="spacing2 blank"><td></td>
+	</tr>
+	<tr>
+	  <th>Total</a></th>
+	  <th class="right">{{ year.total_revenue|currency }}</th>
+	  <th class="right">{{ year.budgeted_revenue|currency }}</th>
+	  {% if year.budgeted_revenue == 0 %}
+	  <th class="right">---</th>
+	  {% else %}
+	  <th class="right">{{ (100*year.total_revenue/year.budgeted_revenue)|round(1) }}</th>
+	  {% endif %}
+	</tr>
+      </table>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <h2>{{ year.date }} Expenditures</h2>
+  </div>
+  <div class="row-fluid">
+    <div class="span6">
+      <div id="categoryexpendituresplot"></div>
+    </div>
+    <div class="span6">
+      <table class="budget">
+	<tr>
+	  <th>Category</th>
+	  <th class="right">Expenditures</th>
+	  <th class="right">Budget</th>
+	  <th class="right">Percentage</th>
+	</tr>
+	{% for category in fund.expenditures() %}
+	<tr>
+	  <td><a href="#category-modal-{{category.id}}" data-toggle="modal">{{ category.name }}</a></td>
+	  <td class="right">{{ category.total|currency }}</td>
+	  <td class="right">{{ category.budget|currency }}</td>
+	  <td class="right">{{ (100*category.total/category.budget)|round(1) }}</td>
+	</tr>
+	{% endfor %}
+	<tr class="spacing2 blank"><td></td>
+	</tr>
+	<tr>
+	  <th>Total</a></th>
+	  <th class="right">{{ year.total_expenditures|currency }}</th>
+	  <th class="right">{{ year.budgeted_expenditures|currency }}</th>
+	  {% if year.budgeted_expenditures == 0 %}
+	  <th class="right">---</th>
+	  {% else %}
+	  <th class="right">{{ (100*year.total_expenditures/year.budgeted_expenditures)|round(1) }}</th>
+	  {% endif %}
+	</tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% for category in fund.categories %}
+<div id="category-modal-{{category.id}}" class="modal hide fade smalltext category-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>{{category.name}}</h3>
+  </div>
+  <div class="modal-body">
+    <table class="budget {% if category.revenue %}revenue{% endif %}">
+      <tr>
+	<th>Code</th>
+	<th>Item</th>
+	<th class="right">Amount</th>
+	<th class="right">Budget</th>
+	<th class="right">Percentage</th>
+      </tr>
+      {% for item in category.items %}
+      <tr>
+	<td>{{ item.code }}</td>
+	<td>{{ item.name }}</td>
+	<td class="right">{{ item.amount|currency }}</td>
+	<td class="right">{{ item.budget|currency }}</td>
+	{% if item.budget == 0 %}
+	<td class="right">--</td>
+	{% else %}
+	<td class="right">{{ (100*item.amount/item.budget)|round(1) }}</td>
+	{% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+{% endfor %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
+<script src="/static/js/flot/jquery.flot.js"></script>
+<script src="/static/js/flot/jquery.flot.categories.js"></script>
+<script src="/static/js/flot-sidebysideimproved/jquery.flot.orderBars.js"></script>
+
+<script src="/static/js/plot.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    fundPlot("{{fund.url}}",{{ series|safe }});
+  });
+</script>
+
+<script type="text/javascript">horizontalPlot($("#categoryrevenueplot"),{{ revenueSeries|safe }});</script>
+
+<script type="text/javascript">horizontalPlot($("#categoryexpendituresplot"),{{ expendituresSeries|safe }});</script>
+
+{% endblock %}

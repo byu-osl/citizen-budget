@@ -15,6 +15,9 @@ app.jinja_env.filters['currency'] = currency
 from views.index import index
 app.register_blueprint(index)
 
+from views.year import year
+app.register_blueprint(year, url_prefix="/year")
+
 from views.admin import admin
 app.register_blueprint(admin, url_prefix="/admin")
 

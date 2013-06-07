@@ -135,7 +135,7 @@ class Caselle(Parser):
             # get or create category
             category = fund.get_category(name=name,revenue=True)
             if not category:
-                category = Category(name=name,revenue=False,fund=fund)
+                category = Category(name=name,revenue=True,fund=fund)
                 db.session.add(category)
             self.parse_category(category)
             db.session.commit()

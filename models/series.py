@@ -11,12 +11,13 @@ class Series:
         self.series.append(data.data)
 
 class Data:
-    def __init__(self,label='', hoverable=True):
+    def __init__(self,label=''):
         self.data = {}
         self.data['data'] = []
         self.data['label'] = label
-        self.data['hoverable'] = hoverable
 
     def add(self,d):
         self.data['data'].append(d)
 
+    def color(self,name):
+        self.data['color'] = name

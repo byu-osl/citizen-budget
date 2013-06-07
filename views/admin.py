@@ -244,6 +244,9 @@ def addFinancial():
             # remove old data
             year = Year.get_date(date)
             if year:
+                print "Remove old data"
+                financial = Financial.get_year(date)
+                db.session.delete(financial)
                 db.session.delete(year)
                 db.session.commit()
 

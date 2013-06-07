@@ -27,5 +27,9 @@ class Financial(db.Model):
     def get(fileID):
         return Financial.query.get(fileID)
 
+    @staticmethod
+    def get_year(year):
+        return Financial.query.filter_by(year=year).one()
+
 class FinancialForm(Form):
     statement = FileField('Financial Statement',default='')
