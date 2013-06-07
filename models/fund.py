@@ -105,6 +105,9 @@ class Category(db.Model):
         if fund:
             self.fund_id = fund.id
 
+    def get_items(self):
+        return self.items.order_by(Item.amount.desc())
+
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String)

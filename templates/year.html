@@ -39,7 +39,7 @@
 	<tr class="spacing2 blank"><td></td>
 	</tr>
 	<tr>
-	  <th>Total</a></th>
+	  <td>Total</a></th>
 	  <th class="right">{{ year.total_revenue|currency }}</th>
 	  <th class="right">{{ year.budgeted_revenue|currency }}</th>
 	  {% if year.budgeted_revenue == 0 %}
@@ -106,7 +106,7 @@
 	<th class="right">Budget</th>
 	<th class="right">Percentage</th>
       </tr>
-      {% for item in category.items %}
+      {% for item in category.get_items() %}
       <tr>
 	<td>{{ item.code }}</td>
 	<td>{{ item.name }}</td>
@@ -119,6 +119,18 @@
 	{% endif %}
       </tr>
       {% endfor %}
+      <tr class="spacing2 blank"><td></td>
+      </tr>
+      <tr>
+	<th colspan="2">Total</a></th>
+        <th class="right">{{ category.total|currency }}</th>
+        <th class="right">{{ category.budget|currency }}</th>
+        {% if category.budget == 0 %}
+        <th class="right">---</th>
+        {% else %}
+        <th class="right">{{ (100*category.total/category.budget)|round(1) }}</th>
+        {% endif %}
+      </tr>
     </table>
   </div>
   <div class="modal-footer">
