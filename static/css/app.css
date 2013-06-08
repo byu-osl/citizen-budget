@@ -39,7 +39,7 @@
 
 #subheader {
     z-index: 100;
-    padding-top: 18px;
+    padding-top: 40px;
     color: black;
 }
 
@@ -63,8 +63,8 @@
 
 /* Menu */
 
-ul.wide {
-    width: 1170px;
+.wide {
+    width: 1200px;
     margin-right: auto !important;
     margin-left: auto !important;
     float: none !important;

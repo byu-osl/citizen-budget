@@ -13,33 +13,17 @@
     {% block header %}
     <div class="container">
       <div id="header" class="row-fluid">
-	<div id="logo" class="span8">
+	<div id="logo" class="span9">
 	  <a href="/" title="Home"><img src="/static/img/{{ city.logo }}" /></a>
 	  <span class="title">{{ city.name }} Budget</span>
 	</div>
-	<div class="span4 pullright">
+	<div class="span3 pullright">
 	  <div id="subheader">
 	    <div class="credit">
 	      <div class="project">Brought to you by Citizen Budget</div>
 	      <div class="tagline">A project from the <a href="http://osl.byu.edu">BYU Open Source Lab</a></div>
 	    </div>
 
-	  </div>
-	  <div class="pull-right">
-	    <div class="btn-group">
-	      <a class="btn" href="#"><i class="icon-user"></i></a>
-	      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-	      <ul class="dropdown-menu">
-		{% if 'auth' in session %}
-		<li><a href="/admin/financials">Financials</a></li>
-		<li><a href="/admin/funds">Funds</a></li>
-		<li><a href="/admin/users">Users</a></li>
-		<li><a href="/admin/logout">Logout</a></li>
-		{% else %}
-		<li><a href="/admin/login">Login</a></li>
-		{% endif %}
-	      </ul>
-	    </div>
 	  </div>
 	</div>
       </div>
@@ -49,20 +33,40 @@
     {% block menu %}
     <div class="navbar">
       <div class="navbar-inner">
-	<ul class="nav wide">
-	  <li {% if active == "home" %}class="active"{% endif %}><a href="/">Home</a></li>
-	  <li class="dropdown {% if active == 'fund' %}active{% endif %}">
-	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	      Funds
-	      <b class="caret"></b>
-	    </a>
-	    <ul class="dropdown-menu" role="menu">
-      	      {% for year_fund in year_funds %}
-	      <li {% if active == year_fund.url %}class="active"{% endif %}><a href="/year/{{ year.date }}/{{ year_fund.url }}">{{ year_fund.name|title }}</a></li>
-	      {% endfor %}
-	    </ul>
-	  </li>
-	</ul>
+	<div class="wide">
+	  <ul class="nav">
+	    <li {% if active == "home" %}class="active"{% endif %}><a href="/">Home</a></li>
+	    <li class="dropdown {% if active == 'fund' %}active{% endif %}">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		Funds
+		<b class="caret"></b>
+	      </a>
+	      <ul class="dropdown-menu" role="menu">
+      		{% for year_fund in year_funds %}
+		<li {% if active == year_fund.url %}class="active"{% endif %}><a href="/year/{{ year.date }}/{{ year_fund.url }}">{{ year_fund.name|title }}</a></li>
+		{% endfor %}
+	      </ul>
+	    </li>
+	  </ul>
+	  <ul class="nav pull-right">
+	    <li class="dropdown">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		<i class="icon-user"></i>
+		<b class="caret"></b>
+	      </a>
+	      <ul class="dropdown-menu" role="menu">
+		{% if 'auth' in session %}
+		<li><a href="/admin/financials">Financials</a></li>
+		<li><a href="/admin/funds">Funds</a></li>
+		<li><a href="/admin/users">Users</a></li>
+		<li><a href="/admin/logout">Logout</a></li>
+		{% else %}
+		<li><a href="/admin/login">Login</a></li>
+		{% endif %}
+	      </ul>
+	    </li>
+	  </ul>
+	</div>
       </div>
     </div>
 
