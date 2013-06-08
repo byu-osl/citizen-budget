@@ -61,6 +61,19 @@
     margin-bottom: 5px;
 }
 
+/* Menu */
+
+ul.wide {
+    width: 1170px;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    float: none !important;
+}
+
+ul.dropdown-menu a {
+    text-decoration: none
+}
+
 /* Footer */
 
 #footer {
@@ -140,6 +153,10 @@ h2 {
 
 a {
     text-decoration: underline;
+}
+
+a:focus {
+    outline: none;
 }
 
 .modal.fade {
@@ -292,7 +309,6 @@ table.budget tr:first-child {
 }
 
 table.budget tr:last-child {
-    background: #d2ebfa;
     background: #e4f3fc;
 }
 

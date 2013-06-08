@@ -46,6 +46,28 @@
     </div>
     {% endblock %}
 
+    {% block menu %}
+    <div class="navbar">
+      <div class="navbar-inner">
+	<ul class="nav wide">
+	  <li {% if active == "home" %}class="active"{% endif %}><a href="/">Home</a></li>
+	  <li class="dropdown {% if active == 'fund' %}active{% endif %}">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	      Funds
+	      <b class="caret"></b>
+	    </a>
+	    <ul class="dropdown-menu" role="menu">
+      	      {% for year_fund in year_funds %}
+	      <li {% if active == year_fund.url %}class="active"{% endif %}><a href="/year/{{ year.date }}/{{ year_fund.url }}">{{ year_fund.name|title }}</a></li>
+	      {% endfor %}
+	    </ul>
+	  </li>
+	</ul>
+      </div>
+    </div>
+
+    {% endblock %}
+
     <div id="page">
       {% block page %}{% endblock %}
     </div>

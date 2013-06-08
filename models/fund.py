@@ -75,6 +75,10 @@ class Fund(db.Model):
         return Fund.query.filter_by(name=name)
 
     @staticmethod
+    def get_year(date):
+        return Fund.query.join(Year).filter_by(date=date)
+
+    @staticmethod
     def get_url_year(url,date):
         return Fund.query.filter_by(url=url).join(Year).filter_by(date=date).one()
 

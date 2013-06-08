@@ -15,6 +15,12 @@ index = Blueprint('index', __name__)
 @index.route('/')
 def show():
     if installed():
+        # get year
+        year = Year.get_recent()
+
+        # get all the funds for this year
+        year_funds = Fund.get_year(year.date)
+
         # setup revenue and expenditures plot
         years = Year.all()
         series = Series()
@@ -26,7 +32,11 @@ def show():
         series.add(revenue)
         series.add(expenditures)
 
-        return render_template('index.html',city=city,series=series.jsonify())
+        return render_template('index.html',active='home',city=city,
+                               year=year,fund=year_funds[1],
+                               year_funds=year_funds,
+                               series=series.jsonify(),
+                               charts=show_year(year.date))
 
     # create database
     create_db()
@@ -39,7 +49,7 @@ def show():
 
 
 @index.route('/year/<date>')
-def year(date):
+def show_year(date):
     # setup current year
     year = Year.get_date(date)
 

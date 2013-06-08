@@ -20,6 +20,9 @@ def show(url,date):
     # get year
     year = Year.get_date(date)
 
+    # get all the funds for this year
+    year_funds = Fund.get_year(date)
+
     # setup yearly fund plot
     fund = Fund.get_url_year(url=url,date=date)
     funds = Fund.get_name(fund.name)
@@ -47,8 +50,9 @@ def show(url,date):
     data.reverse()
     expendituresSeries.add(data)
 
-    return render_template('year.html',city=city,year=year,fund=fund,
+    return render_template('year.html',active=fund.url,city=city,
+                           year=year,fund=fund,
+                           year_funds=year_funds,
                            series=series.jsonify(),
                            revenueSeries=revenueSeries.jsonify(),
                            expendituresSeries=expendituresSeries.jsonify())
-

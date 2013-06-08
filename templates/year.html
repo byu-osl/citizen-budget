@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row-fluid">
     <div class="span12">
-      <h1>{{fund.name}}</h1>
+      <h1>{{ fund.name }}</h1>
       <div id="fundplot"></div>
     </div>
   </div>
@@ -71,7 +71,11 @@
 	  <td><a href="#category-modal-{{category.id}}" data-toggle="modal">{{ category.name }}</a></td>
 	  <td class="right">{{ category.total|currency }}</td>
 	  <td class="right">{{ category.budget|currency }}</td>
+	  {% if category.budget == 0 %}
+	  <td class="right">---</td>
+	  {% else %}
 	  <td class="right">{{ (100*category.total/category.budget)|round(1) }}</td>
+	  {% endif %}
 	</tr>
 	{% endfor %}
 	<tr class="spacing2 blank"><td></td>

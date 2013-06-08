@@ -27,4 +27,9 @@
 
 <script type="text/javascript">var fundMapper = {{ fundMapper|safe }};</script>
 
-<script type="text/javascript">barPlot($("#revenueplot"),{{ revenueSeries|safe }});</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+     barPlot($("#revenueplot"),{{ revenueSeries|safe }});
+  });
+</script>
+
