@@ -10,57 +10,45 @@
     margin-bottom: 50px;
 }
 
-#city-info img {
-    height: 100px;
-    margin-bottom: 5px;
-}
-
 /* Header */
 
 #header {
-    margin-top: 20px;
-    margin-bottom: 20px;
-/*    border-top: 1px solid #B0A598;
-    border-bottom: 1px solid #B0A598;*/
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#header-wrap {
+    background-color: #eeefc7;
 }
 
 .title {
-    font-size: 3em; 
+    font-family: sans-serif;
+    font-family: 'Lora', serif;
+    font-size: 2.5em; 
     font-weight: bold;
     vertical-align: middle;
-}
-
-.subtitle {
-    font-size: 2em; 
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-#subheader {
-    z-index: 100;
-    padding-top: 40px;
-    color: black;
-}
-
-#subheader .credit {
-    padding-top: 0px;
-    text-align: right;
-}
-
-#subheader .credit .project {
-    font-size: 15px;
-}
-
-#subheader .credit .tagline {
-    font-size: 10px;
+    margin-top: 20px;
 }
 
 #logo img {
-    height: 100px;
-    margin-bottom: 5px;
+    height: 80px;
+    padding: 5px;
+    margin-right: 10px;
+    background: white;
+    border: 1px solid #666;
 }
 
 /* Menu */
+
+.navbar {
+    margin-bottom: 10px;
+}
+
+.navbar-inner {
+    background-color: #e7f2f8;
+    background-image: linear-gradient(to bottom, #f0f7fb, #2c729e);
+    background-image: linear-gradient(to bottom, #f0f7fb, #c7e0ef);
+}
 
 .wide {
     width: 1200px;

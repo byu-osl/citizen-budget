@@ -49,8 +49,8 @@ def show(url,date):
     # data.reverse()
     expendituresSeries.add(data)
 
-    return render_template('year.html',active=fund.url,city=city,
-                           year=year,fund=fund,
+    return render_template('year.html',active="fund",subactive=fund.url,
+                           city=city,year=year,fund=fund,
                            year_funds=year_funds,
                            series=series.jsonify(),
                            revenueSeries=revenueSeries.jsonify(),

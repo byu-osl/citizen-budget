@@ -36,8 +36,8 @@ def show():
 
         print series.jsonify()
 
-        return render_template('index.html',active='home',city=city,
-                               year=year,fund=year_funds[1],
+        return render_template('index.html',active='home',subactive='',
+                               city=city,year=year,fund=year_funds[1],
                                year_funds=year_funds,
                                series=series.jsonify(),
                                charts=show_year(year.date))
