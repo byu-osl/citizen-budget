@@ -1,6 +1,0 @@
-[submodule "static/js/flot"]
-	path = static/js/flot
-	url = https://github.com/flot/flot.git
-[submodule "static/js/flot-sidebysideimproved"]
-	path = static/js/flot-sidebysideimproved
-	url = https://github.com/pkoltermann/SideBySideImproved.git

@@ -25,7 +25,7 @@
 }
 
 .title {
-    font-size: 3.5em; 
+    font-size: 3em; 
     font-weight: bold;
     vertical-align: middle;
 }
@@ -33,7 +33,6 @@
 .subtitle {
     font-size: 2em; 
     font-weight: bold;
-    text-align: center;
     margin-bottom: 30px;
 }
 
@@ -81,6 +80,8 @@ ul.dropdown-menu a {
     margin-bottom: 20px;
     padding-top: 10px;
     background-color: #800080;
+    background-color: #8c2e2e;
+    background-color: #872c9e;
     color: white;
     font-weight: bold;
     box-shadow: 0px 2px 5px 2px #888888;
@@ -153,6 +154,7 @@ h2 {
 
 a {
     text-decoration: underline;
+    color: #2c729e;
 }
 
 a:focus {
@@ -306,19 +308,38 @@ table.budget tr:nth-child(odd) {
 
 table.budget tr:first-child {
     background: #afd8f8;
+    background: #77a1e5;
+    background: #2c729e;
+    background: #8c2e2e;
+    background: #cccccc;
+    color: black;
+    background: #666;
+    color: white;
 }
 
 table.budget tr:last-child {
     background: #e4f3fc;
+    background: #a0cae5;
+    background: #cccccc;
+    background: #666;
+    color: white;
 }
 
 table.revenue tr:first-child {
     background: #edc240;
+    background: #77a1e5;
+    background: #f6df9a;
+    background: #cccccc;
+    background: #666;
+    color: white;
 }
 
 table.revenue tr:last-child {
     margin-top: 10px;
     background: #f6df9a;
+    background: #cccccc;
+    background: #666;
+    color: white;
 }
 
 table.budget th {

@@ -24,13 +24,17 @@ def show():
         # setup revenue and expenditures plot
         years = Year.all()
         series = Series()
-        revenue = Data(label='Revenue')
-        expenditures = Data(label='Expenditures')
+        revenue = Data(name='Revenue')
+        expenditures = Data(name='Expenditures')
+        import datetime
+        import time
         for year in years:
             revenue.add([year.date,year.total_revenue])
             expenditures.add([year.date,year.total_expenditures])
         series.add(revenue)
         series.add(expenditures)
+
+        print series.jsonify()
 
         return render_template('index.html',active='home',city=city,
                                year=year,fund=year_funds[1],
@@ -55,25 +59,17 @@ def show_year(date):
 
     # setup fund revenue plot
     revenueSeries = Series()
-    data = Data(label='Revenue')
+    data = Data(name='Revenue')
     for fund in year.funds:
-        data.add([fund.id,fund.total_revenue])
-        data.data['bars'] = {'order': 1 }
+        data.add([fund.name,fund.total_revenue])
     revenueSeries.add(data)
-    data = Data(label='Expenditures')
+    data = Data(name='Expenditures')
     for fund in year.funds:
-        data.add([fund.id,fund.total_expenditures])
-        data.data['bars'] = {'order':2 }
+        data.add([fund.name,fund.total_expenditures])
     revenueSeries.add(data)
-    print revenueSeries.jsonify()
-
-    fundMapper = {}
-    for fund in year.funds:
-        fundMapper[fund.id] = fund.name
 
     return render_template('index-year.html',
                            revenueSeries=revenueSeries.jsonify(),
-                           fundMapper=json.dumps(fundMapper),
                            year=year,funds=year.funds)
 
 

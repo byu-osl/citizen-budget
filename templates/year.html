@@ -156,8 +156,11 @@
   });
 </script>
 
-<script type="text/javascript">horizontalPlot($("#categoryrevenueplot"),{{ revenueSeries|safe }});</script>
-
-<script type="text/javascript">horizontalPlot($("#categoryexpendituresplot"),{{ expendituresSeries|safe }});</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+     barPlot($("#categoryrevenueplot"),'bar',['#2c729e','#7a9942'],{{ revenueSeries|safe }});
+     barPlot($("#categoryexpendituresplot"),'bar',['#7a9942','#2c729e'],{{ expendituresSeries|safe }});
+  });
+</script>
 
 {% endblock %}

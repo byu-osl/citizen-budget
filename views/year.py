@@ -27,8 +27,8 @@ def show(url,date):
     fund = Fund.get_url_year(url=url,date=date)
     funds = Fund.get_name(fund.name)
     series = Series()
-    revenue = Data(label='Revenue')
-    expenditures = Data(label='Expenditures')
+    revenue = Data(name='Revenue')
+    expenditures = Data(name='Expenditures')
     for f in funds:
         revenue.add([f.year.date,f.total_revenue])
         expenditures.add([f.year.date,f.total_expenditures])
@@ -39,15 +39,14 @@ def show(url,date):
     revenueSeries = Series()
     data = Data()
     for category in fund.revenues():
-        data.add([category.total,category.name])
-    data.reverse()
+        data.add([category.name,category.total])
+    # data.reverse()
     revenueSeries.add(data)
     expendituresSeries = Series()
     data = Data()
     for category in fund.expenditures():
-        data.add([category.total,category.name])
-    data.color('#afd8f8')
-    data.reverse()
+        data.add([category.name,category.total])
+    # data.reverse()
     expendituresSeries.add(data)
 
     return render_template('year.html',active=fund.url,city=city,

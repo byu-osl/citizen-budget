@@ -11,10 +11,10 @@ class Series:
         self.series.append(data.data)
 
 class Data:
-    def __init__(self,label=''):
+    def __init__(self,name=''):
         self.data = {}
         self.data['data'] = []
-        self.data['label'] = label
+        self.data['name'] = name
 
     def add(self,d):
         self.data['data'].append(d)

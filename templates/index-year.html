@@ -21,15 +21,19 @@
 	<td class="right">{{ (100*fund.total_expenditures/fund.total_revenue)|round(1) }}</td>
       </tr>
       {% endfor %}
+      <tr>
+        <th>Total</th>
+	<th class="right">{{ year.total_revenue|currency }}</th>
+	<th class="right">{{ year.total_expenditures|currency }}</th>
+	<th class="right">{{ (100*year.total_expenditures/year.total_revenue)|round(1) }}</th>
+      </tr>
     </table>
   </div>
 </div>
 
-<script type="text/javascript">var fundMapper = {{ fundMapper|safe }};</script>
-
 <script type="text/javascript">
   $(document).ready(function() {
-     barPlot($("#revenueplot"),{{ revenueSeries|safe }});
+     barPlot($("#revenueplot"),'column',{{ revenueSeries|safe }});
   });
 </script>
 
