@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template
 
 from models.app import *
 from models.user import *
@@ -8,7 +8,7 @@ from config import *
 
 from admin import authenticated, installed
 
-### Fund Page ### 
+### Year/Fund Page ### 
 
 year = Blueprint('year', __name__)
 

@@ -18,6 +18,9 @@ app.register_blueprint(index)
 from views.year import year
 app.register_blueprint(year, url_prefix="/year")
 
+from views.trend import trend
+app.register_blueprint(trend, url_prefix="/trend")
+
 from views.admin import admin
 app.register_blueprint(admin, url_prefix="/admin")
 

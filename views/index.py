@@ -18,6 +18,10 @@ def show():
         # get year
         year = Year.get_recent()
 
+        if not year:
+            # No funds added yet.
+            return render_template('setup.html',city=city)
+
         # get all the funds for this year
         year_funds = Fund.get_year(year.date)
 

@@ -30,6 +30,13 @@
     margin-top: 20px;
 }
 
+.subtitle {
+    font-size: 2em; 
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 #logo img {
     height: 80px;
     padding: 5px;
@@ -345,4 +352,8 @@ table.budget td {
 
 .category-modal {
     width: 800px;
+}
+
+.modal-footer a {
+    text-decoration: none
 }

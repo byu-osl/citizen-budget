@@ -45,11 +45,11 @@ class Fund(db.Model):
     total_expenditures = db.Column(db.Float, default=0)
     budgeted_expenditures = db.Column(db.Float, default=0)
     year_id = db.Column(db.Integer, db.ForeignKey('year.id'))
-    categories = db.relationship('Category',backref='year',lazy='dynamic',cascade="all, delete, delete-orphan")
+    categories = db.relationship('Category',backref='fund',lazy='dynamic',cascade="all, delete, delete-orphan")
 
     def __init__(self, name='', description='', year=None):
         self.name = name
-        self.url = name.replace(" ","-")
+        self.url = name.replace(" ","-").replace("/","-")
         self.description = description
         if year:
             self.year_id = year.id
@@ -98,6 +98,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     revenue = db.Column(db.Boolean)
     name = db.Column(db.String)
+    url = db.Column(db.String)
     total = db.Column(db.Float)
     budget = db.Column(db.Float)
     fund_id = db.Column(db.Integer, db.ForeignKey('fund.id'))
@@ -105,12 +106,17 @@ class Category(db.Model):
 
     def __init__(self,name='',revenue=True,fund=None):
         self.name = name
+        self.url = name.replace(" ","-").replace("/","-")
         self.revenue = revenue
         if fund:
             self.fund_id = fund.id
 
     def get_items(self):
         return self.items.order_by(Item.amount.desc())
+
+    @staticmethod
+    def get_url_fund(url,fund_url):
+        return Category.query.filter_by(url=url).join(Fund).filter_by(url=fund_url)
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -126,3 +132,7 @@ class Item(db.Model):
         self.amount = amount
         self.budget = budget
         self.category = category
+
+    @staticmethod
+    def get_code(code):
+        return Item.query.filter_by(code=code)
