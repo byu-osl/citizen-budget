@@ -82,6 +82,8 @@ var BudgetQueries =
 		myQuery    += "FROM " + BudgetLib.CB_FUND_TABLE_ID;
 		
 		myQuery    += " WHERE fund_name ='" + fund +"' ";
+
+		myQuery += "ORDER BY date ASC";
 		
 		BudgetHelpers.query(myQuery, callback);
 	},

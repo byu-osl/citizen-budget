@@ -14,5 +14,3 @@ for file_name in glob.glob('financials/*fundsFile.csv'):
 for file_name in glob.glob('financials/*breakdownFile.csv'):
     uploadCsvToFusion.main(file_name, 1)
     time.sleep(1)
-
-
