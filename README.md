@@ -1,4 +1,4 @@
-citizen-budget
+Citizen Budget
 ==============
 
 A budget visualization tool for local governments.
