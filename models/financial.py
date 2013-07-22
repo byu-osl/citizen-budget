@@ -9,7 +9,7 @@ import string
 class Financial(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     year = db.Column(db.Integer)
-    name = db.Column(db.String)
+    name = db.Column(db.String(100))
 
     def __init__(self, year=0,name=''):
         self.year = year

@@ -38,8 +38,8 @@ class Year(db.Model):
 
 class Fund(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    url = db.Column(db.String)
+    name = db.Column(db.String(100))
+    url = db.Column(db.String(200))
     total_revenue = db.Column(db.Float, default=0)
     budgeted_revenue = db.Column(db.Float, default=0)
     total_expenditures = db.Column(db.Float, default=0)
@@ -97,8 +97,8 @@ class Fund(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     revenue = db.Column(db.Boolean)
-    name = db.Column(db.String)
-    url = db.Column(db.String)
+    name = db.Column(db.String(100))
+    url = db.Column(db.String(200))
     total = db.Column(db.Float)
     budget = db.Column(db.Float)
     fund_id = db.Column(db.Integer, db.ForeignKey('fund.id'))
@@ -120,8 +120,8 @@ class Category(db.Model):
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String)
-    name = db.Column(db.String)
+    code = db.Column(db.String(30))
+    name = db.Column(db.String(100))
     amount = db.Column(db.Float)
     budget = db.Column(db.Float)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))

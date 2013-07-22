@@ -10,11 +10,11 @@ import string
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, unique=True)
-    name = db.Column(db.String)
-    phone = db.Column(db.String)
-    carrier = db.Column(db.String)
-    code = db.Column(db.String, default='')
+    email = db.Column(db.String(100), unique=True)
+    name = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    carrier = db.Column(db.String(30))
+    code = db.Column(db.String(40), default='')
     date = db.Column(db.DateTime,default=None)
 
     def __init__(self, name='',phone=0,carrier='',email=''):
