@@ -42,7 +42,7 @@ else:
     today = date.today().strftime("%d %m %Y")
     mail_handler = SMTPHandler(('smtp.gmail.com',587),
                                emailAddress,
-                               ADMINS, 'Citizen Budget' % today,
+                               ADMINS, 'Citizen Budget: %s' % today,
                                credentials=(emailAddress,emailPassword),
                                secure=())
     mail_handler.setLevel(logging.ERROR)
