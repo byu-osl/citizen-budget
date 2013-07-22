@@ -108,7 +108,7 @@ def carrier(name):
     if name == 'T-Mobile':
         return '@tmomail.net'
     if name == 'Sprint':
-        return '@messaging.springpcs.com'
+        return '@messaging.sprintpcs.com'
     if name == 'Virgin Mobile':
         return '@vmobl.com'
 
