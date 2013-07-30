@@ -26,7 +26,8 @@ body {
 
 .navbar .nav > .active > a, .navbar .nav > .active a:hover, .navbar .nav > .active > a:focus {
     background: #872c9e;
-    color: white;
+    background-color: #e7f2f8;
+    color: #333;
     box-shadow: none;
     text-shadow: none;
 }
@@ -39,7 +40,8 @@ body {
 
 #menu-donate a {
     background: #468847 !important;
-    color: white;
+    background-color: #eeefc7 !important;
+    color: #333;
     text-shadow: none;
     box-shadow: none;
 }
@@ -52,13 +54,16 @@ body {
 }
 
 .banner2 {
-    background: #872c9e;
-    color: #eee;
-}
+    background-color: #e7f2f8;
+    background-image: linear-gradient(to bottom, #f0f7fb, #2c729e);
+    background-image: linear-gradient(to bottom, #f0f7fb, #c7e0ef);
+    color: #333;
+ }
 
 .banner3 {
     font-size: 1.2em;
     background: #e4e4e4;
+    background-color: white;
     color: #666;
 }
 
@@ -105,9 +110,8 @@ body {
 /* GitHub ribbon */
 
 #forkongithub a {
-    background:#eb7f00;
-    background:#333;
-    color:#fff;
+    background-color: #eeefc7;
+    color:#333;
     text-decoration:none;
     font-family:arial, sans-serif;
     text-align:center;
@@ -120,8 +124,8 @@ body {
 }
 
 #forkongithub a:hover {
-    background:#eb7f00;
-    color:#fff;
+    background-color: #eeefc7;
+    color:#333;
 }
 
 #forkongithub a::before, #forkongithub a::after {
