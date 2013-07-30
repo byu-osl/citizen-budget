@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Citizen Budget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/static/css/app.css" rel="stylesheet">
+    <link href="/static/colorbox/colorbox.css" rel="stylesheet">
+  </head>
+  <body>
+    {% block header %}
+    <div class="navbar">
+      <div class="navbar-inner">
+	<div class="container">
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+	  </a>
+	  <a class="brand" href="/">Citizen Budget</a>
+	  <div class="nav-collapse collapse">
+	    <ul class="nav nav-pills">
+	      <li id="menu-home" {% if active == "index" %}class="active"{% endif %}><a href={{url_for("index")}}>Home</a></li>
+	      <li id="menu-install" {% if active == "install" %}class="active"{% endif %}><a href={{url_for("show",page="install")}} >Install</a></li>
+	      <li id="menu-credits" {% if active == "credits" %}class="active"{% endif %}><a href={{url_for("show",page="credits")}} >Credits</a></li>
+	      <li id="menu-about" {% if active == "about" %}class="active"{% endif %}><a href={{url_for("show",page="about")}} >About</a></li>
+	      <li id="menu-donate" {% if active == "donate" %}class="active"{% endif %}><a href={{ url_for("show",page="donate")}} >Donate</a></li>
+	    </ul>
+	  </div>
+	</div>
+      </div>
+    </div>
+    {% endblock %}
+
+    <div id="page">
+      {% block page %}{% endblock %}
+    </div>
+
+    <div id="footer">
+      <div class="banner2">
+	<div class="container">
+	  <div class="row-fluid">
+	    <div class="span12 padtop10">
+	      <p>&copy 2013 BYU Open Source Lab<br>
+		<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+	      </p>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    <span id="forkongithub">
+      <a href="https://github.com/byu-osl">Fork
+	me on GitHub</a>
+    </span>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/colorbox/jquery.colorbox-min.js"></script>
+
+    {% block scripts %}
+    {% endblock %}
+
+  </body>
+</html>

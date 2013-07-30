@@ -1,0 +1,218 @@
+/* General */
+
+body {
+    font-family: 'Lato' !important;
+}
+
+.container {
+    width: 94%;
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+/* Menu */
+
+.navbar-inner {
+    margin-top: 10px;
+    background-color: white;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+.navbar .brand {
+    padding: 8px 20px 10px;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active a:hover, .navbar .nav > .active > a:focus {
+    background: #872c9e;
+    color: white;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+.navbar .nav > li > a:hover {
+    background: #eee;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#menu-donate a {
+    background: #468847 !important;
+    color: white;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+/* Banner */
+
+.banner1 {
+    font-size: 1.2em;
+}
+
+.banner2 {
+    background: #872c9e;
+    color: #eee;
+}
+
+.banner3 {
+    font-size: 1.2em;
+    background: #e4e4e4;
+    color: #666;
+}
+
+.banner4 {
+    background: #f3ffe2;
+    color: #eee;
+    background: #e4e4e4;
+    color: #666;
+}
+
+.banner5 {
+    background: #eb7f00;
+    color: #eee;
+}
+
+.banner6 {
+    background: #e4e4e4;
+    color: #black;
+}
+
+/* Front Page */
+
+.title {
+    text-align: center;
+    font-size: 5.5em;
+    line-height: 1.1em;
+    font-weight: normal;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 3em;
+    font-style: italic;
+    font-weight: normal;
+}
+
+/* Footer */
+
+#footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* GitHub ribbon */
+
+#forkongithub a {
+    background:#eb7f00;
+    background:#333;
+    color:#fff;
+    text-decoration:none;
+    font-family:arial, sans-serif;
+    text-align:center;
+    font-weight:bold;
+    padding:5px 40px;
+    font-size:1rem;
+    line-height:2rem;
+    position:relative;
+    transition:0.5s;
+}
+
+#forkongithub a:hover {
+    background:#eb7f00;
+    color:#fff;
+}
+
+#forkongithub a::before, #forkongithub a::after {
+    content:"";
+    width:100%;
+    display:block;
+    position:absolute;
+    top:1px;
+    left:0;
+    height:1px;
+    background:#fff;
+}
+
+#forkongithub a::after {
+    bottom:1px;
+    top:auto;
+}
+
+@media screen and (min-width:800px) {
+    #forkongithub {
+	position:absolute;
+	display:block;
+	top:0;
+	right:0;
+	width:200px;
+	overflow:hidden;
+	height:200px;
+    }
+    #forkongithub a {
+	width:200px;
+	position:absolute;
+	top:60px;
+	right:-60px;
+	transform:rotate(45deg);
+	-webkit-transform:rotate(45deg);
+	box-shadow:4px 4px 10px rgba(0,0,0,0.3);
+    }
+}
+
+/* Misc */
+
+.padtop10 {
+    padding: 10px 0px;
+}
+
+.padtop {
+    padding: 20px 0px;
+}
+
+.borders {
+    border-top: 2px solid #666;
+    border-bottom: 2px solid #666;
+}
+
+.caption {
+    font-size: 0.7em;
+    font-style: italic;
+}
+
+.center {
+    text-align: center;
+}
+
+img {
+    border: 1px solid #666;
+}
+
+.img-height-400 {
+    max-height: 400px;
+}
+
+.img-height-200 {
+    height: 200px;
+}
+
+.email {
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.circle {
+    display:inline-block;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: #ccc;
+    background: #333;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+}
+
+pre {
+  font-size: 1em;
+}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block page %}
+
+<div class="banner2 borders center">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+	<div class="padtop">
+	  <h1 class="title">Citizen Budget</h1>
+	  <h2>Open Finances&nbsp;&mdash;&nbsp;Open Source</h2>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="banner3 center padtop10">
+  <div class="container">
+
+    <div class="row-fluid">
+      <div class="span6">
+	<h3>A beautiful home page</h3>
+	<a class="img-home" href="/static/img/home.png"><img class="img-height-400" src="/static/img/home.png"></img></a>
+      </div>
+      <div class="span6">
+	<h3>A page for each fund</h3>
+	<a class="img-fund" href="/static/img/fund.png"><img class="img-height-400" src="/static/img/fund.png"></img></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="banner2 borders center">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+	<div class="padtop">
+	  <h2>Explore details of each fund</h2>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="banner3 center padtop10">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span6">
+	<h3>Detailed view of categories within a fund</h3>
+	<a class="img-categories" href="/static/img/categories.png"><img class="img-height-400" src="/static/img/categories.png"></img></a>
+	<p></p>
+      </div>
+      <div class="span6">
+	<h3>Yearly trends for each category</h3>
+	<a class="img-trends" href="/static/img/trends.png"><img class="img-height-400" src="/static/img/trends.png"></img></a>
+	<p></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="banner2">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span4">
+	<h3>Open Finances</h3>
+	<p>We believe that every government should be as open and transparent
+	with its financial statements as possible. Citizens have a right
+	to see how their tax dollars are being spent.</p>
+      </div>
+      <div class="span4">
+	<h3>Open Source</h3>
+	<p>Open source software is the best way to provide open
+	government services. Open source means software can outlive
+	any particular company, so your local government is not tied
+	to a propreitary solution. Open source also means if you see
+	something that can be improved, you can make it happen.</p>
+      </div>
+      <div class="span4">
+	<h3>Get Involved</h3>
+	<p>Currently, Citizen Budget supports CSV export from Caselle
+	financial software. We have written the software so that it is
+	easy to add support for other formats. Please
+	contact <span class="email">daniel.zappala@gmail.com</span>
+	if you would like to help expand or support Citizen
+	Budget. The power of open source lies in communities working
+	collaboratively.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  jQuery('a.img-home').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-fund').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-categories').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-trends').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+</script>
+{% endblock %}

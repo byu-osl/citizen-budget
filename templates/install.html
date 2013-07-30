@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block page %}
+
+<div class="banner2 borders center">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span12">
+	<div class="padtop">
+	  <h1>Install</h1>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="banner1 padtop10">
+  <div class="container">
+
+    <div class="row-fluid">
+      <div class="span12">
+
+	<h3>Dependencies</h3>
+	
+	<ul>
+	  <li>Apache 2</li>
+	  <li>MySQL (or other database)</li>
+	  <li>Python 2.7</li>
+	  <li>pip</li>
+	  <li>virtualenv</li>
+	</ul>
+	<pre>
+sudo apt-get install apache2
+sudo apt-get install libapache2-mod-wsgi
+sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+sudo apt-get install python
+sudo apt-get install python-pip
+sudo pip install virtualenv
+</pre>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+	<h3><span class="circle">1</span> Download</h3>
+
+	<p>Download a ZIP file...</p>
+
+	<pre>wget https://github.com/byu-osl/citizen-budget/archive/master.zip</pre>
+
+	<p>...or use git.</p>
+
+	<pre>git clone https://github.com/byu-osl/citizen-budget.git</pre>
+
+	<p>Place the Citizen Budget code in <code>/home/citizen-budget</code>.
+
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+	<h3><span class="circle">2</span> Configure For Your City</h3>
+
+	<pre>cp doc/config.py .</pre>
+
+	<p>Edit this file and do the following actions.</p>
+
+	<ul>
+	  <li><p>Generate a secret key.</p>
+	    <pre>
+python
+>>> import os
+>>> os.urandom(24)</pre>
+	    <p>Place this secret key in the file.</p>
+
+	    <pre>
+app.config["SECRET_KEY"] = "YOUR KEY HERE"</pre>
+	  </li>
+	  <li><p>Set your city name.</p>
+	    <pre>city.name = 'Your City'</pre>
+	    <p>and place your city logo in <code>static/img/logo.png</code>.</p>
+	  </li>
+	  
+	  <li><p>Configure email access by putting a Gmail addresss and password in the file.</p>
+<pre>
+app.config['MAIL_USERNAME'] = 'YOUR APP GMAIL ADDRESS HERE'
+app.config['MAIL_PASSWORD'] = 'YOUR APP GMAIL PASSWORD HERE'
+</pre>
+	    <p>This account will be used to send login codes to administrative
+	      users via email.</p>
+
+	    <p>You probably want to create a new Gmail account for this purpose, since the password will be stored in this file on your server. Anyone with access to the server will be able to see the password.</p>
+
+	  </li>
+
+	  <li><p>Create logging directory.</p>
+	    <pre>
+sudo mkdir /var/log/citizen-budget
+sudo chown www-data:www-data /var/log/citizen-budget
+</pre>
+	  </li>
+
+	</ul>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+
+	<h3><span class="circle">3</span> Setup MySQL</h3>
+
+	<pre>
+mysql -u root -p
+mysql> CREATE DATABASE citizenbudget;
+mysql> GRANT ALL PRIVILEGES ON citizenbudget.* TO "citizenbudget"@"localhost" IDENTIFIED BY "citizenbudget";
+mysql> FLUSH PRIVILEGES;
+mysql> EXIT</pre>
+
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+	<h3><span class="circle">4</span> Setup Apache</h3>
+	<p>Setup a virtual host for the site.</p>
+	<pre>sudo cp doc/vhost /etc/apache/sites-available/citizenbudget</pre>
+	<p>Edit this file and change the following line to so it matches your
+	virtual host name.</p>
+	<pre>ServerName budget.yourcity.org</pre>
+	<p>Restart the server</p>
+	<pre>sudo service apache2 restart</pre>
+	<p>Setup the WSGI configuration file for the application.</p>
+	<pre>sudo cp doc/app.wsgi .</pre>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+	<h3><span class="circle">5</span> Setup Python Virtual Environment</h3>
+<pre>
+virtualenv env
+source env/bin/activate
+(env) pip install flask
+(env) pip install flask-mail
+(env) pip install flask-sqlalchemy
+(env) pip install wtforms
+(env) pip install mysql-python
+</pre>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+	<h3><span class="circle">6</span> Install Citizen Budget</h3>
+	<p>Visit the web site for the virtual host you setup at <code>http://budget.yourcity.org</code>. You should see the following screen.</p>
+	<p><a class="img-installation" href="/static/img/installation.png"><img class="img-height-200" src="/static/img/installation.png"></img></a></p>
+	<p>Click on the Add button and create an administrative user.</p>
+	<p><a class="img-admin" href="/static/img/install-admin.png"><img class="img-height-200" src="/static/img/install-admin.png"></img></a></p>
+	<p>Citizen Budget uses login codes, instead of passwords, so
+	  you only need to enter your name, email address, and cell
+	  phone number.  Click the Finish button and you should see a
+	  welcome screen.</p>
+	<p><a class="img-success" href="/static/img/install-success.png"><img class="img-height-200" src="/static/img/install-success.png"></img></a></p>
+	
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+	<h3><span class="circle">7</span> Upload Financial Statements</h3>
+	<p>Click on the person icon on the right side of the menu and select
+	  Financials.</p>
+	<p><a class="img-financials" href="/static/img/financial-add.png"><img class="img-height-200" src="/static/img/financial-add.png"></img></a></p>
+	<p>Click the Add button and upload your financial statements. As
+	  of now, the only supported format is CSV exported from Caselle
+	  financial software. You may upload multiple files at a time. Once
+	  the files are uploaded, you should see them displayed on the same
+	  screen.</p>
+	<p><a class="img-upload" href="/static/img/financial-upload.png"><img class="img-height-200" src="/static/img/financial-upload.png"></img></a></p>
+	<p>Click on the Home menu, and you should see a beautiful home page
+	  for your city budget.</p>
+	<p><a class="img-home" href="/static/img/home.png"><img class="img-height-200" src="/static/img/home.png"></img></a></p>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  jQuery('a.img-installation').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-admin').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-success').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-financials').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-upload').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+  jQuery('a.img-home').colorbox({maxHeight:$(window).height(),scalePhotos:true});
+</script>
+{% endblock %}
