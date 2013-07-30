@@ -48,6 +48,7 @@ body {
 
 .banner1 {
     font-size: 1.2em;
+    letter-spacing: 1px;
 }
 
 .banner2 {
@@ -162,17 +163,17 @@ body {
 
 /* Misc */
 
-.padtop10 {
-    padding: 10px 0px;
+.padbottom20 {
+    padding-bottom: 20px;
 }
 
-.padtop {
+.pad20 {
     padding: 20px 0px;
 }
 
 .borders {
-    border-top: 2px solid #666;
-    border-bottom: 2px solid #666;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
 }
 
 .caption {
