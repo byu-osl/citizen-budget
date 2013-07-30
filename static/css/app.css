@@ -55,8 +55,8 @@ body {
 
 .banner2 {
     background-color: #e7f2f8;
-    background-image: linear-gradient(to bottom, #f0f7fb, #2c729e);
-    background-image: linear-gradient(to bottom, #f0f7fb, #c7e0ef);
+/*    background-image: linear-gradient(to bottom, #f0f7fb, #2c729e);
+    background-image: linear-gradient(to bottom, #f0f7fb, #c7e0ef);*/
     color: #333;
  }
 
@@ -103,7 +103,7 @@ body {
 /* Footer */
 
 #footer a {
-    color: white;
+    color: #333;
     text-decoration: underline;
 }
 
@@ -175,9 +175,14 @@ body {
     padding: 20px 0px;
 }
 
+.pad10 {
+    padding: 10px 0px;
+}
+
 .borders {
-    border-top: 2px solid #333;
-    border-bottom: 2px solid #333;
+    color: #333;
+    box-shadow: 0px 2px 5px 2px #888888;
+    margin-bottom: 10px;
 }
 
 .caption {
