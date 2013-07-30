@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session
 
 from models.app import *
 from models.user import *
@@ -20,7 +20,8 @@ def show():
 
         if not year:
             # No funds added yet.
-            return render_template('setup.html',city=city)
+            session['auth'] = 'Install'
+            return render_template('setup.html',city=city,active='home')
 
         # get all the funds for this year
         year_funds = Fund.get_year(year.date)

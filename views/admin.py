@@ -229,6 +229,8 @@ def addFinancial():
         if allowed_file(statement.filename):
             # upload the file
             filename = secure_filename(statement.filename)
+            if not os.path.exists(app.config['FINANCIALS']):
+                os.makedirs(app.config['FINANCIALS'])
             path = os.path.join(app.config['FINANCIALS'], filename)
             statement.save(path)
 

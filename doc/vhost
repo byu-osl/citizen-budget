@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+	ServerName budget.yourcity.org
+
+	WSGIDaemonProcess flask user=www-data group=www-data threads=5
+	WSGIScriptAlias / /home/citizen-budget/app.wsgi
+
+	<Directory /home/citizen-budget>
+	    WSGIProcessGroup flask
+	    WSGIApplicationGroup %{GLOBAL}
+	    Order deny,allow
+	    Allow from all
+	</Directory>
+
+	ErrorLog /var/log/apache2/citizenbudget-error.log
+	CustomLog /var/log/apache2/citizenbudget-access.log combined
+
+</VirtualHost>
