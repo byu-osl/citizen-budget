@@ -78,12 +78,12 @@ ul.dropdown-menu a {
     background-color: #8c2e2e;
     background-color: #872c9e;
     color: white;
+    background-color: #e7f2f8;
+    background-image: linear-gradient(to bottom, #f0f7fb, #2c729e);
+    background-image: linear-gradient(to bottom, #f0f7fb, #c7e0ef);
+    color: #333;
     font-weight: bold;
     box-shadow: 0px 2px 5px 2px #888888;
-}
-
-#footer a {
-    color: white;
 }
 
 /* Miscellaneous */
