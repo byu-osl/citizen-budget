@@ -3,7 +3,7 @@ Citizen Budget
 
 Open finance. Open source.
 
-See documentation and installation instructions at [citizenbudget.org](http://citizenbudget.org)
+See documentation and installation instructions at [citizenbudget.org](http://citizenbudget.org).
 
 Dependencies
 ------------
