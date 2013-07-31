@@ -1,9 +1,9 @@
 Citizen Budget
 ==============
 
-A budget visualization tool for local governments.
+Open finance. Open source.
 
-More documentation and installation instructions coming soon.
+See documentation and installation instructions at [citizenbudget.org](http://citizenbudget.org)
 
 Dependencies
 ------------
