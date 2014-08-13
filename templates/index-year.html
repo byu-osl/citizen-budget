@@ -18,7 +18,13 @@
         <td><a href="/year/{{fund.year.date}}/{{fund.url}}">{{ fund.name }}</a></td>
 	<td class="right">{{ fund.total_revenue|currency }}</td>
 	<td class="right">{{ fund.total_expenditures|currency }}</td>
-	<td class="right">{{ (100*fund.total_expenditures/fund.total_revenue)|round(1) }}</td>
+	<td class="right">
+	  {% if fund.total_revenue == 0 %}
+	  100%
+	  {% else %}
+	  {{ (100*fund.total_expenditures/fund.total_revenue)|round(1) }}
+	  {% endif %}
+	</td>
       </tr>
       {% endfor %}
       <tr>
