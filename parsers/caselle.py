@@ -128,7 +128,7 @@ class Caselle(Parser):
                 self.parse_header()
                 continue
             if self.begins(row,"TOTAL FUND REVENUE"):
-                fund.total_revenue = self.numeric(row[1])
+                fund.total_revenue = self.numeric(row[2])
                 fund.budgeted_revenue = self.numeric(row[3])
                 break
             name = row[0]
@@ -151,7 +151,7 @@ class Caselle(Parser):
                 self.parse_header()
                 continue
             if self.begins(row,"TOTAL FUND EXPENDITURES"):
-                fund.total_expenditures = self.numeric(row[1])
+                fund.total_expenditures = self.numeric(row[2])
                 fund.budgeted_expenditures = self.numeric(row[3])
                 continue
             if self.begins(row,"NET REVENUE OVER EXPENDITURES"):
@@ -170,12 +170,12 @@ class Caselle(Parser):
         while True:
             row = self.next_row()
             if self.startswith(row,'TOTAL'):
-                category.total = self.numeric(row[1])
+                category.total = self.numeric(row[2])
                 category.budget = self.numeric(row[3])
                 break
             else:
                 item = Item(category=category,code=row[0],name=row[1],
-                            amount=self.numeric(row[2]),
+                            amount=self.numeric(row[3]),
                             budget=self.numeric(row[4]))
                 db.session.add(item)
                 
